@@ -1,2 +1,7 @@
-# Inf1636JavaLudoGame
-Repositorio destinado ao projeto da disciplina inf 1636 - java
+# INF1636_Java
+Repositorio do Trabalho (g2) da disciplina Programação Orientada a Objetos - Inf 1636
+
+Integrantes:
+Pedro Henrique Lima da Silva - 1621358 <br>
+Patrick Utzig Haselof - 1910985 <br>
+Robert Ronald Calla Maguina - 2020336 <br>
