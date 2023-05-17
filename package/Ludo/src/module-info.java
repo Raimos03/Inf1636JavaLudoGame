@@ -1,0 +1,9 @@
+/**
+ * 
+ */
+/**
+ * @author raimos
+ *
+ */
+module Ludo {
+}
