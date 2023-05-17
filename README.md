@@ -1,4 +1,4 @@
-# INF1636_Java
+# INF1636 - Ludo Game
 Repositorio do Trabalho (g2) da disciplina Programação Orientada a Objetos - Inf 1636
 
 Integrantes:
