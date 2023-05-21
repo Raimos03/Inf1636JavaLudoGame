@@ -6,7 +6,7 @@ class Tabuleiro {
 		private Coordenada[] vCasaComum = new Coordenada[52];
 		private Coordenada[] vCasaVitoria = new Coordenada[6];
 		
-		
+	
 		public int getDistanciaFinal( int numero , int tipo) {
 			
 			if (tipo ==1) { // casa comum
