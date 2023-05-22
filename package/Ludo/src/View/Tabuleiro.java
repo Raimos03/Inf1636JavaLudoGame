@@ -14,12 +14,8 @@ public class Tabuleiro extends JPanel implements IDesenha {
 			
 	
 	private static Color[] vCores = {Color.red,Color.green,Color.yellow,Color.blue};
-	//private Color vCoordenadaInicial
-	
-
+	//private Color vCoordenadaInicial	
 	Tabuleiro(){
-		
-		
 		
 	}
 	
@@ -29,29 +25,29 @@ public class Tabuleiro extends JPanel implements IDesenha {
 		
 	}
 
-	public void paintComponent(Graphics g) {
-		
-		 // tabuleiro
+	public void paintComponent(Graphics g) {		
+		// tabuleiro
 		super.paintComponent(g);	
 		Graphics2D g2d=(Graphics2D) g;
 		
 //		QuadradoCasa c1 = new QuadradoCasa(200,200);
-//		c1.setBounds(500,50,50,50);		
-		
+//		c1.setBounds(500,50,50,50);			
 //		Rectangle2D rt = new Rectangle2D.Float(0,100,300,300);		//teste
 //		g2d.setPaint(Color.GREEN);
 //		g2d.fill(rt);
-		 
-		
+		 		
 		DCasaInicial(g2d);
+		DCirculosInicio(g2d);
 		DCasaVitoriaCentro(g2d);
-		DCasas(g2d);	
+		DCasas(g2d);
 		
-		//DPeao()
+		
+		// Cria Peao
+		
+		DCriaPeoes(g2d); // Falta implementar de todas as cores
 	}
 		
-	public void DCasaInicial(Graphics2D g2d) {
-		
+	public void DCasaInicial(Graphics2D g2d) {		
 		//largura = 263
 		//altura = 263	
 		
@@ -83,8 +79,7 @@ public class Tabuleiro extends JPanel implements IDesenha {
 		Rectangle2D rt5 = new Rectangle2D.Float(fgInternaRetX, fgInternaRetY,fgInternaRetTam,fgInternaRetTam);	
 		g2d.setStroke(new BasicStroke(2));
 		g2d.draw(rt5);
-		
-		
+				
 		Rectangle2D rt2 = new Rectangle2D.Float(fgPosInicialx+deslocamento,fgPosInicialy,fgLargura,fgLargura);	
 		g2d.setPaint(vCores[++i]);
 		g2d.setStroke(new BasicStroke(1));
@@ -98,8 +93,7 @@ public class Tabuleiro extends JPanel implements IDesenha {
 		Rectangle2D rt6 = new Rectangle2D.Float(fgInternaRetX+deslocamento, fgInternaRetY,fgInternaRetTam,fgInternaRetTam);	
 		g2d.setStroke(new BasicStroke(2));
 		g2d.draw(rt6);
-		
-		
+			
 	
 		Rectangle2D rt3 = new Rectangle2D.Float(fgPosInicialx+deslocamento,fgPosInicialy+deslocamento,fgLargura,fgLargura);	
 		g2d.setPaint(vCores[++i]);
@@ -108,8 +102,7 @@ public class Tabuleiro extends JPanel implements IDesenha {
 		g2d.setPaint(Color.black);
 		g2d.draw(rt3);
 		
-		
-		
+	
 		//retangulo dentro 3
 		g2d.setPaint(Color.blue);
 		Rectangle2D rt7 = new Rectangle2D.Float(fgInternaRetX+deslocamento, fgInternaRetY+deslocamento,fgInternaRetTam,fgInternaRetTam);	
@@ -128,39 +121,32 @@ public class Tabuleiro extends JPanel implements IDesenha {
 		g2d.setPaint(Color.red);
 		Rectangle2D rt9 = new Rectangle2D.Float(fgInternaRetX, fgInternaRetY+deslocamento,fgInternaRetTam,fgInternaRetTam);	
 		g2d.setStroke(new BasicStroke(2));
-		g2d.draw(rt9);
-		
-		//continuar
-		
+		g2d.draw(rt9);		
+		//continuar	
 	}
-	
-	
+		
 	public void DCasaVitoriaCentro(Graphics2D g2d) {
 		
-
-		int i=0;
-		
+		int i=0;		
 		g2d.setPaint(Color.white);
 		// largura 132
 		int posx = (int) Tabuleiro.larguraCasaInicial; // comeco do quadrado centro
 		int posy = (int) Tabuleiro.larguraCasaInicial;
 		Point2D.Float centro = new Point2D.Float(Tabuleiro.getLargura()/2,Tabuleiro.getAltura()/2);
-		
-		
+				
 		// Quadrado centro
 		Rectangle2D rt1 = new Rectangle2D.Float(posx,posy,132,132);	
 		g2d.setStroke(new BasicStroke(1));
 		g2d.fill(rt1);
 		g2d.setPaint(Color.black);
 		g2d.draw(rt1);
-		
-		
-		// Quadrado centro
-		Ellipse2D.Float el = new Ellipse2D.Float(centro.x-10,centro.y-10,20,20);	
-		g2d.setStroke(new BasicStroke(1));
-		g2d.fill(el);
-		g2d.setPaint(Color.yellow);
-		g2d.draw(el);
+				
+//		// Quadrado centro
+//		Ellipse2D.Float el = new Ellipse2D.Float(centro.x-10,centro.y-10,20,20);	
+//		g2d.setStroke(new BasicStroke(1));
+//		g2d.fill(el);
+//		g2d.setPaint(Color.yellow);
+//		g2d.draw(el);
 		
 		Point2D.Float p1 = centro; // vermelho
 		Point2D.Float p2 = new Point2D.Float(posx,posy);
@@ -182,10 +168,7 @@ public class Tabuleiro extends JPanel implements IDesenha {
 		Point2D.Float p12= new Point2D.Float(posx,posy+132);
 		DTriangulo(g2d,p10,p11,p12,vCores[i++]);
 		
-		
-
 	}
-	
 	
 	public void DTriangulo(Graphics2D g2d, Point2D.Float p, Point2D.Float q, Point2D.Float r , Color c ) {
 		
@@ -200,20 +183,16 @@ public class Tabuleiro extends JPanel implements IDesenha {
 		g2d.setPaint(Color.black);
 		g2d.draw(t1);
 	
-	}
-	
+	}	
 	public void DCasas(Graphics2D g2d) {
 		//tamanho= 44
-		// 3 x 6
-		
+		// 3 x 6		
 		DCasaVerde(g2d);
 		DCasaAmarela(g2d);
 		DCasaVermelha(g2d);
-		DCasaAzul(g2d);
-		
-		
+		DCasaAzul(g2d);			
 	}
-	
+
 	public void DCasaVerde(Graphics2D g2d) {
 		
 		float posInicialx= Tabuleiro.larguraCasaInicial;
@@ -224,24 +203,19 @@ public class Tabuleiro extends JPanel implements IDesenha {
 		
 		float y=0;
 		int i,j;
-		i=j=0;
-		
+		i=j=0;	
 		Color c = Color.white;
 		Color[] v = Tabuleiro.getVCores();
 		
 		for(i=0;i<3;i++) {
-			
-			
+					
 			for(j=0;j<6;j++) {
 				
-				if (j>0) {
-					
+				if (j>0) {					
 					if (i==2 && j ==1) {
 						c= v[icor];
 					}
-
-					else if (i==1) {
-						
+					else if (i==1) {						
 						c= v[icor] ;
 					}
 					
@@ -255,19 +229,16 @@ public class Tabuleiro extends JPanel implements IDesenha {
 				}
 				
 				DQuadrado(g2d,posInicialx, y ,largura, c);
-				y+=largura;	
-				
+				y+=largura;					
 			}
 		
 			posInicialx+=largura;
 			y=0;
-		}
-		
+		}	
 	}
 	
 	public void DCasaAmarela(Graphics2D g2d) {
-		
-
+	
 		float posInicialx= Tabuleiro.larguraCasaInicial+132;
 		float posInicialy=  Tabuleiro.larguraCasaInicial;
 		float largura = (float) 43.8;
@@ -281,9 +252,7 @@ public class Tabuleiro extends JPanel implements IDesenha {
 		Color c = Color.white;
 		Color[] v = Tabuleiro.getVCores();
 		
-		for(i=0;i<3;i++) {
-			
-			
+		for(i=0;i<3;i++) {						
 			for(j=0;j<6;j++) {
 				
 				if (i>0) {
@@ -297,26 +266,18 @@ public class Tabuleiro extends JPanel implements IDesenha {
 					}
 					else {
 						c = Color.white;
-
-					}
-			
+					}		
 				}
 				
 				else {
 					 c = Color.white;			
-				}
-				
+				}				
 				DQuadrado(g2d,posInicialx, y,largura, c);
-				posInicialx+=largura;	
-				
-			}
-		
-			
+				posInicialx+=largura;					
+			}			
 			posInicialx=Tabuleiro.larguraCasaInicial+132;
 			y+=largura;
-		}
-		
-	
+		}			
 	}
 	
 	public void DCasaVermelha(Graphics2D g2d)  {
@@ -338,36 +299,28 @@ public class Tabuleiro extends JPanel implements IDesenha {
 						
 			for(j=0;j<6;j++) {
 				
-				if (i<=1) {
-					
+				if (i<=1) {					
 					if (j==1) {
 						c=v[icor];
 					}
 									
-					else if(i==1 && j>0) {
-						
+					else if(i==1 && j>0) {						
 						c=v[icor];
 					}
 					else {
 						c = Color.white;						
 					}				
-				}			
-			
+				}						
 				else {
 					 c = Color.white;			
-				}
-				
+				}				
 				DQuadrado(g2d,posInicialx, y,largura, c);
 				posInicialx+=largura;					
-			}
-			
+			}			
 			posInicialx=0;
 			y+=largura;
 		}
-		
-	
-	}
-		
+	}		
 	public void DCasaAzul(Graphics2D g2d) {
 		
 		float posInicialx=Tabuleiro.larguraCasaInicial;
@@ -400,33 +353,158 @@ public class Tabuleiro extends JPanel implements IDesenha {
 					else {
 						c = Color.white;						
 					}				
-				}			
-			
+				}						
 				else {
 					 c = Color.white;			
 				}
 				
 				DQuadrado(g2d,posInicialx, y,largura, c);
 				y+=largura;					
-			}
-			
+			}			
 			posInicialx+=largura;
 			y=posInicialy;
-		}
-		
+		}	
 	}
-	
 	
 	public void DQuadrado(Graphics2D g2d, float x,  float y, float tamanho, Color c) {
 		
-		
-		
+
 		Rectangle2D rt1 = new Rectangle2D.Float(x,y,tamanho,tamanho);	
 		g2d.setPaint(c);
 		g2d.setStroke(new BasicStroke(1));
 		g2d.fill(rt1);
 		g2d.setPaint(Color.black);
 		g2d.draw(rt1);
+		
+	}
+	
+	public void DCirculosInicio(Graphics2D g2d) {
+		
+		// raio = 39
+		
+		float raio = (float) 39;
+		Color[] vCores= Tabuleiro.getVCores();
+		
+		float posInicialx=Tabuleiro.larguraCasaInicial;
+		float deslocamento1= (float) ((raio)*1.5) ;	
+		float deslocamento = raio/2;
+		float simetriay = 0;
+		//float simetria 
+		
+		float posInicialy=Tabuleiro.larguraCasaInicial+132;	
+		float centroCasaInicial =  posInicialx/2;
+		
+		float proximaCasaX =0;
+		float proximaCasaY =0;
+		
+		//float proximaCasaY = 
+		
+		
+		int i =0;
+		//(esquerda-> direita)
+		
+		for (i=0;i<2;i++) {			
+			DCirculo(g2d,proximaCasaX+centroCasaInicial-deslocamento1,proximaCasaY+centroCasaInicial-deslocamento1+simetriay,raio,Color.white);
+			DCirculo(g2d,proximaCasaX+centroCasaInicial+deslocamento,proximaCasaY+centroCasaInicial-deslocamento1+simetriay,raio,Color.white);
+			
+			simetriay+=2*(raio);		
+		}	
+		proximaCasaX=posInicialx+132;
+		simetriay=0;
+		
+		
+		for (i=0;i<2;i++) {			
+			DCirculo(g2d,proximaCasaX+centroCasaInicial-deslocamento1,proximaCasaY+centroCasaInicial-deslocamento1+simetriay,raio,Color.white);
+			DCirculo(g2d,proximaCasaX+centroCasaInicial+deslocamento,proximaCasaY+centroCasaInicial-deslocamento1+simetriay,raio,Color.white);			
+			simetriay+=2*(raio);	
+		}
+		
+		///// casas abaixo (azul e amarelo)
+		
+		proximaCasaY=posInicialx - 25  ;
+		proximaCasaX=0;
+		
+		
+
+		for (i=0;i<2;i++) {			
+			DCirculo(g2d,proximaCasaX+centroCasaInicial-deslocamento1,proximaCasaY+centroCasaInicial-deslocamento1+simetriay,raio,Color.white);
+			DCirculo(g2d,proximaCasaX+centroCasaInicial+deslocamento,proximaCasaY+centroCasaInicial-deslocamento1+simetriay,raio,Color.white);
+			
+			simetriay+=2*(raio);		
+		}
+		
+		
+		proximaCasaX=posInicialx+132; // ok
+		proximaCasaY+=132+deslocamento ; // melhorar
+		simetriay=0;
+		
+		
+		for (i=0;i<2;i++) {			
+			DCirculo(g2d,proximaCasaX+centroCasaInicial-deslocamento1,proximaCasaY+centroCasaInicial-deslocamento1+simetriay,raio,Color.white);
+			DCirculo(g2d,proximaCasaX+centroCasaInicial+deslocamento,proximaCasaY+centroCasaInicial-deslocamento1+simetriay,raio,Color.white);			
+			simetriay+=2*(raio);	
+		}
+		
+		
+	}
+	
+	public void DCirculo(Graphics2D g2d,float x, float y, float raio,Color c) {
+		
+		Ellipse2D e1 = new Ellipse2D.Float(x, y, raio,raio);
+//		e1.setFrame(rt2); colocando em outro frame
+		
+		g2d.setStroke(new BasicStroke(1));
+		g2d.setPaint(c);
+		g2d.fill(e1);
+		g2d.setPaint(Color.black);
+		g2d.draw(e1);
+		
+	}
+	
+	public void DCriaPeoes(Graphics2D g2d){
+		
+		//Total 16 peoes
+		
+		
+		
+		Color[] vCores= Tabuleiro.getVCores();	
+		DCriaPeao(g2d, 268,90,new Color(53,84,250));
+	
+	}
+	
+	public void DCriaPeao(Graphics2D g2d,float x, float y,Color c) {
+		
+		// Raio maior padrao =35
+		// largura padrao (quadrado) 20
+		// Raio menor padrao = 10
+		
+		float raioCMaior=35;
+		float raioCMenor=25;
+		float largQuadrado=25;
+		
+
+		Ellipse2D b1 = new Ellipse2D.Float(x, y, raioCMaior,raioCMaior); // Base maior
+//		e1.setFrame(rt2); colocando em outro frame	
+		g2d.setStroke(new BasicStroke(2));
+		g2d.setPaint(c);
+		g2d.fill(b1);
+		g2d.setPaint(Color.black);
+		g2d.draw(b1);
+		
+		Rectangle2D rt1 = new Rectangle2D.Float(x+5,y-4,largQuadrado,largQuadrado);	// Base maior
+		g2d.setPaint(c);
+		g2d.setStroke(new BasicStroke(1));
+		g2d.fill(rt1);
+		g2d.setPaint(Color.black);
+		g2d.draw(rt1);
+		
+			
+		Ellipse2D b2 = new Ellipse2D.Float(x+5, y-15, raioCMenor,raioCMenor); // Base cabeça	
+		g2d.setStroke(new BasicStroke(1));
+		g2d.setPaint(c);
+		g2d.fill(b2);
+		g2d.setPaint(Color.black);
+		g2d.draw(b2);
 		
 	}
 	

@@ -7,8 +7,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 public class Div extends JPanel { // Quadrado pequeno Tabuleiro
-	
-	
+		
 	public float largura;
 	public float altura;
 	
@@ -43,24 +42,19 @@ public class Div extends JPanel { // Quadrado pequeno Tabuleiro
 		Graphics2D g2d=(Graphics2D) g;
 		
 		//Retangulo	
-		Rectangle2D rt = new Rectangle2D.Float(100,100,150,150);	
-		g2d.setPaint(Color.orange);
-		g2d.fill(rt);
-		
-		
+//		Rectangle2D rt = new Rectangle2D.Float(100,100,150,150);	
+//		g2d.setPaint(Color.orange);
+//		g2d.fill(rt);
+				
 	}
-	
 
 	public void setLarguraEAltura(float larg , float alt) {
 		
 		this.largura=larg;
-		this.altura=alt;
-		
+		this.altura=alt;	
 		return;
 	}
 
-
-	
 	public float getpX() {
 		return pX;
 	}
@@ -88,7 +82,5 @@ public class Div extends JPanel { // Quadrado pequeno Tabuleiro
 	public void setBColorFromColor() {
 		this.setBackground(this.getColor());
 	}
-	
-	
 	
 }

@@ -22,16 +22,15 @@ public class FrameView extends JFrame{ // Canvas
 
 	
 	
-	public Div jp1 = new Div(0,0,470,700, Color.BLUE);
+	public Div jp1 = new Div(0,0,470,700, Color.blue);
 	public Div jp2 = new Div(470,0,10,700,Color.GREEN);
-	public Div jp3 = new Div(480,0,700,700,Color.RED);	
+	public Div jp3 = new Div(480,0,700,700,Color.RED);	// Tabuleiro
 	
 	
 	public JLayeredPane layers = new JLayeredPane();
 	
 	FrameView(){
-		
-		
+			
 		setSize(LARG_DEFAULT,ALT_DEFAULT);
 		setResizable(false);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -42,36 +41,34 @@ public class FrameView extends JFrame{ // Canvas
 		
 		
 		Tabuleiro Tb = new Tabuleiro();		
-
 		Tb.setBounds(505,0,(int)Tabuleiro.getLargura(),(int)Tabuleiro.getAltura());
 		Tb.setBackground(Color.orange);
-		
+	
 		
 		jp3.add(Tb);
-		
+		// jp1.add(paineliNFO)
 		
 //		jp1.setBColorFromColor();
 //		jp2.setBColorFromColor();
 //		jp3.setBColorFromColor();
 
 		
-//		jp1.setBounds(0,0,470,700);
-//		jp2.setBounds(470,0,10,700);
+		
+		jp1.setBounds(0,0,470,700);
+		jp2.setBounds(470,0,10,700);
 		jp3.setBounds(480,0,700,700);
 	
+		
 		
 		layers.add(jp1, 60); // menor, mais em cima
 		layers.add(jp2, 20); // de 10 em 10
 		layers.add(jp3, 50);
 		layers.add(Tb,0);
 		
-
-		getContentPane().add(layers);
 	
-		
+		getContentPane().add(layers);
 
 	}
-	
 	
 	public Div getDivs(int i) { //retorna as divs baseado no numero	
 		if (i==1){
@@ -82,7 +79,5 @@ public class FrameView extends JFrame{ // Canvas
 		}
 		return this.jp3;
 	}
-	
 
-	
 }
