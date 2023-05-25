@@ -509,11 +509,15 @@ public class Tabuleiro extends JPanel implements IDesenha {
 		}
 		
 		
-		proximaCasaX=posInicialx+132; // ok
-		proximaCasaY+=132+deslocamento ; // melhorar
-		simetriay=0;
+//		proximaCasaX=posInicialx+132; // ok
+//		proximaCasaY+=132+deslocamento ; // melhorar
+//		simetriay=0;
 		
 		
+		proximaCasaX=posInicialx+132;
+		proximaCasaY=posInicialy ;
+		simetriay = 0 ;
+
 		for (i=0;i<2;i++) {			
 			DCirculo(g2d,proximaCasaX+centroCasaInicial-deslocamento1,proximaCasaY+centroCasaInicial-deslocamento1+simetriay,raio,Color.white);
 			DCirculo(g2d,proximaCasaX+centroCasaInicial+deslocamento,proximaCasaY+centroCasaInicial-deslocamento1+simetriay,raio,Color.white);			
@@ -540,8 +544,7 @@ public class Tabuleiro extends JPanel implements IDesenha {
 		
 		//Total 16 peoes
 		
-		
-		
+
 		Color[] vCores= Tabuleiro.getVCores();	
 		DCriaPeao(g2d, 268,90,new Color(53,84,250));
 	
