@@ -11,7 +11,7 @@ public class Tabuleiro extends JPanel implements IDesenha {
 	private static float larguraCasaInicial= 263;
 	private static float espacoEntreCasaInicial= 132;
 	private static float deslocamentoCasaInicial = larguraCasaInicial + espacoEntreCasaInicial;
-			
+
 	
 	private static Color[] vCores = {Color.red,Color.green,Color.yellow,Color.blue};
 	//private Color vCoordenadaInicial	
@@ -40,6 +40,8 @@ public class Tabuleiro extends JPanel implements IDesenha {
 		DCirculosInicio(g2d);
 		DCasaVitoriaCentro(g2d);
 		DCasas(g2d);
+		
+		// Cria triangulos
 		
 		
 		// Cria Peao
@@ -170,20 +172,7 @@ public class Tabuleiro extends JPanel implements IDesenha {
 		
 	}
 	
-	public void DTriangulo(Graphics2D g2d, Point2D.Float p, Point2D.Float q, Point2D.Float r , Color c ) {
-		
-		Polygon t1 = new Polygon();
-		
-		t1.addPoint((int)p.x,(int)p.y);
-		t1.addPoint((int)q.x,(int)q.y);
-		t1.addPoint((int)r.x,(int)r.y);
-		
-		g2d.setPaint(c);
-		g2d.fill(t1);
-		g2d.setPaint(Color.black);
-		g2d.draw(t1);
 	
-	}	
 	public void DCasas(Graphics2D g2d) {
 		//tamanho= 44
 		// 3 x 6		
@@ -207,12 +196,19 @@ public class Tabuleiro extends JPanel implements IDesenha {
 		Color c = Color.white;
 		Color[] v = Tabuleiro.getVCores();
 		
+		System.out.println("\n-----CASA VERDE ----");
+		
 		for(i=0;i<3;i++) {
 					
 			for(j=0;j<6;j++) {
 				
-				if (j>0) {					
-					if (i==2 && j ==1) {
+				if (j>0) {	
+					
+					if (i==0 && j ==1) {
+						c = Color.DARK_GRAY;
+					}
+					
+					else if (i==2 && j ==1) {
 						c= v[icor];
 					}
 					else if (i==1) {						
@@ -235,6 +231,16 @@ public class Tabuleiro extends JPanel implements IDesenha {
 			posInicialx+=largura;
 			y=0;
 		}	
+		
+		// DESENHA TRIGANGULO BRANCO
+				int ajustaX=172;
+				int ajustaY=-104;
+				
+				
+				Point2D.Float p1= new Point2D.Float(200+ajustaX,180+ajustaY); // triangulo vermelho
+				Point2D.Float p2 = new Point2D.Float(190+ajustaX,160+ajustaY);
+				Point2D.Float p3 = new Point2D.Float(210+ajustaX,160+ajustaY);
+				DTriangulo(g2d,p1,p2,p3,Color.white);
 	}
 	
 	public void DCasaAmarela(Graphics2D g2d) {
@@ -251,11 +257,12 @@ public class Tabuleiro extends JPanel implements IDesenha {
 		
 		Color c = Color.white;
 		Color[] v = Tabuleiro.getVCores();
-		
+		System.out.println("\n-----CASA AMARELA ----");
 		for(i=0;i<3;i++) {						
 			for(j=0;j<6;j++) {
 				
 				if (i>0) {
+					
 					
 					if (i==2 && j==4) {
 						c=v[icor];
@@ -270,18 +277,37 @@ public class Tabuleiro extends JPanel implements IDesenha {
 				}
 				
 				else {
-					 c = Color.white;			
+					
+					if (j ==4 ){ // casa preta 
+						c=Color.DARK_GRAY;
+					}
+					else {
+					 c = Color.white;
+					}
 				}				
 				DQuadrado(g2d,posInicialx, y,largura, c);
+				System.out.println("	j:"+j+"\n"+"	posInicialx:"+posInicialx+"\n"+"	y:"+y+" largura:"+largura);
 				posInicialx+=largura;					
 			}			
 			posInicialx=Tabuleiro.larguraCasaInicial+132;
 			y+=largura;
+			System.out.println("i:"+i+"\n"+" posInicialx:"+posInicialx+" y:"+y+" largura:"+largura); 
 		}			
+		
+		// DESENHA TRIGANGULO BRANCO
+		int ajustaX=381;
+		int ajustaY=192;
+		
+		
+		Point2D.Float p1= new Point2D.Float(200+ajustaX,180+ajustaY); // triangulo vermelho
+		Point2D.Float p2 = new Point2D.Float(220+ajustaX,170+ajustaY);
+		Point2D.Float p3 = new Point2D.Float(220+ajustaX,190+ajustaY);
+		DTriangulo(g2d,p1,p2,p3,Color.white);
 	}
 	
 	public void DCasaVermelha(Graphics2D g2d)  {
 		
+
 		float posInicialx= 0;
 		float posInicialy=  Tabuleiro.larguraCasaInicial;
 		float largura = (float) 43.8;
@@ -295,14 +321,18 @@ public class Tabuleiro extends JPanel implements IDesenha {
 		Color c = Color.white;
 		Color[] v = Tabuleiro.getVCores();
 		
+		System.out.println("\n-----CASA VERMELHA ----");
 		for(i=0;i<3;i++) {
 						
 			for(j=0;j<6;j++) {
 				
+				
 				if (i<=1) {					
-					if (j==1) {
+					if (j==1 && i==0  ) { // casa diferente de cor
 						c=v[icor];
+						
 					}
+					
 									
 					else if(i==1 && j>0) {						
 						c=v[icor];
@@ -312,14 +342,39 @@ public class Tabuleiro extends JPanel implements IDesenha {
 					}				
 				}						
 				else {
-					 c = Color.white;			
+					
+					if (i==2 && j==1) { // casa preta
+						c=Color.DARK_GRAY;
+					}
+					else {
+						 c = Color.white;	
+					}
 				}				
 				DQuadrado(g2d,posInicialx, y,largura, c);
-				posInicialx+=largura;					
+				
+				
+				System.out.println("	j:"+j+"\n"+"	posInicialx:"+posInicialx+"\n"+"	y:"+y+" largura:"+largura); // coordenada
+				
+				posInicialx+=largura;	
+				
 			}			
+			
 			posInicialx=0;
 			y+=largura;
+			
+			System.out.println("i:"+i+"\n"+" posInicialx:"+posInicialx+" y:"+y+" largura:"+largura); 
 		}
+		
+		int ajustaX=-73;
+		int ajustaY=135;
+		
+		
+		Point2D.Float p1= new Point2D.Float(150+ajustaX,150+ajustaY); // triangulo vermelho
+		Point2D.Float p2 = new Point2D.Float(130+ajustaX,140+ajustaY);
+		Point2D.Float p3 = new Point2D.Float(130+ajustaX,160+ajustaY);
+		DTriangulo(g2d,p1,p2,p3,Color.white);
+		
+		
 	}		
 	public void DCasaAzul(Graphics2D g2d) {
 		
@@ -336,14 +391,15 @@ public class Tabuleiro extends JPanel implements IDesenha {
 		Color c = Color.white;
 		Color[] v = Tabuleiro.getVCores();
 		
+		System.out.println("\n-----CASA AZUL ----");
 		for(i=0;i<3;i++) {
 						
 			for(j=0;j<6;j++) {
 				
-				if (i>=0) {
+				if (i>=1) {
 					
-					if (j==4 && i ==0) {
-						c=v[icor];
+					if (j==4 && i==2) {
+						c=Color.DARK_GRAY;
 					}
 									
 					else if(i==1 && j<5) {
@@ -355,15 +411,34 @@ public class Tabuleiro extends JPanel implements IDesenha {
 					}				
 				}						
 				else {
+					
+					if (j==4) { // casa preta
+						c=v[icor];
+					}
+					else {
+
 					 c = Color.white;			
+					}
 				}
 				
 				DQuadrado(g2d,posInicialx, y,largura, c);
+				
+				System.out.println("	j:"+j+"\n"+"	posInicialx:"+posInicialx+"\n"+"	y:"+y+" largura:"+largura);
 				y+=largura;					
 			}			
 			posInicialx+=largura;
 			y=posInicialy;
+			System.out.println("i:"+i+"\n"+" posInicialx:"+posInicialx+" y:"+y+" largura:"+largura); 
 		}	
+		
+		int ajustaX=156;
+		int ajustaY=441;
+		
+		
+		Point2D.Float p1= new Point2D.Float(130+ajustaX,140+ajustaY); // triangulo azul
+		Point2D.Float p2 = new Point2D.Float(120+ajustaX,160+ajustaY);
+		Point2D.Float p3 = new Point2D.Float(140+ajustaX,160+ajustaY);
+		DTriangulo(g2d,p1,p2,p3,Color.white);
 	}
 	
 	public void DQuadrado(Graphics2D g2d, float x,  float y, float tamanho, Color c) {
@@ -507,6 +582,21 @@ public class Tabuleiro extends JPanel implements IDesenha {
 		g2d.draw(b2);
 		
 	}
+	
+	public void DTriangulo(Graphics2D g2d, Point2D.Float p, Point2D.Float q, Point2D.Float r , Color c ) {
+		
+		Polygon t1 = new Polygon();
+		
+		t1.addPoint((int)p.x,(int)p.y);
+		t1.addPoint((int)q.x,(int)q.y);
+		t1.addPoint((int)r.x,(int)r.y);
+		
+		g2d.setPaint(c);
+		g2d.fill(t1);
+		g2d.setPaint(Color.black);
+		g2d.draw(t1);
+	
+	}	
 	
 	public static float getLargura() {
 		return largura;
