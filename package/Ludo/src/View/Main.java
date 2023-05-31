@@ -20,6 +20,7 @@ public class Main {
 		int opcao = sc.nextInt();
 		
 		
+		
 		if (opcao ==1) {
 			
 			Div nq = canvas.getDivs(1);

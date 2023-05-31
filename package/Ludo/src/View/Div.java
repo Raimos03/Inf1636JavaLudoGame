@@ -15,6 +15,11 @@ public class Div extends JPanel { // Quadrado pequeno Tabuleiro
 	private float pY ;
 	private Color BCor = Color.orange;
 	
+	Div(Color cor){
+		
+		BCor=cor;
+	}
+	
 	
 	Div(float x, float y , float largura , float altura ){	
 		this.pX= (float) x;

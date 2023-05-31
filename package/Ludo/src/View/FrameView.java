@@ -29,11 +29,23 @@ public class FrameView extends JFrame{ // Canvas
 	
 	public JLayeredPane layers = new JLayeredPane();
 	
+	// Menus cima e baixo com conteudo
+	
+	//public Div menuCimaMaster = new Div(0,0,425,150, Color.yellow);
+	//public Div menuBaixoMaster = new Div(0,0,425,500, Color.white);
+	public Div menuCimaMaster = new Div(Color.yellow);
+	public Div menuBaixoMaster = new Div(Color.white);
+	
+	//divs menores Cima e Baixo ( botoes e rodadas)
+	
+	
 	FrameView(){
 			
 		setSize(LARG_DEFAULT,ALT_DEFAULT);
 		setResizable(false);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		
+		
 		
 		
 //		layers.setSize(new Dimension(1200,700));
@@ -43,29 +55,56 @@ public class FrameView extends JFrame{ // Canvas
 		Tabuleiro Tb = new Tabuleiro();		
 		Tb.setBounds(505,0,(int)Tabuleiro.getLargura(),(int)Tabuleiro.getAltura());
 		Tb.setBackground(Color.orange);
-	
 		
-		jp3.add(Tb);
-		// jp1.add(paineliNFO)
+		
+		menuCimaMaster.setBounds(18,15,430,150);
+		menuCimaMaster.setBackground(menuCimaMaster.getColor());
+		
+		menuBaixoMaster.setBounds(18,180,430,467);
+		menuBaixoMaster.setBackground(menuBaixoMaster.getColor());
+		
+		
+		Div PainelDado = new Div(0,0,300,300,Color.LIGHT_GRAY);
+		PainelDado.setBounds(0,0,(int) PainelDado.getLargura(),(int)PainelDado.getAltura());
+		PainelDado.setBackground(PainelDado.getColor());
 		
 //		jp1.setBColorFromColor();
 //		jp2.setBColorFromColor();
 //		jp3.setBColorFromColor();
 
-		
-		
+		// criacao das Divisoes
+			
 		jp1.setBounds(0,0,470,700);
 		jp2.setBounds(470,0,10,700);
 		jp3.setBounds(480,0,700,700);
+		
+		
+		// adicionando filhos aos paineis Pai
+		
+		
+		jp1.add(PainelDado);
+		jp3.add(Tb);	
 	
+		// Setagem de profundidade	
 		
-		
-		layers.add(jp1, 60); // menor, mais em cima
-		layers.add(jp2, 20); // de 10 em 10
-		layers.add(jp3, 50);
+		layers.add(jp1, 500); // menor, mais em cima
+		layers.add(jp2, 70); // de 10 em 10
+		layers.add(jp3, 500);
 		layers.add(Tb,0);
 		
-	
+		// add menus
+		
+		jp1.add(menuCimaMaster);
+		jp1.add(menuBaixoMaster);
+		
+		layers.add(menuCimaMaster,0);
+		layers.add(menuBaixoMaster,0);
+		layers.add(PainelDado,1);
+		//teste do git
+		
+		layers.add(PainelDado,150);
+		// add o layer no Frame
+		
 		getContentPane().add(layers);
 
 	}
