@@ -99,10 +99,10 @@ public class FrameView extends JFrame{ // Canvas
 		
 		layers.add(menuCimaMaster,0);
 		layers.add(menuBaixoMaster,0);
-		layers.add(PainelDado,1);
+		layers.add(PainelDado,0);
 		//teste do git
 		
-		layers.add(PainelDado,150);
+
 		// add o layer no Frame
 		
 		getContentPane().add(layers);
