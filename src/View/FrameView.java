@@ -6,6 +6,9 @@ import javax.swing.*;
 import java.awt.*;
 import javax.swing.JLayeredPane;
 
+
+// apenas para sortear o dado
+
 public class FrameView extends JFrame{ // Canvas 
 	
 	private final int LARG_DEFAULT = 1200; // Constantes de tamanho	- largura
@@ -64,9 +67,16 @@ public class FrameView extends JFrame{ // Canvas
 		menuBaixoMaster.setBackground(menuBaixoMaster.getColor());
 		
 		
-		Div PainelDado = new Div(0,0,196,164,Color.LIGHT_GRAY);
-		PainelDado.setBounds(245,245,(int) PainelDado.getLargura(),(int)PainelDado.getAltura());
+		Div PainelDado = new Div(0,0,167,144,Color.LIGHT_GRAY);
+		PainelDado.setBounds(262,255,(int) PainelDado.getLargura(),(int)PainelDado.getAltura());
 		PainelDado.setBackground(PainelDado.getColor());
+		
+		// add Dado e Botao de rolar o dado
+		
+		Dado_graf VDado = new Dado_graf(); 
+		VDado.setBounds(5,10,500,500);
+		
+		VDado.pinta_dado(5); // desenha o dado dado uma face
 		
 		
 		
@@ -82,28 +92,40 @@ public class FrameView extends JFrame{ // Canvas
 		jp3.setBounds(480,0,700,700);
 		
 		
+		
 		// adicionando filhos aos paineis Pai
+		jp1.add(menuCimaMaster);
+		jp1.add(menuBaixoMaster);
 		
 		
-		jp1.add(PainelDado);
+		//jp1.add(PainelDado);
+		
+		menuBaixoMaster.add(PainelDado);
+		PainelDado.add(VDado);
+		
+		
+		
 		jp3.add(Tb);	
+		
 	
 		// Setagem de profundidade	
 		
 		layers.add(jp1, 500); // menor, mais em cima
+		
 		layers.add(jp2, 70); // de 10 em 10
 		layers.add(jp3, 500);
 		layers.add(Tb,0);
 		
+		// ad dado
+		
 		// add menus
-		
-		jp1.add(menuCimaMaster);
-		jp1.add(menuBaixoMaster);
-		
+	
 		layers.add(menuCimaMaster,0);
 		layers.add(menuBaixoMaster,0);
 		layers.add(PainelDado,0);
-		//teste do git
+		layers.add(VDado, 0); 
+		
+
 		
 
 		// add o layer no Frame
