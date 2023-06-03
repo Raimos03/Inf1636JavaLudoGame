@@ -64,9 +64,12 @@ public class FrameView extends JFrame{ // Canvas
 		menuBaixoMaster.setBackground(menuBaixoMaster.getColor());
 		
 		
-		Div PainelDado = new Div(0,0,300,300,Color.LIGHT_GRAY);
-		PainelDado.setBounds(0,0,(int) PainelDado.getLargura(),(int)PainelDado.getAltura());
+		Div PainelDado = new Div(0,0,196,164,Color.LIGHT_GRAY);
+		PainelDado.setBounds(245,245,(int) PainelDado.getLargura(),(int)PainelDado.getAltura());
 		PainelDado.setBackground(PainelDado.getColor());
+		
+		
+		
 		
 //		jp1.setBColorFromColor();
 //		jp2.setBColorFromColor();
