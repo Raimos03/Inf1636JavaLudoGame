@@ -3,10 +3,10 @@ package Model;
 import java.util.Random;
 
 class Dado {
-	public int face;
-	public int R1NumeroDado = 0;
-	public int R2NumeroDado = 0;
-	public int R3NumeroDado = 0;
+	private int face;
+	private int R1NumeroDado = 0;
+	private int R2NumeroDado = 0;
+	private int R3NumeroDado = 0;
 	
 	public void joga_dado() {
 		Random rand = new Random(); 

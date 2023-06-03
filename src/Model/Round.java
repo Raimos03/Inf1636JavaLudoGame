@@ -3,9 +3,12 @@ package Model;
 class Round {
 
     //Variable that marks the current player's turn
-    public int player_turn = 1;
-    public int c;
-    int turn = 1;
+	//Gerencia a rodada
+	
+    private int player_turn = 1;
+    private int c;
+    private static int turn = 1;
+    
 
     public void New_round() {
         if(turn !=0 && turn <= 4) {
@@ -24,4 +27,10 @@ class Round {
             }
         }
     }
+  
+    public static int getRound() {
+    	return Round.turn;
+    	
+    }
+    
 }

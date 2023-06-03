@@ -5,11 +5,12 @@ import java.util.Scanner;
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.JLayeredPane;
+import javax.swing.border.Border;
 
 
 // apenas para sortear o dado
 
-public class FrameView extends JFrame{ // Canvas 
+public class Frameview extends JFrame{ // Canvas 
 	
 	private final int LARG_DEFAULT = 1200; // Constantes de tamanho	- largura
 	private final int ALT_DEFAULT = 700; // Constantes de tamanho - altura
@@ -42,7 +43,7 @@ public class FrameView extends JFrame{ // Canvas
 	//divs menores Cima e Baixo ( botoes e rodadas)
 	
 	
-	FrameView(){
+	public FrameView(){
 			
 		setSize(LARG_DEFAULT,ALT_DEFAULT);
 		setResizable(false);
@@ -78,6 +79,13 @@ public class FrameView extends JFrame{ // Canvas
 		
 		VDado.pinta_dado(5); // desenha o dado dado uma face
 		
+		JBotao bJogaDado = new JBotao("Jogue o dado");
+		bJogaDado.setBounds(262,422,167,70);
+		bJogaDado.setBorder(new RoundedBorder(10));
+		bJogaDado.setBackground(new Color(248,209,68));
+		bJogaDado.setPressedBackgroundColor(new Color(253,200,12));
+		bJogaDado.setHoverBackgroundColor(new Color(246,209,75));
+		
 		
 		
 		
@@ -102,6 +110,7 @@ public class FrameView extends JFrame{ // Canvas
 		
 		menuBaixoMaster.add(PainelDado);
 		PainelDado.add(VDado);
+		menuBaixoMaster.add(bJogaDado);
 		
 		
 		
@@ -126,8 +135,9 @@ public class FrameView extends JFrame{ // Canvas
 		layers.add(VDado, 0); 
 		
 
+		// adicionando botao
+		layers.add(bJogaDado,0);
 		
-
 		// add o layer no Frame
 		
 		getContentPane().add(layers);

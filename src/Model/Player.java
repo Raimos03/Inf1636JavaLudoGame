@@ -1,9 +1,7 @@
 package Model;
 
 class Player {
-	
-	
-	
+
 	private String cor;
 	private int[] peoes = {0, 0, 0, 0};
 	private int qtd_ativo = 0;
