@@ -1,6 +1,7 @@
-package Controler;
+package controler;
 
-public class Rodada { // Rodada
+public class Rodada { 
+	//Rodada
 	
 	
 	private static int nRodada =0;
@@ -11,6 +12,7 @@ public class Rodada { // Rodada
 	public Rodada () {
 			
 		// acesso tudo de model pelo facade (FcModel)
+		
 		
 		
 		

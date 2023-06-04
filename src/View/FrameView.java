@@ -1,4 +1,4 @@
-package View;
+package view;
 
 
 import java.util.Scanner;
@@ -10,7 +10,7 @@ import javax.swing.border.Border;
 
 // apenas para sortear o dado
 
-public class Frameview extends JFrame{ // Canvas 
+public class FrameView extends JFrame{ // Canvas 
 	
 	private final int LARG_DEFAULT = 1200; // Constantes de tamanho	- largura
 	private final int ALT_DEFAULT = 700; // Constantes de tamanho - altura

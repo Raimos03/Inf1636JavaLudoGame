@@ -1,6 +1,6 @@
-package Model;
+package model;
 
-public class FcModel {
+public class FcModel { // Facade
 
 	private Dado dado;
 //	private players; ( colocar um vetor de players);

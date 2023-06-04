@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 class Rodada_old { // E o controller principal
 	
