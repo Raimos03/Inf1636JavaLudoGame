@@ -19,8 +19,7 @@ class Player {
 		p2=new Peao(x,this);
 		p3=new Peao(x,this);
 		p4=new Peao(x,this);	
-		
-		
+			
 	}
 	
 	public void ativar_peao(int x) {

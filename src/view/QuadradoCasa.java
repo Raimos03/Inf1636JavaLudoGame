@@ -45,7 +45,7 @@ public class QuadradoCasa extends JPanel { // Quadrado pequeno Tabuleiro
 //	}
 	
 	@Override	
-	public void paintComponent(Graphics g)	{
+	public void paintComponent(Graphics g)	{ // toda a pintura do tabuleiro é feita aqui
 			
 		super.paintComponent(g);
 		Graphics2D g2d=(Graphics2D) g;
@@ -58,8 +58,7 @@ public class QuadradoCasa extends JPanel { // Quadrado pequeno Tabuleiro
 	}
 
 
-	public void setLarguraEAltura(float larg , float alt) {
-		
+	public void setLarguraEAltura(float larg , float alt) {	
 		this.largura=larg;
 		this.altura=alt;
 		

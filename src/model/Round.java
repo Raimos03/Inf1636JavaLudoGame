@@ -3,18 +3,17 @@ package model;
 class Round {
 
     //Variable that marks the current player's turn
-	//Gerencia a rodada
+	//Gerencia o jogador da vez
 	
     private int player_turn = 1;
     private int c;
-    private static int turn = 1;
-    
+    private int turn = 1;
 
     public void New_round() {
+	
         if(turn !=0 && turn <= 4) {
             player_turn = turn;
         }
-
         else {
             c = turn % 4;
 
@@ -25,12 +24,16 @@ class Round {
             else {
                 player_turn = c;
             }
-        }
+        }       
+        
     }
-  
-    public static int getRound() {
-    	return Round.turn;
-    	
+    
+    public void nextRound() {
+    	turn++;
+    }
+
+    public int getIntPlayerVez() {
+    	return this.player_turn;
     }
     
 }

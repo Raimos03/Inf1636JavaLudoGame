@@ -79,5 +79,4 @@ public class Poligono  extends JPanel  {
 	}
 
 	
-	
 }

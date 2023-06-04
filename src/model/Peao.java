@@ -19,32 +19,32 @@ class Peao {
 	static double[] XPosicaoInicialAzul= {11.0,12.0,15.0,16.0};
 	static double[] YPosicaoInicialAzul= {11.0,12.0,15.0,16.0};
 	
-	// casa de saida
+	// casa para saida de cada cor
 	
-	static Coordenada PosicaoCasaSaidaVermelho = new Coordenada(5,6); 
-	static Coordenada PosicaoCasaSaidaVerde = new Coordenada(7,8);
-	static Coordenada PosicaoCasaSaidaAmarelo = new Coordenada(13,14);
-	static Coordenada PosicaoCasaSaidaAzul = new Coordenada(15,16);
+	static Coordenada PosicaoCasaSaidaVermelho = new Coordenada(43.99999,262.7999); 
+	static Coordenada PosicaoCasaSaidaVerde = new Coordenada(350.6,43.8);
+	static Coordenada PosicaoCasaSaidaAmarelo = new Coordenada(569.6,350.40);
+	static Coordenada PosicaoCasaSaidaAzul = new Coordenada(263,569.4);
 
 	//--------------------
 	
 	
 	private Player PlayerPai;
-	
-	
 	private int Id;
 	private int IntCor;
 	
-	private Coordenada xy= new Coordenada();
-	
-	private int Posicao=-1;         // posicao no tabuleiro, inicia em 0 (que tbem e a casa inicial)
+	private Coordenada xy= new Coordenada();	//coordenada onde esta no tabuleiro
+	private int Posicao=-1;         // posicao no vetor do tabuleiro, inicia no indice da casa de saida 
 	
 	private boolean NoTabuleiro=false; // false indica que esta na parte inicial dos peoes
-	private boolean CasaSaida=false;
-	private boolean CasaInicial=true;  // assim que nasce o peao
+	private boolean CasaSaida=false;  // casa de saida de cada cor
+	private boolean CasaInicial=true;  // assim que nasce o peao e começa o jogo
+	
 	private boolean Barreira=false;
 	private boolean Abrigo=false;
-	private boolean CasaFinal=false;
+	private boolean CasaFinal=false; // victory road
+	
+	
 	
 	public Peao (String scor, Player pai) {
 		
@@ -207,22 +207,21 @@ class Peao {
 		PosicaoCasaSaidaAzul = posicaoCasaSaidaAzul;
 	}
 	
-	
 
-	
 	
 	////// ------ Metodos especificos --------
 	
 	
 
 
-		// metodo estatico que retorna a cor
+	// metodo estatico que retorna a cor
 	public static String getCorS(int id) {	
 		return cores[id];
 	}
 	
-		// metodo de comparacao de peao por coordenada
-	public boolean eCoordenadaIgual(Peao p) {
+	
+	// metodo de comparacao de peao por coordenada
+	public boolean eCoordenadaIgual(Peao p) { // testar
 		
 		if (this.xy.eIgualCoordenada(p.xy)==true) {
 			return true;
@@ -232,7 +231,7 @@ class Peao {
 	}
 	
 	
-	public int getIndiceCor(String s) { // retorna o indice da cor
+	public int getIndiceCor(String s) { // retorna o indice da cor - Int
 			
 		if(s.equals("vermelho")) {
 			return 0;
@@ -254,10 +253,10 @@ class Peao {
 	public Coordenada getCoordenadaInicialSCor(String cor) {
 		
 			Coordenada nova= new Coordenada();
-			int i = this.getIntCor(); //cor do peao
-			
+			int i = this.getIntCor(); //cor do peao			
 						
-			if (i==0)  {			
+			if (i==0)  {
+				
 				nova.setX1(Peao.XPosicaoInicialVermelho[i]);
 				nova.setY1(Peao.YPosicaoInicialVermelho[i]);
 				
@@ -274,18 +273,70 @@ class Peao {
 			else if (i==3) {			
 				nova.setX1(Peao.XPosicaoInicialAzul[i]);
 				nova.setY1(Peao.YPosicaoInicialAzul[i]);
-			}		
-			
+			}				
 			return nova;
 	}
 	
-	
-	public int MovePeao(int dado) {
+	public boolean MoveCasaSaida() {
 		
-		int posicaoAtual=this.getPosicao();
-		this.setPosicao(posicaoAtual+dado);	
-		
+		int idsaidaPeao= this.getCorId();
+		Coordenada nova;
 			
+		if (this.NoTabuleiro==false) {
+			
+			if (idsaidaPeao==0){
+				
+				nova = Peao.PosicaoCasaSaidaVermelho;
+				
+			}
+			else if (idsaidaPeao==1) {
+				nova = Peao.PosicaoCasaSaidaVerde;
+				
+			}
+			else if (idsaidaPeao==2) {
+				
+				nova = Peao.PosicaoCasaSaidaAmarelo;
+			}
+			else {
+				
+				nova = Peao.PosicaoCasaSaidaAzul;
+			}
+			
+			//seta a nova posicao para o peao
+			this.setXY(nova);	
+			this.CasaSaida=true;
+		}
+		
+		else {
+			System.out.println("O peao ja esta no tabuleiro. Impossivel mover para saida");
+		}		
+		return false;
+	}
+	
+	
+	
+	
+	public int MovePeao(int dado) { // Jogada normal
+		
+		//int posicaoAtual=this.getPosicao();		
+		//this.setPosicao(posicaoAtual+dado);	
+		
+		int posicaoatual=this.getPosicao();
+		
+		// dependendo onde esteja (casa comun ou outra ele procura a posicao)
+		
+		if (this.CasaFinal==false) { // casas normais
+			
+			this.setPosicao(posicaoatual+dado);		
+			this.setXY(Tabuleiro.getVcasasComuns()[posicaoatual]);
+		}
+		
+		
+		// Ver como integras as regras de ter barreira na frente ou nao
+		
+		
+		
+		
 		return 1;
 	}
 	

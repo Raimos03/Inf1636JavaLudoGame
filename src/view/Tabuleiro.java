@@ -25,16 +25,13 @@ public class Tabuleiro extends JPanel implements IDesenha {
 		
 	}
 
+	@Override
 	public void paintComponent(Graphics g) {		
 		// tabuleiro
 		super.paintComponent(g);	
 		Graphics2D g2d=(Graphics2D) g;
 		
-//		QuadradoCasa c1 = new QuadradoCasa(200,200);
-//		c1.setBounds(500,50,50,50);			
-//		Rectangle2D rt = new Rectangle2D.Float(0,100,300,300);		//teste
-//		g2d.setPaint(Color.GREEN);
-//		g2d.fill(rt);
+
 		 		
 		DCasaInicial(g2d);
 		DCirculosInicio(g2d);
@@ -47,6 +44,11 @@ public class Tabuleiro extends JPanel implements IDesenha {
 		// Cria Peao
 		
 		DCriaPeoes(g2d); // Falta implementar de todas as cores
+		
+		
+		//mover peao
+		
+		// novas funcoes
 	}
 		
 	public void DCasaInicial(Graphics2D g2d) {		
@@ -172,7 +174,6 @@ public class Tabuleiro extends JPanel implements IDesenha {
 		
 	}
 	
-	
 	public void DCasas(Graphics2D g2d) {
 		//tamanho= 44
 		// 3 x 6		
@@ -230,6 +231,7 @@ public class Tabuleiro extends JPanel implements IDesenha {
 		
 			posInicialx+=largura;
 			y=0;
+			System.out.println("i:"+i+"\n"+" posInicialx:"+posInicialx+" y:"+y+" largura:"+largura); 
 		}	
 		
 		// DESENHA TRIGANGULO BRANCO
@@ -546,7 +548,7 @@ public class Tabuleiro extends JPanel implements IDesenha {
 		
 
 		Color[] vCores= Tabuleiro.getVCores();	
-		DCriaPeao(g2d, 268,90,new Color(53,84,250));
+		DCriaPeao(g2d, 268,400,new Color(53,84,250));
 	
 	}
 	

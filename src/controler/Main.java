@@ -1,6 +1,6 @@
 package controler;
 
-import view.FrameView;
+import view.*;
 
 public class Main {
 

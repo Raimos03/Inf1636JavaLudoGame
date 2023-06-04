@@ -95,7 +95,6 @@ class Regra {
 		return 0;
 	}
 	
-	
 	public int VerificaPeoesSaida(Player pai) {
 		
 		// 0 para falhas , 1 para sucesso		
@@ -129,12 +128,11 @@ class Regra {
 		return 1;	
 	}
 	
-	
-	
+
 	
 //---- Regras Básicas
 	
-	public int regraB1(Peao p, int x) {
+	public int regraB1(Peao p, int x) { // verifica se o peao se desloca corretamente
 		
 		if (x<=0) { // erro de andar no sentido antihorario
 			return 0;
@@ -149,7 +147,7 @@ class Regra {
         }
     }
 
-    public int regraB2(Peao p) {
+    public int regraB2(Peao p) { // verifica se o peao esta na casa de saida ou na inicial
         if(p.isCasaSaida() == true ||  p.isCasaInicial() == true) {
             return 1;
         }
@@ -159,7 +157,7 @@ class Regra {
         }
     }
 
-   public int regraB3(Peao p) {
+   public int regraB3(Peao p) { // Regra se o peao esta na barreira ou no abrigo
         if(p.isBarreira() == true ||  p.isAbrigo() == true) {
             return 1;
         }
@@ -168,12 +166,11 @@ class Regra {
             return 0;
         }
     }
-	
 
 
 // ----- Demais Regras 
 
-public int Regra6(Peao peao, Dado dado){
+   public int Regra6(Peao peao, Dado dado){ // regra de tirar 6 no dado
 	
 	int contador=1;
 	
