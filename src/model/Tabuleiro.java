@@ -16,9 +16,7 @@ class Tabuleiro {
 		public Tabuleiro () { // inicializo as coordenadas
 			
 			InicializaVcasas();
-			
-			
-			
+		
 		}
 		
 		// Pensar nesta soluçao
@@ -41,6 +39,7 @@ class Tabuleiro {
 				return Tabuleiro.vCasaVitoriaAzul.length;  // victory Road
 			}		
 		}
+		
 
 		public double[] getArea() {
 			return Area;

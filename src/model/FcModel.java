@@ -10,6 +10,7 @@ public class FcModel { // Facade
 	private Tabuleiro mTb;
 	
 	
+	
 	public void  CriaDado() {		
 		this.dado = new Dado();
 	}
@@ -22,10 +23,10 @@ public class FcModel { // Facade
 	}
 	public void IniciaJogo() { // Cria os objetos e inicializa tudo
 		
-		this.mTb=new Tabuleiro();
+		this.mTb=new Tabuleiro();	
+		CriaPlayers();
 		
-		//CriaPlayers();
-		// Crio model tabuleiro
+		//Crio model tabuleiro
 	}
 	
 	public void CriaPlayers() { // crio e seto vetor de players			
@@ -39,32 +40,32 @@ public class FcModel { // Facade
 		vPlayers.add(p3);
 		vPlayers.add(p4);
 	}
-	
-	public int IntPlayerDaVez() {		
-		return round.getIntPlayerVez();
+		
+	public ArrayList<Player> getVpLayers() {	
+		return vPlayers;
 	}
-	
 	public Player GetPlayerVez() {		
 		return vPlayers.get(round.getIntPlayerVez());
 	}
-	
+	public Tabuleiro getTabuleiro() {	
+		return mTb;
+	}
+	public int IntPlayerDaVez() {		
+		return round.getIntPlayerVez();
+	}
 	public void ProximoJogador() { // passa para o proximo jogador no ROund	
 		round.nextRound();		
 		return ;
 	}
-	
 	public void MovePeao() { // move peao
-		
-		
-		
-	}
+
+	}	
 	public boolean VerificaRegras() {
 		
-		boolean c = true;
-		
-		// condicional de todas as regras
-		
+		boolean c = true;		
+		//condicional de todas as regras	
 		return false;
 	}
-
+	
+	
 }

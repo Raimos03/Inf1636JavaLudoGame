@@ -6,11 +6,13 @@ public class Main {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		FrameView canvas = new FrameView();	
-		canvas.setTitle("Ludo Game");
-		canvas.setVisible(true);
+		FrameView Frame = new FrameView();	
+		Frame.setTitle("Ludo Game");
+		Frame.setLayout(null);
+		Frame.setVisible(true);
 		
 		Rodada rd = new Rodada();
+		rd.setFrameView(Frame);
 		
 		
 	}

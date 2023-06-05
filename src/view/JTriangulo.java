@@ -9,7 +9,7 @@ import java.awt.geom.Point2D;
 
 import javax.swing.JPanel;
 
-public class JTriangulo extends JPanel implements IDesenha {
+public class JTriangulo extends JPanel  {
 
 	private Point2D.Float p1;
 	private Point2D.Float p2;
@@ -25,11 +25,6 @@ public class JTriangulo extends JPanel implements IDesenha {
 		
 	}
 
-	@Override
-	public void Desenha() {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void paintComponent(Graphics g) {
