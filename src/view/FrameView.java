@@ -43,13 +43,16 @@ public class FrameView extends JFrame{ // Canvas
 	
 	//public Div menuCimaMaster = new Div(0,0,425,150, Color.yellow);
 	//public Div menuBaixoMaster = new Div(0,0,425,500, Color.white);
-	public Div menuCimaMaster = new Div(Color.yellow);
+	public Div menuCimaMaster = new Div(new Color(106,138,222));
 	public Div menuBaixoMaster = new Div(Color.white);
 	
 	//divs menores Cima e Baixo ( botoes e rodadas)
 	
 	
 	public FrameView(){
+		
+		int ajustaXpainelInfo=3;
+		int ajustaYpainelInfo=-2;
 			
 		setSize(LARG_DEFAULT,ALT_DEFAULT);
 		setResizable(false);
@@ -58,7 +61,10 @@ public class FrameView extends JFrame{ // Canvas
 	
 		
 //		layers.setSize(new Dimension(1200,700));
-		layers.setBounds(0, 0, 1200, 700);
+		layers.setBounds(0, 0, 1200, 700);	
+		jp1.setImagemFundo("./Images/teste2.png",470,660);
+//		jp2.setImagemFundo("./Images/teste2.png",470,660);
+//		jp3.setImagemFundo("./Images/teste2.png",470,660);
 		
 		
 		Tb = new VTabuleiro();		
@@ -69,6 +75,7 @@ public class FrameView extends JFrame{ // Canvas
 		menuCimaMaster.setBounds(18,15,430,150);
 		menuCimaMaster.setBackground(menuCimaMaster.getColor());
 		
+	
 		menuBaixoMaster.setBounds(18,180,430,467);
 		menuBaixoMaster.setBackground(menuBaixoMaster.getColor());
 		
@@ -79,25 +86,49 @@ public class FrameView extends JFrame{ // Canvas
 		PainelDado.setBounds(262,255,(int) PainelDado.getLargura(),(int)PainelDado.getAltura());
 		PainelDado.setBackground(PainelDado.getColor());
 		
+		
+		
+		
 		// add Dado e Botao de rolar o dado
 		
 		Dado_graf VDado = new Dado_graf(); 
 		VDado.setBounds(5,10,500,500);		
 		
-		VDado.pinta_dado(3); // desenha o dado dado uma face
+		 // Inicializa o desenho do dado
+		VDado.pinta_dado(-1);
 		
-		JBotao bJogaDado = new JBotao("Jogue o dado");
+		
+		
+		JBotao bJogaDado = new JBotao("Jogue o dado"); // botao Jogar dado
 		bJogaDado.setBounds(262,422,167,70);
-		bJogaDado.setBorder(new RoundedBorder(10));
-		bJogaDado.setBackground(new Color(248,209,68));
-		bJogaDado.setPressedBackgroundColor(new Color(253,200,12));
-		bJogaDado.setHoverBackgroundColor(new Color(246,209,75));
+		bJogaDado.setBorder(new RoundedBorder(7));
+		bJogaDado.setBackground(new Color(37,220,40));
+		bJogaDado.setPressedBackgroundColor(new Color(101,254,3));
+		bJogaDado.setHoverBackgroundColor(new Color(82,227,124));
 		
-				
 		
-//		jp1.setBColorFromColor();
-//		jp2.setBColorFromColor();
-//		jp3.setBColorFromColor();
+		JBotao BSalvar = new JBotao("Salvar");
+		BSalvar.setBounds(47+ajustaXpainelInfo,40+ajustaYpainelInfo,176,45);
+		BSalvar.setBorder(new RoundedBorder(7));
+		BSalvar.setBackground(new Color(255,255,255));
+		BSalvar.setPressedBackgroundColor(new Color(100,200,251));
+		BSalvar.setHoverBackgroundColor(new Color(248,246,246));
+		
+		JBotao BNovoJogo = new JBotao("Novo Jogo");
+		BNovoJogo.setBounds(47+ajustaXpainelInfo,98+ajustaYpainelInfo,176,45);
+		BNovoJogo.setBorder(new RoundedBorder(7));
+		BNovoJogo.setBackground(new Color(255,255,255));
+		BNovoJogo.setPressedBackgroundColor(new Color(100,200,251));
+		BNovoJogo.setHoverBackgroundColor(new Color(248,246,246));
+		
+		JBotao BLoadGame = new JBotao("Carregar Jogo");
+		BLoadGame.setBounds(239+ajustaXpainelInfo,40+ajustaYpainelInfo,176,45);
+		BLoadGame.setBorder(new RoundedBorder(7));
+		BLoadGame.setBackground(new Color(255,255,255));
+		BLoadGame.setPressedBackgroundColor(new Color(100,200,251));
+		BLoadGame.setHoverBackgroundColor(new Color(248,246,246));
+		
+
 
 		// criacao das Divisoes
 			
@@ -108,10 +139,9 @@ public class FrameView extends JFrame{ // Canvas
 		
 		
 		// adicionando filhos aos paineis Pai
+		
 //		jp1.add(menuCimaMaster);
-//		jp1.add(menuBaixoMaster);
-		
-		
+//		jp1.add(menuBaixoMaster);	
 //		jp1.add(PainelDado);
 		
 //		menuBaixoMaster.add(PainelDado);
@@ -119,14 +149,11 @@ public class FrameView extends JFrame{ // Canvas
 //		menuBaixoMaster.add(bJogaDado);
 		
 		
-		
-//		jp3.add(Tb);	
-		
+
 	
 		// Setagem de profundidade	
 		
-		layers.add(jp1, 500); // menor, mais em cima
-		
+		layers.add(jp1, 500); // menor, mais em cima		
 		layers.add(jp2, 70); // de 10 em 10
 		layers.add(jp3, 500);
 		layers.add(Tb,0);
@@ -134,31 +161,25 @@ public class FrameView extends JFrame{ // Canvas
 		
 		
 //		layers.add(jp1,Integer.valueOf(5)); // menor, mais em cima
-//		layers.add(jp2,Integer.valueOf(5)); // de 10 em 10
-//		layers.add(jp3,Integer.valueOf(5));
-//		
-//		layers.add(Tb,Integer.valueOf(10));
+//		layers.add(jp2,Integer.valueOf(3)); // de 10 em 10
+
 		
+
 		
-		// ad dado
-		
-		// add menus
+		// add menus ao layer
 	
 		layers.add(menuCimaMaster,0);
 		layers.add(menuBaixoMaster,0);
 		layers.add(PainelDado,0);
 		layers.add(VDado, 0); 
+		layers.add(BSalvar,0);
+		layers.add(BNovoJogo,0);
+		layers.add(BLoadGame,0);
+		
+
+		
+		
 		layers.add(bJogaDado, 0); 
-		
-		
-//		layers.add(menuCimaMaster,Integer.valueOf(10));
-//		layers.add(menuBaixoMaster,Integer.valueOf(10));	
-//		layers.add(PainelDado,Integer.valueOf(30));
-//		layers.add(bJogaDado,Integer.valueOf(30));	
-//		layers.add(VDado,Integer.valueOf(50)); 
-//			
-		
-		// adicionando botao
 		
 		
 				
@@ -167,6 +188,11 @@ public class FrameView extends JFrame{ // Canvas
 		getContentPane().add(layers);
 		
 		
+		
+		// ---------------------- Eventos ------------------
+		
+		
+		//Tb.move_peao(268,90);
 		
 		bJogaDado.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -183,15 +209,20 @@ public class FrameView extends JFrame{ // Canvas
                 //double x = Tb.getEllipse1X();//pegando a posicao
                 //System.out.println(x);
                 //Tb.setEllipse1X(x + 44);//alterando-a
-
+                
+                
+                //Tb.move_peao(263+(44*numeroInteiro),alet);
+                
+                
                 Tb.redesenha((Graphics2D)Tb.getGraphics(),263+(44*numeroInteiro) ,alet);
+                VDado.GeraDado(numeroInteiro,(Graphics2D)VDado.getGraphics());
                 
             }
 
         });
 
 		
-		Tb.move_peao(268,90);
+		
 	}
 	
 	public Div  getDivs(int i) { //retorna as divs baseado no numero // teste	
@@ -208,8 +239,7 @@ public class FrameView extends JFrame{ // Canvas
 	}
 	public JLayeredPane getVLayers() {
 		return layers;
-	}
-	
+	}	
 	public VTabuleiro getVTabuleiro() { //retorna as divs baseado no numero	
 		return this.Tb;
 	}

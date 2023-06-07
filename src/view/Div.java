@@ -11,9 +11,19 @@ public class Div extends JPanel { // Quadrado pequeno Tabuleiro
 	public float largura;
 	public float altura;
 	
+	ImageIcon referencia=null;
+	Image fundo;
+	
+	int ix;
+	int iy;
+	
+	
 	private float pX ;
 	private float pY ;
 	private Color BCor = Color.orange;
+	
+	
+	
 	
 	Div(Color cor){
 		
@@ -50,6 +60,12 @@ public class Div extends JPanel { // Quadrado pequeno Tabuleiro
 //		Rectangle2D rt = new Rectangle2D.Float(100,100,150,150);	
 //		g2d.setPaint(Color.orange);
 //		g2d.fill(rt);
+		
+		if (referencia!=null) {
+			
+			g2d.drawImage(referencia.getImage(),0,0, this.getIX(),this.getIY(),null);
+		    g.dispose();
+		}
 				
 	}
 
@@ -58,6 +74,15 @@ public class Div extends JPanel { // Quadrado pequeno Tabuleiro
 		this.largura=larg;
 		this.altura=alt;	
 		return;
+	}
+	
+	public void setImagemFundo(String caminho, int x , int y) {
+		
+		this.ix=x;
+		this.iy=y;
+		this.referencia = new ImageIcon(caminho);
+		this.fundo= referencia.getImage();
+		return ;
 	}
 
 	public float getpX() {
@@ -88,4 +113,10 @@ public class Div extends JPanel { // Quadrado pequeno Tabuleiro
 		this.setBackground(this.getColor());
 	}
 	
+	public int getIX() {
+		return ix;
+	}
+	public int getIY() {
+		return iy;
+	}
 }

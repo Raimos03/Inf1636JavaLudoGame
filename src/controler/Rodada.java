@@ -30,6 +30,7 @@ public class Rodada {
 		
 		facade.IniciaJogo();
 		
+		
 		// Enquando nao ha um vencedor
 		
 		
