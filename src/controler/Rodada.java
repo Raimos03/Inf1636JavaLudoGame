@@ -34,22 +34,22 @@ public class Rodada {
 		// Enquando nao ha um vencedor
 		
 		
-		System.out.println("opcao>");
-		Scanner sc = new Scanner(System.in);
-		int opcao = sc.nextInt();
-		
-				
-		if (opcao ==4) {		
-//			Div nq = Fv.getDivs(1);
-//			nq.setBackground(Color.orange);
-//			nq.repaint();
-			
-		
-						
-		}
+//		System.out.println("opcao>");
+//		Scanner sc = new Scanner(System.in);
+//		int opcao = sc.nextInt();
+//		
+//				
+//		if (opcao ==4) {		
+////			Div nq = Fv.getDivs(1);
+////			nq.setBackground(Color.orange);
+////			nq.repaint();
+//			
+//		
+//						
+//		}
 		
 	
-		sc.close();
+//		sc.close();
 	}
 	
 	public void setFrameView(FrameView nfv) {

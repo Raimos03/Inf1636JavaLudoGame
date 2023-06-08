@@ -53,6 +53,9 @@ public class FrameView extends JFrame{ // Canvas
 		
 		int ajustaXpainelInfo=3;
 		int ajustaYpainelInfo=-2;
+		
+		int ajusataXCompDireita=-10;
+		int ajusataXCompEsquerda=+5;
 			
 		setSize(LARG_DEFAULT,ALT_DEFAULT);
 		setResizable(false);
@@ -83,7 +86,7 @@ public class FrameView extends JFrame{ // Canvas
 		Div PainelDado = new Div(0,0,167,144,Color.LIGHT_GRAY);
 		
 		// x e y -> 262 x 255
-		PainelDado.setBounds(262,255,(int) PainelDado.getLargura(),(int)PainelDado.getAltura());
+		PainelDado.setBounds(ajusataXCompDireita+262,255,(int) PainelDado.getLargura(),(int)PainelDado.getAltura());
 		PainelDado.setBackground(PainelDado.getColor());
 		
 		
@@ -92,7 +95,7 @@ public class FrameView extends JFrame{ // Canvas
 		// add Dado e Botao de rolar o dado
 		
 		Dado_graf VDado = new Dado_graf(); 
-		VDado.setBounds(5,10,500,500);		
+		VDado.setBounds(ajusataXCompDireita+5,10,500,500);		
 		
 		 // Inicializa o desenho do dado
 		VDado.pinta_dado(-1);
@@ -100,7 +103,7 @@ public class FrameView extends JFrame{ // Canvas
 		
 		
 		JBotao bJogaDado = new JBotao("Jogue o dado"); // botao Jogar dado
-		bJogaDado.setBounds(262,422,167,70);
+		bJogaDado.setBounds(ajusataXCompDireita+262,422,167,70);
 		bJogaDado.setBorder(new RoundedBorder(7));
 		bJogaDado.setBackground(new Color(37,220,40));
 		bJogaDado.setPressedBackgroundColor(new Color(101,254,3));
@@ -128,6 +131,36 @@ public class FrameView extends JFrame{ // Canvas
 		BLoadGame.setPressedBackgroundColor(new Color(100,200,251));
 		BLoadGame.setHoverBackgroundColor(new Color(248,246,246));
 		
+		
+		
+		Div InfPlayer = new Div(162,560,167,120,new Color(244,239,239));//new Color(244,239,239)
+		InfPlayer.setBounds(ajusataXCompDireita+262,560,167,60);
+		InfPlayer.setBackground(PainelDado.getColor());
+		
+		
+		PainelPlayer CorPlayer = new PainelPlayer(162,550,167,120);//new Color(244,239,239)
+		CorPlayer.setBounds(ajusataXCompDireita+272,570,147,40);
+		CorPlayer.setBackground(CorPlayer.getColor());
+		
+		Div InfTexto = new Div(35,300,167,400,new Color(244,239,239));//new Color(244,239,239)
+		InfTexto.setBounds(ajusataXCompEsquerda+45,255,167,365);
+		InfTexto.setBackground(InfTexto.getColor());
+		
+		
+		
+		
+		// add textos
+		
+		JLabel labelCorPlayer = new JLabel("Jogador da vez");
+        JLabel labelDado = new JLabel("Dado");
+        JLabel labelInfo = new JLabel("Informações");
+        JLabel labelMenu = new JLabel("Menu");
+        labelCorPlayer.setBounds(ajusataXCompDireita+263,520,100,20);
+        labelDado.setBounds(ajusataXCompDireita+263,212,100,20);
+        labelInfo.setBounds(ajusataXCompEsquerda+45,200,100,20);
+        labelMenu.setBounds(263,100,100,20);
+		
+		
 
 
 		// criacao das Divisoes
@@ -136,7 +169,7 @@ public class FrameView extends JFrame{ // Canvas
 		jp2.setBounds(470,0,10,700);
 		jp3.setBounds(480,0,700,700);
 		
-		
+		InfPlayer.add(CorPlayer);
 		
 		// adicionando filhos aos paineis Pai
 		
@@ -175,11 +208,17 @@ public class FrameView extends JFrame{ // Canvas
 		layers.add(BSalvar,0);
 		layers.add(BNovoJogo,0);
 		layers.add(BLoadGame,0);
-		
-
+		layers.add(InfPlayer,0);
+		layers.add(CorPlayer,0);
+		layers.add(labelMenu,0);
+		layers.add(labelInfo,0);
+		layers.add(labelDado,0);
+		layers.add(labelCorPlayer,0);
+		layers.add(InfTexto,0);
 		
 		
 		layers.add(bJogaDado, 0); 
+		
 		
 		
 				
@@ -216,6 +255,9 @@ public class FrameView extends JFrame{ // Canvas
                 
                 Tb.redesenha((Graphics2D)Tb.getGraphics(),263+(44*numeroInteiro) ,alet);
                 VDado.GeraDado(numeroInteiro,(Graphics2D)VDado.getGraphics());
+                
+               
+                CorPlayer.proximaCorPlayer();
                 
             }
 
