@@ -3,18 +3,22 @@ package view;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import java.util.Scanner;
+
 
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.JLayeredPane;
-import javax.swing.border.Border;
+
+
+
 import java.util.Random;
 
 
 // apenas para sortear o dado
 
 public class FrameView extends JFrame{ // Canvas 
+	
+	
 	
 	private final int LARG_DEFAULT = 1200; // Constantes de tamanho	- largura
 	private final int ALT_DEFAULT = 700; // Constantes de tamanho - altura
@@ -41,8 +45,6 @@ public class FrameView extends JFrame{ // Canvas
 	
 	// Menus cima e baixo com conteudo
 	
-	//public Div menuCimaMaster = new Div(0,0,425,150, Color.yellow);
-	//public Div menuBaixoMaster = new Div(0,0,425,500, Color.white);
 	public Div menuCimaMaster = new Div(new Color(106,138,222));
 	public Div menuBaixoMaster = new Div(Color.white);
 	
@@ -61,6 +63,11 @@ public class FrameView extends JFrame{ // Canvas
 		setResizable(false);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
+		// criacao das Divisoes
+		
+		jp1.setBounds(0,0,470,700);
+		jp2.setBounds(470,0,10,700);
+		jp3.setBounds(480,0,700,700);
 	
 		
 //		layers.setSize(new Dimension(1200,700));
@@ -89,9 +96,7 @@ public class FrameView extends JFrame{ // Canvas
 		PainelDado.setBounds(ajusataXCompDireita+262,255,(int) PainelDado.getLargura(),(int)PainelDado.getAltura());
 		PainelDado.setBackground(PainelDado.getColor());
 		
-		
-		
-		
+			
 		// add Dado e Botao de rolar o dado
 		
 		Dado_graf VDado = new Dado_graf(); 
@@ -163,11 +168,7 @@ public class FrameView extends JFrame{ // Canvas
 		
 
 
-		// criacao das Divisoes
-			
-		jp1.setBounds(0,0,470,700);
-		jp2.setBounds(470,0,10,700);
-		jp3.setBounds(480,0,700,700);
+		
 		
 		InfPlayer.add(CorPlayer);
 		
@@ -193,11 +194,7 @@ public class FrameView extends JFrame{ // Canvas
 		
 		
 		
-//		layers.add(jp1,Integer.valueOf(5)); // menor, mais em cima
-//		layers.add(jp2,Integer.valueOf(3)); // de 10 em 10
-
-		
-
+//		layers.add(jp1,Integer.valueOf(5)); // menor, mais em cima, ideal
 		
 		// add menus ao layer
 	
@@ -214,20 +211,15 @@ public class FrameView extends JFrame{ // Canvas
 		layers.add(labelInfo,0);
 		layers.add(labelDado,0);
 		layers.add(labelCorPlayer,0);
-		layers.add(InfTexto,0);
-		
-		
+		layers.add(InfTexto,0);				
 		layers.add(bJogaDado, 0); 
 		
 		
 		
-				
-		// add o layer no Frame
-		
+		// add layer no frame
 		getContentPane().add(layers);
 		
-		
-		
+
 		// ---------------------- Eventos ------------------
 		
 		

@@ -7,8 +7,8 @@ import java.awt.Graphics;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
+
+
 
 public class JBotao extends JButton { // botao customizado 
 

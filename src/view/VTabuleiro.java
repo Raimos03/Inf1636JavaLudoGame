@@ -3,9 +3,38 @@ package view;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom. *;
-import controler.*
+import controler.*;
+import java.awt.Color;
 ;
-public class VTabuleiro extends JPanel  {
+
+
+public class VTabuleiro extends JPanel implements IPeao,ICoordenada {
+	
+	private Color CorVermelhoPeao = new Color(250,53,53);
+	private Color CorVerdePeao = new Color(104,250,53);
+	private Color CorAmareloPeao = new Color(250,218,53);
+	private Color CorAzulPeao = new Color(53,84,250);
+	
+	private static VCoordenada[] vCasaComum = new VCoordenada[52]; 
+	private static VCoordenada[] vCasaVitoriaVermelha = new VCoordenada[6];  
+	private static VCoordenada[] vCasaVitoriaVerde = new VCoordenada[6]; 
+	private static VCoordenada[] vCasaVitoriaAmarela = new VCoordenada[6]; 
+	private static VCoordenada[] vCasaVitoriaAzul = new VCoordenada[6]; 
+	private static Casa[] vCasasModificadas = new Casa[52];
+	
+	
+	static double[] XPosicaoInicialVermelho= {75.5,154,75.5,154}; // matriz
+	static double[] YPosicaoInicialVermelho= {75,75,153,153}; //  posicoes iniciais ok
+	
+	static double[] XPosicaoInicialVerde= {471,549,471,549};
+	static double[] YPosicaoInicialVerde= {75,75,153,153};
+	
+	static double[] XPosicaoInicialAmarelo= {471,549,471,549};
+	static double[] YPosicaoInicialAmarelo= {469,469,548,548};
+	
+	static double[] XPosicaoInicialAzul= {75.5,154,75.5,154};
+	static double[] YPosicaoInicialAzul= {469,469,548,548};
+	
 	
 	//----------------- testes
 	
@@ -22,10 +51,12 @@ public class VTabuleiro extends JPanel  {
 
 	public Observer o = new Observer(268, 400);
 	
-	private static Color[] vCores = {Color.red,Color.green,Color.yellow,Color.blue};
+	private static Color[] vCores = {new Color(232,9,9),new Color(158,251,6),new Color(252,227,0),new Color(13,168,247)};
 	//private Color vCoordenadaInicial	
+	
+	
 	VTabuleiro(){
-		
+		InicializaVcasas();
 	}
 	
 
@@ -47,10 +78,12 @@ public class VTabuleiro extends JPanel  {
 		// Cria Peao
 		
 		
-		DCriaPeoes(g2d, o.getx(), o.gety());
-		//DCriaPeoes(g2d); // Falta implementar de todas as cores -- antigo
 		
 		
+		DCriaPeoesInicio(g2d); // Falta implementar de todas as cores -- antigo
+		
+		
+		//DCriaPeao(g2d, o.getx(), o.gety());
 		
 		//mover peao
 		
@@ -59,6 +92,178 @@ public class VTabuleiro extends JPanel  {
 		
 		
 	}
+	
+	public VCoordenada[] getvCasaComum() {
+		return vCasaComum;
+	}
+
+	public void setvCasaComum(VCoordenada[] vCasaComum) {
+		VTabuleiro.vCasaComum = vCasaComum;
+	}
+
+
+	public VCoordenada[] getvCasaVitoriaVermelha() {
+		return vCasaVitoriaVermelha;
+	}
+	public VCoordenada[] getvCasaVitoriaVerde() {
+		return vCasaVitoriaVerde;
+	}
+	public VCoordenada[] getvCasaVitoriaAmarela() {
+		return vCasaVitoriaAmarela;
+	}
+	public VCoordenada[] getvCasaVitoriaAzul() {
+		return vCasaVitoriaAzul;
+	}
+
+
+	public void setvCasaVitoriaAmarela(VCoordenada[] vCasaVitoria) {
+		VTabuleiro.vCasaVitoriaAmarela = vCasaVitoria;
+	}
+	
+	public void setvCasaVitoriaVermelha(VCoordenada[] vCasaVitoria) {
+		VTabuleiro.vCasaVitoriaVermelha = vCasaVitoria;
+	}
+	public void setvCasaVitoriaAzul(VCoordenada[] vCasaVitoria) {
+		VTabuleiro.vCasaVitoriaAzul = vCasaVitoria;
+	}
+	public void setvCasaVitoriaVerde(VCoordenada[] vCasaVitoria) {
+		VTabuleiro.vCasaVitoriaVerde = vCasaVitoria;
+	}
+	
+	
+	
+	public static VCoordenada[] getVcasasComuns(){
+		
+		return VTabuleiro.vCasaComum;
+	}
+	public static VCoordenada[] getVRoadVermelha(){
+				
+		return VTabuleiro.vCasaVitoriaVermelha;
+	}
+	public static VCoordenada[] getVRoadVerde(){
+		
+		return VTabuleiro.vCasaVitoriaVerde;	
+	}
+	public static VCoordenada[] getVRoadAmarela(){
+		
+		return VTabuleiro.vCasaVitoriaAmarela;	
+	}
+	public static VCoordenada[] getVRoadAzul(){
+				
+		return VTabuleiro.vCasaVitoriaAzul;			
+	}
+	
+	public static Casa[] getVCasasModificadas(){
+		
+		return VTabuleiro.vCasasModificadas;			
+	}
+
+
+	public void InicializaVcasas() { // salva as posicoes x e y do tabuleiro em todos os vetores de posicao
+		
+		int i=0;
+		double x=263;
+		double y=0;
+		double larg=43.8;
+		
+		int andax=1;
+		int sinalx=1;
+		int sinaly=1;
+		int pulameio=1;
+		
+		for(i=0;i<52;i++) {
+			
+			if(i==1) { // preenche Victory road verde
+				preencheVroad(x,y+larg,vCasaVitoriaVerde,0,1);
+			}
+			else if (i==2) {
+				andax=0;
+			}
+			else if (i==7) { // casas onde viro
+				andax=1;					
+			}
+			else if (i==13) {
+				andax=0;
+			}				
+			else if (i==14) {
+				preencheVroad(x-larg,y,vCasaVitoriaAmarela,1,-1);
+			}
+			else if (i==15) {
+				andax=1;
+				sinalx=-1;
+			}
+			else if (i==20) {
+				andax=0;
+				pulameio=-1;					
+			}
+			else if (i==26) {
+				andax=1;
+			}
+			else if (i==27) {
+				preencheVroad(x,y-larg,vCasaVitoriaAzul,0,-1);
+			}				
+			else if (i==28) {
+				andax=0;
+				sinaly=-1;
+			}
+			else if (i==33) {
+				andax=1;										
+			}
+			else if (i==39) {
+				andax=0;
+				sinalx=1;
+			}			
+			else if (i==40) {
+				preencheVroad(x+larg,y,vCasaVitoriaVermelha,1,1);
+			}
+			else if (i==41) {
+				andax=1;
+				pulameio=1;					
+			}
+			else if (i==46) {
+				andax=0;
+			}	
+//			System.out.println(""+i+"\t"+x+" "+y);		// debug casa e posicao x y 		
+			vCasaComum[i]= new VCoordenada(x,y);
+			
+			if (i==7|| i==20 || i==33 || i==46) {									
+				if(andax==1) {
+					y+=larg*pulameio;
+					x+=larg*sinalx;	
+					}
+				else {
+					x+=larg*pulameio;
+					y+=larg*sinaly;
+					}
+			}			
+			else {		
+				if(andax==1) { // anda em x
+					x+=larg*sinalx;					
+					}					
+				else {					
+					y+=larg*sinaly;
+					}	
+				}
+			}						
+	}
+	
+	public void preencheVroad(Double x, Double y, VCoordenada[] vroad, int direcao, int sinal ) {			
+	
+		int i =0;					
+		for(i=0;i<6;i++) {			
+			//System.out.println("\t\t"+i+"\t"+x+" "+y);
+			vroad[i]= new VCoordenada(x,y);
+			
+			if (direcao==1) { // anda x			
+				x+=43.8*sinal;
+			}				
+			else { // anda y					
+				y+=43.8*sinal;
+			}					
+		}	
+		return ;
+	}
+
 		
 	public void DCasaInicial(Graphics2D g2d) {		
 		//largura = 263
@@ -554,30 +759,56 @@ public class VTabuleiro extends JPanel  {
 	
 	
 	
-//	public void DCriaPeoes(Graphics2D g2d){
-//		
-//		//Total 16 peoes
-//
-//		Color[] vCores= VTabuleiro.getVCores();	
-//		DCriaPeao(g2d, 268,51,new Color(53,84,250));
-//	
-//	}
-	
-	public void DCriaPeoes(Graphics2D g2d, int x, int y){
-	
+	public void DCriaPeao(Graphics2D g2d,int x, int y){
 		
-	//Total 16 peoes
+		//Total 16 peoes
 
-	Color[] vCores= VTabuleiro.getVCores();	
-	DCriaPeao(g2d,x,y,new Color(53,84,250));
+		
+		DCriaPeao(g2d, 268,51,new Color(53,84,250));
+	
+	}
+	
 
-}
+	
+	public void DCriaPeoesInicio(Graphics2D g2d){
+
+		int x;
+		int y;
+		int i;
+		
+		// fazer em funcao do observer
+		for (i=0;i<4;i++) {	
+			x = (int) XPosicaoInicialVermelho[i];
+			y = (int) YPosicaoInicialVermelho[i];	
+			DCriaPeao(g2d,x,y, CorVermelhoPeao);	
+			}
+			
+		for (i=0;i<4;i++) {
+			x = (int) XPosicaoInicialVerde[i];
+			y = (int) YPosicaoInicialVerde[i];	
+			DCriaPeao(g2d,x,y, CorVerdePeao);
+		}
+		
+		for (i=0;i<4;i++) {
+			x = (int) XPosicaoInicialAmarelo[i];
+			y = (int) YPosicaoInicialAmarelo[i];	
+			DCriaPeao(g2d,x,y, CorAmareloPeao);
+		}
+		
+		for (i=0;i<4;i++) {
+			x = (int) XPosicaoInicialAzul[i];
+			y = (int) YPosicaoInicialAzul[i];		
+			DCriaPeao(g2d,x,y, CorAzulPeao);
+		}
+		return;
+	}
+	
 	public void move_peao(int x, int y) {
         o.move(x, y);
         repaint();
     }
 	
-	public void DCriaPeao(Graphics2D g2d,float x, float y,Color c) {
+	public void DCriaPeao(Graphics2D g2d,int x, int y,Color c) {
 		
 		// Raio maior padrao =35
 		// largura padrao (quadrado) 20
@@ -667,4 +898,279 @@ public class VTabuleiro extends JPanel  {
 
         //repaint();
     }
+
+
+	
+	
+	@Override
+	public double getX1() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public void setX1(double x1) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public double getY1() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public void setY1(double y1) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void setP1(double x, double y) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public boolean eIgualCoordenada(ICoordenada n) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	@Override
+	public int getId() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public int getIntCor() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public int getCorId() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public boolean isNoTabuleiro() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	@Override
+	public void setNoTabuleiro(boolean noTabuleiro) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public ICoordenada getXY() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public void setXY(ICoordenada n) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public int getPosicao() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public void setPosicao(int posicao) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public boolean isCasaSaida() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	@Override
+	public void setCasaSaida(boolean casaSaida) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public boolean isCasaInicial() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	@Override
+	public void setCasaInicial(boolean casaInicial) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public boolean isBarreira() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	@Override
+	public void setBarreira(boolean barreira) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public boolean isAbrigo() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	@Override
+	public void setAbrigo(boolean abrigo) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public boolean isCasaFinal() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	@Override
+	public void setCasaFinal(boolean casaFinal) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public ICoordenada getPosicaoCasaSaidaVermelho() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public void setPosicaoCasaSaidaVermelho(ICoordenada posicaoCasaSaidaVermelho) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public ICoordenada getPosicaoCasaSaidaVerde() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public void setPosicaoCasaSaidaVerde(ICoordenada posicaoCasaSaidaVerde) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public ICoordenada getPosicaoCasaSaidaAmarelo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public void setPosicaoCasaSaidaAmarelo(ICoordenada posicaoCasaSaidaAmarelo) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public ICoordenada getPosicaoCasaSaidaAzul() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public void setPosicaoCasaSaidaAzul(ICoordenada posicaoCasaSaidaAzul) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public String getCorS(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public boolean eCoordenadaIgual(IPeao p) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	@Override
+	public int getIndiceCor(String s) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public ICoordenada getCoordenadaInicialSCor(String cor) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public boolean MoveCasaSaida() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	@Override
+	public int MovePeao(int dado) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

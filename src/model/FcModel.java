@@ -14,6 +14,9 @@ public class FcModel { // Facade
 	public void  CriaDado() {		
 		this.dado = new Dado();
 	}
+	public int getFaceDado() {
+		return dado.get_face();
+	}
 	public Dado getDado () {
 		return this.dado;
 	}
@@ -57,7 +60,7 @@ public class FcModel { // Facade
 		round.nextRound();		
 		return ;
 	}
-	public void MovePeao() { // move peao
+	public void MovePeao(Peao p, int x, int y ) { // move peao IMPLEMENTAR
 
 	}	
 	public boolean VerificaRegras() {

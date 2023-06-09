@@ -21,29 +21,28 @@ class Peao {
 	
 	// casa para saida de cada cor
 	
-	static Coordenada PosicaoCasaSaidaVermelho = new Coordenada(43.99999,262.7999); 
-	static Coordenada PosicaoCasaSaidaVerde = new Coordenada(350.6,43.8);
-	static Coordenada PosicaoCasaSaidaAmarelo = new Coordenada(569.6,350.40);
-	static Coordenada PosicaoCasaSaidaAzul = new Coordenada(263,569.4);
+	static Coordenada PosicaoCasaSaidaVermelho = new Coordenada(43.99999,262.7999); // OK
+	static Coordenada PosicaoCasaSaidaVerde = new Coordenada(350.6,43.8); // OK
+	static Coordenada PosicaoCasaSaidaAmarelo = new Coordenada(569.6,350.40); //OK
+	static Coordenada PosicaoCasaSaidaAzul = new Coordenada(263,569.4); //OK
 
 	//--------------------
-	
-	
+		
 	private Player PlayerPai;
 	private int Id;
 	private int IntCor;
 	
 	private Coordenada xy= new Coordenada();	//coordenada onde esta no tabuleiro
-	private int Posicao=-1;         // posicao no vetor do tabuleiro, inicia no indice da casa de saida 
+	private int Posicao=-1;         // -1 (casa inicial) 0.. - primeirca casa tabuleiro  posicao no vetor do tabuleiro, inicia no indice da casa de saida 
 	
-	private boolean NoTabuleiro=false; // false indica que esta na parte inicial dos peoes
+
+	
 	private boolean CasaSaida=false;  // casa de saida de cada cor
 	private boolean CasaInicial=true;  // assim que nasce o peao e começa o jogo
 	
-	private boolean Barreira=false;
-	private boolean Abrigo=false;
+	private boolean Barreira=false; // esta na barreira
+	private boolean Abrigo=false;  //esta no abrigo
 	private boolean CasaFinal=false; // victory road
-	
 	
 	
 	public Peao (String scor, Player pai) {
@@ -51,9 +50,7 @@ class Peao {
 		this.PlayerPai=pai;
 		this.Id = idPeao;	
 		this.IntCor=getIndiceCor(scor);
-				
-		this.NoTabuleiro=false;
-		
+	
 		this.xy = getCoordenadaInicialSCor(Peao.getCorS(IntCor));
 		
 		this.CasaSaida=false;
@@ -64,48 +61,32 @@ class Peao {
 		
 	}
 	
-	
-	
 	public int getId() {
 		return Id;
 	}
 
-//	public void setId(int id) {
-//		Id = id;
-//	}
 	
 	public int getIntCor() {
 		return this.IntCor;
 	}
 
-//	public void setIntCor(int indice) {
-//		this.IntCor=indice;
-//	}
-
 	public int getCorId() {
 		return IntCor;
 	}
 
-//	public void setCorId(int cor) {
-//		IntCor = cor;
-//	}
-
 	public boolean isNoTabuleiro() {
-		return NoTabuleiro;
-	}
-
-	public void setNoTabuleiro(boolean noTabuleiro) {
-		NoTabuleiro = noTabuleiro;
+		if (this.CasaInicial==true) {
+			return true;
+		}
+		return false;
 	}
 
 	public Coordenada getXY() {
 		return xy;
 	}
-
 	public void setXY(Coordenada n) {
 		this.xy = n;
 	}
-
 
 	public int getPosicao() {
 		return Posicao;
@@ -123,16 +104,18 @@ class Peao {
 		CasaSaida = casaSaida;
 	}
 
-	public boolean isCasaInicial() {
-		return CasaInicial;
-	}
-
 	public void setCasaInicial(boolean casaInicial) {
 		CasaInicial = casaInicial;
 	}
+	
+	
+	public boolean isCasaInicial() {
+		return this.CasaInicial;
+	}
 
 	public boolean isBarreira() {
-		return Barreira;
+		
+		return this.Barreira;
 	}
 
 	public void setBarreira(boolean barreira) {
@@ -140,7 +123,7 @@ class Peao {
 	}
 
 	public boolean isAbrigo() {
-		return Abrigo;
+		return this.Abrigo;
 	}
 
 	public void setAbrigo(boolean abrigo) {
@@ -153,7 +136,8 @@ class Peao {
 	}
 	
 	public boolean isCasaFinal() {
-		return CasaFinal;
+		
+		return this.CasaFinal;
 	}
 
 
@@ -282,23 +266,19 @@ class Peao {
 		int idsaidaPeao= this.getCorId();
 		Coordenada nova;
 			
-		if (this.NoTabuleiro==false) {
+		if (this.Posicao==-1) {
 			
 			if (idsaidaPeao==0){
 				
-				nova = Peao.PosicaoCasaSaidaVermelho;
-				
+				nova = Peao.PosicaoCasaSaidaVermelho;			
 			}
 			else if (idsaidaPeao==1) {
-				nova = Peao.PosicaoCasaSaidaVerde;
-				
+				nova = Peao.PosicaoCasaSaidaVerde;			
 			}
-			else if (idsaidaPeao==2) {
-				
+			else if (idsaidaPeao==2) {			
 				nova = Peao.PosicaoCasaSaidaAmarelo;
 			}
-			else {
-				
+			else {			
 				nova = Peao.PosicaoCasaSaidaAzul;
 			}
 			
@@ -312,9 +292,7 @@ class Peao {
 		}		
 		return false;
 	}
-	
-	
-	
+
 	
 	public int MovePeao(int dado) { // Jogada normal
 		

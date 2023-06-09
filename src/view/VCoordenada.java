@@ -1,18 +1,18 @@
-package model;
+package view;
 
 import controler.ICoordenada;
 
-class Coordenada implements ICoordenada{
+class VCoordenada implements ICoordenada {
 	
 	private double x1;
 	private double y1;
 
-	Coordenada (){		
+	VCoordenada (){		
 		this.x1=0;
 		this.y1=0;
 	}
 
-	Coordenada (double x, double y ){
+	VCoordenada (double x, double y ){
 		
 		x1=x;
 		y1=y;		
@@ -40,9 +40,9 @@ class Coordenada implements ICoordenada{
 
 	
 	// comparaçao de coordenadas recebe dois objetos
-	public boolean eIgualCoordenada( ICoordenada n) {
+	public boolean eIgualCoordenada( VCoordenada n) {
 		
-		if (this.x1== n.getX1() && this.y1 == n.getY1()){
+		if (this.x1== n.x1 && this.y1 == n.y1){
 			return true;
 		}
 		
@@ -52,8 +52,15 @@ class Coordenada implements ICoordenada{
 	public String ExibeCoordenadas() {
 		return "\tX:"+this.getX1()+ "\n\tY:"+this.getY1(); 
 	}
-	
 
+	@Override
+	public boolean eIgualCoordenada(ICoordenada n) {
+		if (this.x1== n.getX1() && this.y1 == n.getY1()){
+			return true;
+		}
+		
+		return false;
+	}
 	
 	// funcao que converte coordenada em point awt
 	

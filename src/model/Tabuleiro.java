@@ -1,17 +1,16 @@
 package model;
 
+
 class Tabuleiro {
 
-		private double[] Area = new double[2];
+		//private double[] Area = new double[2];
 		
-		private static Coordenada[] vCasaComum = new Coordenada[52];
-		private static Coordenada[] vCasaVitoriaVermelha = new Coordenada[6];
-		private static Coordenada[] vCasaVitoriaVerde = new Coordenada[6];
-		private static Coordenada[] vCasaVitoriaAmarela = new Coordenada[6];
-		private static Coordenada[] vCasaVitoriaAzul = new Coordenada[6];
-		private static Casa[] vCasasModificadas = new Casa[52];
-		
-		
+		private static Coordenada[] vCasaComum = new Coordenada[52]; // fica na view
+		private static Coordenada[] vCasaVitoriaVermelha = new Coordenada[6];  // fica na view
+		private static Coordenada[] vCasaVitoriaVerde = new Coordenada[6]; // fica na view
+		private static Coordenada[] vCasaVitoriaAmarela = new Coordenada[6]; // fica na view
+		private static Coordenada[] vCasaVitoriaAzul = new Coordenada[6]; // fica na view
+	
 		
 		public Tabuleiro () { // inicializo as coordenadas
 			
@@ -41,13 +40,13 @@ class Tabuleiro {
 		}
 		
 
-		public double[] getArea() {
-			return Area;
-		}
-
-		public void setArea(double[] area) {
-			Area = area;
-		}
+//		public double[] getArea() {
+//			return Area;
+//		}
+//
+//		public void setArea(double[] area) {
+//			Area = area;
+//		}
 
 		public Coordenada[] getvCasaComum() {
 			return vCasaComum;
@@ -109,10 +108,7 @@ class Tabuleiro {
 			return Tabuleiro.vCasaVitoriaAzul;			
 		}
 		
-		public static Casa[] getVCasasModificadas(){
-			
-			return Tabuleiro.vCasasModificadas;			
-		}
+
 
 
 		public void InicializaVcasas() { // salva as posicoes x e y do tabuleiro em todos os vetores de posicao

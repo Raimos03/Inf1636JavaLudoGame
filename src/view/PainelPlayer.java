@@ -55,22 +55,4 @@ class PainelPlayer extends JPanel {
 		return ;
 	}
 	
-
-//	
-//	public void paintComponent(Graphics g) {
-//		
-//		
-//		super.paintComponent(g);
-//		Graphics2D g2d=(Graphics2D) g;
-//		
-//		//Retangulo
-//		
-//		Rectangle2D rt = new Rectangle2D.Float(this.x,this.y,this.larg,this.alt);
-//		g2d.setPaint(this.cor);
-//		g2d.fill(rt);
-//	}
-	
-	
-	
-	
 }
