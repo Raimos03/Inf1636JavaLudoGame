@@ -70,8 +70,8 @@ public class Rodada implements Observador {
 		System.out.println("Cliquei para sortear o dado");
 		this.dadoRodada=facade.JogaDado();
 		System.out.println(dadoRodada);
-		fv.setNumeroDado(dadoRodada);
-		MovePeao(1,dadoRodada);
+		fv.setNumeroDado(dadoRodada); // atualizar imagem dado
+		MovePeao(8,dadoRodada);
 	}
 	
 	

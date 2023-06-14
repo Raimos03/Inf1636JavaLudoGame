@@ -30,7 +30,7 @@ class Regra {
 //					p.setXY(Peao.getPosicaoCasaSaidaVermelho());
 //				}
 //				else if (p.getIntCor()==1) { //verde
-//					p.setXY(Peao.getPosicaoCasaSaidaVerde());
+//					p.setXY(Peao.getPosicaoCasaSaidaVerde());                 *** atualizar toda essa parte
 //				}
 //				else if (p.getIntCor()==2) {
 //					p.setXY(Peao.getPosicaoCasaSaidaAmarelo());
@@ -87,7 +87,7 @@ class Regra {
 					}
 					
 					
-					pEscolhido.MovePeao(dado);	// move depois de escolhido			
+					//pEscolhido.MovePeao(dado);	// move depois de escolhido		**atualizar	
 				}					
 			}			
 		}	
