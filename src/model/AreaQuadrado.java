@@ -1,6 +1,6 @@
 package model;
 
-public class AreaQuadrado {
+class AreaQuadrado {
 	private Coordenada p1;
 	private Coordenada p2;
 	

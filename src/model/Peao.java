@@ -1,23 +1,26 @@
 package model;
+import controler.IPeao;
+import controler.ICoordenada;
 
-class Peao {
+class Peao implements IPeao, ICoordenada {
 	
 	
-	static int idPeao=0;
+	static int idTotPeao=0;
 	
 	static String[] cores ={"vermelho","verde","amarelo","azul"}; //talvez tenha que excluir
 	
-	static double[] XPosicaoInicialVermelho= {1.0,2.0,5.0,6.0}; //como se fosse matriz
-	static double[] YPosicaoInicialVermelho= {1.0,2.0,5.0,6.0}; // posicoes ficticias para iniciarmos
 	
-	static double[] XPosicaoInicialVerde= {3.0,4.0,7.0,8.0};
-	static double[] YPosicaoInicialVerde= {3.0,4.0,7.0,8.0};
+	static double[] XPosicaoInicialVermelho= {75.5,154,75.5,154}; // matriz
+	static double[] YPosicaoInicialVermelho= {75,75,153,153}; //  posicoes iniciais ok
 	
-	static double[] XPosicaoInicialAmarelo= {9.0,10.0,13.0,14.0};
-	static double[] YPosicaoInicialAmarelo= {9.0,10.0,13.0,14.0};
+	static double[] XPosicaoInicialVerde= {471,549,471,549};
+	static double[] YPosicaoInicialVerde= {75,75,153,153};
 	
-	static double[] XPosicaoInicialAzul= {11.0,12.0,15.0,16.0};
-	static double[] YPosicaoInicialAzul= {11.0,12.0,15.0,16.0};
+	static double[] XPosicaoInicialAmarelo= {471,549,471,549};
+	static double[] YPosicaoInicialAmarelo= {469,469,548,548};
+	
+	static double[] XPosicaoInicialAzul= {75.5,154,75.5,154};
+	static double[] YPosicaoInicialAzul= {469,469,548,548};
 	
 	// casa para saida de cada cor
 	
@@ -32,7 +35,7 @@ class Peao {
 	private int Id;
 	private int IntCor;
 	
-	private Coordenada xy= new Coordenada();	//coordenada onde esta no tabuleiro
+	private ICoordenada xy;	//coordenada onde esta no tabuleiro
 	private int Posicao=-1;         // -1 (casa inicial) 0.. - primeirca casa tabuleiro  posicao no vetor do tabuleiro, inicia no indice da casa de saida 
 	
 
@@ -48,10 +51,10 @@ class Peao {
 	public Peao (String scor, Player pai) {
 		
 		this.PlayerPai=pai;
-		this.Id = idPeao;	
+		this.Id = idTotPeao;	
 		this.IntCor=getIndiceCor(scor);
 	
-		this.xy = getCoordenadaInicialSCor(Peao.getCorS(IntCor));
+		this.xy =new Coordenada() ; //getCoordenadaInicialSCor(Peao.getCorS(IntCor));
 		
 		this.CasaSaida=false;
 		this.CasaInicial=false;
@@ -70,8 +73,11 @@ class Peao {
 		return this.IntCor;
 	}
 
+	public String getCor() {
+		return cores[this.IntCor];
+	}
 	public int getCorId() {
-		return IntCor;
+		return this.IntCor ;
 	}
 
 	public boolean isNoTabuleiro() {
@@ -81,7 +87,7 @@ class Peao {
 		return false;
 	}
 
-	public Coordenada getXY() {
+	public ICoordenada getXY() {
 		return xy;
 	}
 	public void setXY(Coordenada n) {
@@ -130,9 +136,8 @@ class Peao {
 		Abrigo = abrigo;
 	}
 
-	public static void ContabilizaPeao() {
-		
-		idPeao++;
+	public static void ContabilizaPeao() {	
+		idTotPeao++;
 	}
 	
 	public boolean isCasaFinal() {
@@ -152,19 +157,12 @@ class Peao {
 	}
 	
 	
-	public static Coordenada getPosicaoCasaSaidaVermelho() {
-		return PosicaoCasaSaidaVermelho;
-	}
-
 
 	public static void setPosicaoCasaSaidaVermelho(Coordenada posicaoCasaSaidaVermelho) {
 		PosicaoCasaSaidaVermelho = posicaoCasaSaidaVermelho;
 	}
 
 
-	public static Coordenada getPosicaoCasaSaidaVerde() {
-		return PosicaoCasaSaidaVerde;
-	}
 
 
 	public static void setPosicaoCasaSaidaVerde(Coordenada posicaoCasaSaidaVerde) {
@@ -172,19 +170,11 @@ class Peao {
 	}
 
 
-	public static Coordenada getPosicaoCasaSaidaAmarelo() {
-		return PosicaoCasaSaidaAmarelo;
-	}
-
 
 	public static void setPosicaoCasaSaidaAmarelo(Coordenada posicaoCasaSaidaAmarelo) {
 		PosicaoCasaSaidaAmarelo = posicaoCasaSaidaAmarelo;
 	}
 
-
-	public static Coordenada getPosicaoCasaSaidaAzul() {
-		return PosicaoCasaSaidaAzul;
-	}
 
 
 	public static void setPosicaoCasaSaidaAzul(Coordenada posicaoCasaSaidaAzul) {
@@ -199,7 +189,7 @@ class Peao {
 
 
 	// metodo estatico que retorna a cor
-	public static String getCorS(int id) {	
+	public  String getCorIntS(int id) {	
 		return cores[id];
 	}
 	
@@ -233,68 +223,10 @@ class Peao {
 	}
 	
 	
-		// metodo que recebe a posicao iniciar pela cor  e pelo idgeral
-	public Coordenada getCoordenadaInicialSCor(String cor) {
-		
-			Coordenada nova= new Coordenada();
-			int i = this.getIntCor(); //cor do peao			
-						
-			if (i==0)  {
-				
-				nova.setX1(Peao.XPosicaoInicialVermelho[i]);
-				nova.setY1(Peao.YPosicaoInicialVermelho[i]);
-				
-			}		
-			else if (i==1) {			
-				nova.setX1(Peao.XPosicaoInicialVerde[i]);
-				nova.setY1(Peao.YPosicaoInicialVerde[i]);
-				
-			}	
-			else if(i==2) {					
-				nova.setX1(Peao.XPosicaoInicialAmarelo[i]);
-				nova.setY1(Peao.YPosicaoInicialAmarelo[i]);
-			}					
-			else if (i==3) {			
-				nova.setX1(Peao.XPosicaoInicialAzul[i]);
-				nova.setY1(Peao.YPosicaoInicialAzul[i]);
-			}				
-			return nova;
-	}
-	
-	public boolean MoveCasaSaida() {
-		
-		int idsaidaPeao= this.getCorId();
-		Coordenada nova;
-			
-		if (this.Posicao==-1) {
-			
-			if (idsaidaPeao==0){
-				
-				nova = Peao.PosicaoCasaSaidaVermelho;			
-			}
-			else if (idsaidaPeao==1) {
-				nova = Peao.PosicaoCasaSaidaVerde;			
-			}
-			else if (idsaidaPeao==2) {			
-				nova = Peao.PosicaoCasaSaidaAmarelo;
-			}
-			else {			
-				nova = Peao.PosicaoCasaSaidaAzul;
-			}
-			
-			//seta a nova posicao para o peao
-			this.setXY(nova);	
-			this.CasaSaida=true;
-		}
-		
-		else {
-			System.out.println("O peao ja esta no tabuleiro. Impossivel mover para saida");
-		}		
-		return false;
-	}
+
 
 	
-	public int MovePeao(int dado) { // Jogada normal
+	public int MovePeao(int dado, Coordenada nc) { // Jogada normal
 		
 		//int posicaoAtual=this.getPosicao();		
 		//this.setPosicao(posicaoAtual+dado);	
@@ -305,8 +237,12 @@ class Peao {
 		
 		if (this.CasaFinal==false) { // casas normais
 			
-			this.setPosicao(posicaoatual+dado);		
-			this.setXY(Tabuleiro.getVcasasComuns()[posicaoatual]);
+			if( posicaoatual+dado>=52) {
+				this.setPosicao((posicaoatual+dado)-52);	
+			}
+			
+			this.setPosicao(posicaoatual+dado);				
+			this.setXY(nc);
 		}
 		
 		
@@ -316,6 +252,146 @@ class Peao {
 		
 		
 		return 1;
+	}
+	
+	public void Exibe() {
+		
+		System.out.println("\t Cor:" + this.getCor());
+		System.out.println("\t\tIDPeao:"+ Peao.idTotPeao +"\n\t\tid:"+this.getId()+"\n\t\t"+"Posicao tb:"+this.getPosicao());
+		System.out.println("\t\t X:"+ this.getXY().getX1());
+		System.out.println("\t\t Y:"+ this.getXY().getY1());
+		System.out.println("------");
+	}
+//	
+//	@Override
+//	public int getPosicaox() {
+//		// TODO Auto-generated method stub
+//		int x = (int) this.getXY().getX1();
+//		
+//		return x;
+//	}
+//
+//
+//	@Override
+//	public int getPosicaoy() {
+//		// TODO Auto-generated method stub
+//		int y =(int) this.getXY().getY1();
+//		return y;
+//	}
+
+
+	@Override
+	public void setNoTabuleiro(boolean noTabuleiro) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setXY(ICoordenada n) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public String getCorS(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean eCoordenadaIgual(IPeao p) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public ICoordenada getCoordenadaInicialSCor(String cor) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean MoveCasaSaida() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public int MovePeao(int idpeao, int dado) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void setXY(double x1, double x2) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public double getX1() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void setX1(double x1) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public double getY1() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void setY1(double y1) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public boolean eIgualCoordenada(ICoordenada n) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public ICoordenada getPosicaoCasaSaidaVermelho() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ICoordenada getPosicaoCasaSaidaVerde() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ICoordenada getPosicaoCasaSaidaAmarelo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ICoordenada getPosicaoCasaSaidaAzul() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+
+	// ----- ICOORDENADA
+	
+	@Override
+	public String ExibeCoordenadas() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

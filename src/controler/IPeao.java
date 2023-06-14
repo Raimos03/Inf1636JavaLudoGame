@@ -1,15 +1,19 @@
 package controler;
 
-
 public interface IPeao {
 
 	public int getId();
 
 	public int getIntCor();
+	
+	public String getCorIntS(int id);
 
-	public int getCorId();
+	public String getCor();
+	
+	public int getCorId(); // duplicada
 
 	public boolean isNoTabuleiro();
+	
 	public void setNoTabuleiro(boolean noTabuleiro);
 
 	public ICoordenada getXY();
@@ -17,6 +21,10 @@ public interface IPeao {
 	public void setXY(ICoordenada n);
 
 	public int getPosicao();
+	
+//	public int getPosicaox();
+//	
+//	public int getPosicaoy();
 
 	public void setPosicao(int posicao);
 
@@ -46,33 +54,29 @@ public interface IPeao {
 	
 	public ICoordenada getPosicaoCasaSaidaVermelho();
 
-	public  void setPosicaoCasaSaidaVermelho(ICoordenada posicaoCasaSaidaVermelho);
-
 	public  ICoordenada getPosicaoCasaSaidaVerde();
-
-	public void setPosicaoCasaSaidaVerde(ICoordenada posicaoCasaSaidaVerde);
 
 	public  ICoordenada getPosicaoCasaSaidaAmarelo();
 
-	public void setPosicaoCasaSaidaAmarelo(ICoordenada posicaoCasaSaidaAmarelo);
-
 	public ICoordenada getPosicaoCasaSaidaAzul();
 
-	public void setPosicaoCasaSaidaAzul(ICoordenada posicaoCasaSaidaAzul);
-
-	
 	
 	
 	public  String getCorS(int id);
+	
 	public boolean eCoordenadaIgual(IPeao p); 
+	
 	public int getIndiceCor(String s); 
 		
 	public ICoordenada getCoordenadaInicialSCor(String cor); 
+	
 	public boolean MoveCasaSaida();
 	
 	
+	public int MovePeao(int idpeao, int dado); 
 	
-	public int MovePeao(int dado); 
+	public void Exibe();
+
 
 }
 	

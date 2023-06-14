@@ -24,21 +24,21 @@ class Regra {
 						
 			if (rPeoesSaida == 1 && rPeoesAtivos ==1) {
 						
-				//atualizo o peao
+				//atualizo o peao  // modificar
 				
-				if (p.getIntCor()==0) { //vermelho				
-					p.setXY(Peao.getPosicaoCasaSaidaVermelho());
-				}
-				else if (p.getIntCor()==1) { //verde
-					p.setXY(Peao.getPosicaoCasaSaidaVerde());
-				}
-				else if (p.getIntCor()==2) {
-					p.setXY(Peao.getPosicaoCasaSaidaAmarelo());
-				}
-				else {
-					p.setXY(Peao.getPosicaoCasaSaidaAzul());
-					
-				}
+//				if (p.getIntCor()==0) { //vermelho				
+//					p.setXY(Peao.getPosicaoCasaSaidaVermelho());
+//				}
+//				else if (p.getIntCor()==1) { //verde
+//					p.setXY(Peao.getPosicaoCasaSaidaVerde());
+//				}
+//				else if (p.getIntCor()==2) {
+//					p.setXY(Peao.getPosicaoCasaSaidaAmarelo());
+//				}
+//				else {
+//					p.setXY(Peao.getPosicaoCasaSaidaAzul());
+//					
+//				}
 				
 				p.setCasaSaida(true);
 				p.setCasaInicial(true);

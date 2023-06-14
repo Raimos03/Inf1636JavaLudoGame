@@ -10,6 +10,8 @@ class Tabuleiro {
 		private static Coordenada[] vCasaVitoriaVerde = new Coordenada[6]; // fica na view
 		private static Coordenada[] vCasaVitoriaAmarela = new Coordenada[6]; // fica na view
 		private static Coordenada[] vCasaVitoriaAzul = new Coordenada[6]; // fica na view
+		
+		Object[] vPeao = new Object[16];
 	
 		
 		public Tabuleiro () { // inicializo as coordenadas
@@ -108,7 +110,11 @@ class Tabuleiro {
 			return Tabuleiro.vCasaVitoriaAzul;			
 		}
 		
-
+		public void setVpeoes(Object[] vp){
+			
+			this.vPeao=vp;
+			return;
+		}
 
 
 		public void InicializaVcasas() { // salva as posicoes x e y do tabuleiro em todos os vetores de posicao

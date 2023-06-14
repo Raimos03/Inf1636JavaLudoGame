@@ -3,37 +3,45 @@ package view;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom. *;
+import java.util.ArrayList;
+
 import controler.*;
+
+
 import java.awt.Color;
 ;
 
 
-public class VTabuleiro extends JPanel implements IPeao,ICoordenada {
+public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observado {
 	
-	private Color CorVermelhoPeao = new Color(250,53,53);
-	private Color CorVerdePeao = new Color(104,250,53);
-	private Color CorAmareloPeao = new Color(250,218,53);
-	private Color CorAzulPeao = new Color(53,84,250);
-	
-	private static VCoordenada[] vCasaComum = new VCoordenada[52]; 
-	private static VCoordenada[] vCasaVitoriaVermelha = new VCoordenada[6];  
-	private static VCoordenada[] vCasaVitoriaVerde = new VCoordenada[6]; 
-	private static VCoordenada[] vCasaVitoriaAmarela = new VCoordenada[6]; 
-	private static VCoordenada[] vCasaVitoriaAzul = new VCoordenada[6]; 
-	private static Casa[] vCasasModificadas = new Casa[52];
+	private static Color[] vCores = {new Color(218,36,28),new Color(5,191,89),new Color(255,243,0),new Color(03,148,222)};
+	private Color[] vCoresPeao = {new Color(250,53,53),new Color(104,250,53),new Color(250,218,53),new Color(53,84,250)};
 	
 	
-	static double[] XPosicaoInicialVermelho= {75.5,154,75.5,154}; // matriz
-	static double[] YPosicaoInicialVermelho= {75,75,153,153}; //  posicoes iniciais ok
+	private static VCoordenada[] vCasaComum = new VCoordenada[52]; //OK
+	private static VCoordenada[] vCasaVitoriaVermelha = new VCoordenada[6];  //OK
+	private static VCoordenada[] vCasaVitoriaVerde = new VCoordenada[6];  //OK
+	private static VCoordenada[] vCasaVitoriaAmarela = new VCoordenada[6];  //OK
+	private static VCoordenada[] vCasaVitoriaAzul = new VCoordenada[6];  //OK
+//	private static Casa[] vCasasModificadas = new Casa[52];
 	
-	static double[] XPosicaoInicialVerde= {471,549,471,549};
-	static double[] YPosicaoInicialVerde= {75,75,153,153};
 	
-	static double[] XPosicaoInicialAmarelo= {471,549,471,549};
-	static double[] YPosicaoInicialAmarelo= {469,469,548,548};
+	public static double[] XPosicaoInicialVermelho= {75.5,154,75.5,154}; // matriz
+	public static double[] YPosicaoInicialVermelho= {75,75,153,153}; //  posicoes iniciais ok
 	
-	static double[] XPosicaoInicialAzul= {75.5,154,75.5,154};
-	static double[] YPosicaoInicialAzul= {469,469,548,548};
+	public static double[] XPosicaoInicialVerde= {471,549,471,549};
+	public static double[] YPosicaoInicialVerde= {75,75,153,153};
+	
+	public static double[] XPosicaoInicialAmarelo= {471,549,471,549};
+	public static double[] YPosicaoInicialAmarelo= {469,469,548,548};
+	
+	public static double[] XPosicaoInicialAzul= {75.5,154,75.5,154};
+	public static double[] YPosicaoInicialAzul= {469,469,548,548};
+	
+	public static VCoordenada PosicaoCasaSaidaVermelho = new VCoordenada(43.99999,262.7999); // OK
+	public static VCoordenada PosicaoCasaSaidaVerde = new VCoordenada(350.6,43.8); // OK
+	public static VCoordenada PosicaoCasaSaidaAmarelo = new VCoordenada(569.6,350.40); //OK
+	public static VCoordenada PosicaoCasaSaidaAzul = new VCoordenada(263,569.4); //OK
 	
 	
 	//----------------- testes
@@ -41,22 +49,28 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada {
 	private int xt=268;
 	private int yt=90;
 	
+	
 	//-----------------
 	
 	private static float largura=660;
 	private static float altura=660;
 	private static float larguraCasaInicial= 263;
-	private static float espacoEntreCasaInicial= 132;
-	private static float deslocamentoCasaInicial = larguraCasaInicial + espacoEntreCasaInicial;
+//	private static float espacoEntreCasaInicial= 132;
+//	private static float deslocamentoCasaInicial = larguraCasaInicial + espacoEntreCasaInicial;
 
-	public Observer o = new Observer(268, 400);
+	private ArrayList<Observador> lobs = new ArrayList<>(); 
+	private Object[] vpeoes = new Object[16];
+	private Object[] vcasas = new Object[52];
 	
-	private static Color[] vCores = {new Color(232,9,9),new Color(158,251,6),new Color(252,227,0),new Color(13,168,247)};
-	//private Color vCoordenadaInicial	
+	IPeao peao;
+	ICoordenada icord;
 	
+	//public Observer o = new Observer(268, 400);
+
 	
 	VTabuleiro(){
-		InicializaVcasas();
+		InicializaVCoordenadas();
+		//InicializaVcasas();
 	}
 	
 
@@ -72,18 +86,27 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada {
 		DCasaVitoriaCentro(g2d);
 		DCasas(g2d);
 		
-		// Cria triangulos
 		
 		
-		// Cria Peao
+		//DCriaPeoesInicio(g2d, vpeoes);
 		
+		if (!(vpeoes[0]==null)) {
+			
+			int i=0;
+			for (i=0;i<16;i++) {
+				
+				peao = (IPeao) vpeoes[i];
+				icord = peao.getXY();
 		
-		
-		
-		DCriaPeoesInicio(g2d); // Falta implementar de todas as cores -- antigo
-		
+				DCriaPeao(g2d,(int)icord.getX1(),(int)icord.getY1(),vCoresPeao[peao.getIntCor()]);
+				
+				
+			}
+		}
 		
 		//DCriaPeao(g2d, o.getx(), o.gety());
+		
+		//DCriaPeao(g2d,this.xt,this.yt);
 		
 		//mover peao
 		
@@ -91,6 +114,10 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada {
 		
 		
 		
+	}
+	
+	public void setVpeoes(Object[] vp) {
+		this.vpeoes = vp;
 	}
 	
 	public VCoordenada[] getvCasaComum() {
@@ -153,13 +180,13 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada {
 		return VTabuleiro.vCasaVitoriaAzul;			
 	}
 	
-	public static Casa[] getVCasasModificadas(){
-		
-		return VTabuleiro.vCasasModificadas;			
-	}
+//	public static Casa[] getVCasasModificadas(){
+//		
+//		return VTabuleiro.vCasasModificadas;			
+//	}
 
 
-	public void InicializaVcasas() { // salva as posicoes x e y do tabuleiro em todos os vetores de posicao
+	public void InicializaVCoordenadas() { // salva as posicoes x e y do tabuleiro em todos os vetores de posicao
 		
 		int i=0;
 		double x=263;
@@ -759,52 +786,29 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada {
 	
 	
 	
-	public void DCriaPeao(Graphics2D g2d,int x, int y){
-		
-		//Total 16 peoes
+//	public void DCriaPeao(Graphics2D g2d,int x, int y){
+//		
+//		//Total 16 peoes
+//
+//		
+//		DCriaPeao(g2d, x,y,new Color(53,84,250));
+//	
+//	}
+	
+
+	
+	public void  setPeoesCasaInicial( ){
 
 		
-		DCriaPeao(g2d, 268,51,new Color(53,84,250));
-	
-	}
-	
-
-	
-	public void DCriaPeoesInicio(Graphics2D g2d){
-
-		int x;
-		int y;
-		int i;
 		
-		// fazer em funcao do observer
-		for (i=0;i<4;i++) {	
-			x = (int) XPosicaoInicialVermelho[i];
-			y = (int) YPosicaoInicialVermelho[i];	
-			DCriaPeao(g2d,x,y, CorVermelhoPeao);	
-			}
-			
-		for (i=0;i<4;i++) {
-			x = (int) XPosicaoInicialVerde[i];
-			y = (int) YPosicaoInicialVerde[i];	
-			DCriaPeao(g2d,x,y, CorVerdePeao);
-		}
-		
-		for (i=0;i<4;i++) {
-			x = (int) XPosicaoInicialAmarelo[i];
-			y = (int) YPosicaoInicialAmarelo[i];	
-			DCriaPeao(g2d,x,y, CorAmareloPeao);
-		}
-		
-		for (i=0;i<4;i++) {
-			x = (int) XPosicaoInicialAzul[i];
-			y = (int) YPosicaoInicialAzul[i];		
-			DCriaPeao(g2d,x,y, CorAzulPeao);
-		}
+		repaint();
 		return;
 	}
 	
 	public void move_peao(int x, int y) {
-        o.move(x, y);
+        //o.move(x, y);
+        this.xt=x;
+        this.yt=y;
         repaint();
     }
 	
@@ -820,7 +824,7 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada {
 		
 
 		Ellipse2D b1 = new Ellipse2D.Float(x, y, raioCMaior,raioCMaior); // Base maior
-//		e1.setFrame(rt2); colocando em outro frame	
+		//e1.setFrame(rt2); colocando em outro frame	
 		g2d.setStroke(new BasicStroke(2));
 		g2d.setPaint(c);
 		g2d.fill(b1);
@@ -833,8 +837,7 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada {
 		g2d.fill(rt1);
 		g2d.setPaint(Color.black);
 		g2d.draw(rt1);
-		
-			
+					
 		Ellipse2D b2 = new Ellipse2D.Float(x+5, y-15, raioCMenor,raioCMenor); // Base cabeça	
 		g2d.setStroke(new BasicStroke(1));
 		g2d.setPaint(c);
@@ -897,10 +900,118 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada {
         //e1.setFrame(0, e1.getY(), e1.getWidth(), e1.getHeight());
 
         //repaint();
+		
+		
+		
     }
 
-
 	
+//	public void setPeaotb() {
+//		
+//		
+//	}
+	
+	public Color encontraCor(String s) {
+		
+		Color c;
+		if (s.equals("vermelho")) {
+			c=vCores[0];
+		}
+		else if (s.equals("verde")) {
+			c=vCores[1];
+		}
+		else if (s.equals("amarelo")) {
+			c=vCores[2];
+		}	
+		else {
+			c=vCores[3];
+		}	
+		return c; 
+	}
+	
+	public void dBarreiraMesmaCor(Graphics2D g2d,int x, int y,String s) {
+				
+			Color c= encontraCor(s);
+						
+			// Raio maior padrao =35
+			// largura padrao (quadrado) 20
+			// Raio menor padrao = 10
+			
+			float raioCMaior=40;
+			float raioCMenor=25;			
+
+			Ellipse2D b1 = new Ellipse2D.Float(x, y, raioCMaior,raioCMaior); // Base maior
+			//e1.setFrame(rt2); colocando em outro frame	
+			g2d.setStroke(new BasicStroke(2));
+			g2d.setPaint(c);
+			//g2d.fill(b1);
+			g2d.setPaint(c);
+			g2d.draw(b1);
+			
+				
+			Ellipse2D b2 = new Ellipse2D.Float(x+7, y+7, raioCMenor,raioCMenor); // Base cabeça	
+			g2d.setStroke(new BasicStroke(1));
+			g2d.setPaint(c);
+			g2d.fill(b2);
+			g2d.setPaint(c);
+			g2d.draw(b2);						
+	}
+	
+	public void dBarreiraCorDiferente(Graphics2D g2d,int x, int y,String s, String s2) {
+			
+			Color c= encontraCor(s);
+			Color c2= encontraCor(s2);
+						
+			// Raio maior padrao =35
+			// largura padrao (quadrado) 20
+			// Raio menor padrao = 10
+			
+			float raioCMaior=40;
+			float raioCMenor=25;			
+
+			Ellipse2D b1 = new Ellipse2D.Float(x, y, raioCMaior,raioCMaior); // Base maior
+			//e1.setFrame(rt2); colocando em outro frame	
+			g2d.setStroke(new BasicStroke(2));
+			g2d.setPaint(c);
+			g2d.fill(b1);
+			g2d.setPaint(c);
+			g2d.draw(b1);
+			
+				
+			Ellipse2D b2 = new Ellipse2D.Float(x+7, y+7, raioCMenor,raioCMenor); // Base cabeça	
+			g2d.setStroke(new BasicStroke(1));
+			g2d.setPaint(c2);
+			g2d.fill(b2);
+			g2d.setPaint(c2);
+			g2d.draw(b2);						
+	
+	}
+	
+	public int[] getCoordenadaPeaoIntXY(int i) {
+		
+		int[] vXY = new int[2]; // x e y
+		
+		
+		IPeao p = (IPeao) vpeoes[i];
+//		vXY[0]=p.getPosicaox();
+//		vXY[1]=p.getPosicaoy();
+		
+		//p.Exibe();
+		
+		return vXY;
+	}
+	
+	public void ExibeVpeao() {
+		
+		
+		for(Object p: this.vpeoes) {			
+			IPeao pe = (IPeao) p;
+			pe.Exibe();
+		}
+	}
+
+
+	// ------------ Override
 	
 	@Override
 	public double getX1() {
@@ -931,18 +1042,27 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada {
 
 
 	@Override
-	public void setP1(double x, double y) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
 	public boolean eIgualCoordenada(ICoordenada n) {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
 
+   //------ IPeao
+//	
+//	@Override
+//	public int getPosicaox() {
+//		// TODO Auto-generated method stu
+//		
+//		return 0;
+//	}
+//
+//
+//	@Override
+//	public int getPosicaoy() {
+//		// TODO Auto-generated method stub
+//		return 0;
+//	}
 
 	@Override
 	public int getId() {
@@ -1085,23 +1205,9 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada {
 
 
 	@Override
-	public void setPosicaoCasaSaidaVermelho(ICoordenada posicaoCasaSaidaVermelho) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
 	public ICoordenada getPosicaoCasaSaidaVerde() {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-
-	@Override
-	public void setPosicaoCasaSaidaVerde(ICoordenada posicaoCasaSaidaVerde) {
-		// TODO Auto-generated method stub
-		
 	}
 
 
@@ -1110,26 +1216,18 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
-	@Override
-	public void setPosicaoCasaSaidaAmarelo(ICoordenada posicaoCasaSaidaAmarelo) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	
 
 	@Override
 	public ICoordenada getPosicaoCasaSaidaAzul() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
+	
 	@Override
-	public void setPosicaoCasaSaidaAzul(ICoordenada posicaoCasaSaidaAzul) {
+	public String getCor() {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 
@@ -1169,8 +1267,83 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada {
 
 
 	@Override
-	public int MovePeao(int dado) {
+	public int MovePeao(int peao, int dado) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
+	@Override
+	public void Exibe() {
+		// TODO Auto-generated method stub
+		System.out.println("\t Cor:" + peao.getCor());
+		System.out.println("\t\tID:"+peao.getId()+"\n\t\t"+"Posicao tb:"+peao.getPosicao());
+//		System.out.println("\t\t X:"+peao.getPosicaox());
+//		System.out.println("\t\t Y:"+peao.getPosicaoy());
+		System.out.println("------// --");
+	}
+	
+
+
+	
+	// ------------------------ Observer
+
+	@Override
+	public void addObserver(Observador o) {
+		// TODO Auto-generated method stub
+		lobs.add(o);
+	}
+
+
+	@Override
+	public void removeObserver(Observador o) {
+		// TODO Auto-generated method stub
+		lobs.remove(o);
+	}
+
+
+	@Override
+	public Object getDados() {
+		// TODO Auto-generated method stub
+		return this;
+	}
+
+
+	@Override
+	public void Notify() {
+		// TODO Auto-generated method stub
+		for( Observador obj : this.lobs) {
+			obj.update();
+		}
+	}
+
+
+	@Override
+	public String getCorIntS(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	//----- Coordenadas
+	
+	@Override
+	public void setXY(double x1, double x2) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public String ExibeCoordenadas() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	
+
+	
+
+
+
+
 }

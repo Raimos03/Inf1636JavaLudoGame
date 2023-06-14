@@ -33,11 +33,6 @@ class Coordenada implements ICoordenada{
 		this.y1 = y1;
 	}
 		
-	public void setP1(double x, double y) {
-		this.x1=x;
-		this.y1=y;
-	}
-
 	
 	// comparaçao de coordenadas recebe dois objetos
 	public boolean eIgualCoordenada( ICoordenada n) {
@@ -51,6 +46,12 @@ class Coordenada implements ICoordenada{
 	
 	public String ExibeCoordenadas() {
 		return "\tX:"+this.getX1()+ "\n\tY:"+this.getY1(); 
+	}
+
+	@Override
+	public void setXY(double x1, double x2) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 

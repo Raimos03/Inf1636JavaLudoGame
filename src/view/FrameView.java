@@ -7,16 +7,13 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 import java.awt.*;
-import javax.swing.JLayeredPane;
-
-
-
+import java.util.ArrayList;
 import java.util.Random;
-
+import controler.*;
 
 // apenas para sortear o dado
 
-public class FrameView extends JFrame{ // Canvas 
+public class FrameView extends JFrame implements Observado{ // Canvas 
 	
 	
 	
@@ -31,7 +28,7 @@ public class FrameView extends JFrame{ // Canvas
 	
 	public final int Div3_inicio = 483;  // board 483 ate 1200
 	public final int Div3_final = 1200;
-
+	
 	
 	
 	
@@ -39,19 +36,21 @@ public class FrameView extends JFrame{ // Canvas
 	public Div jp2 = new Div(470,0,10,700,Color.GREEN);
 	public Div jp3 = new Div(480,0,700,700,Color.RED);	// Tabuleiro
 	
-	
-	public JLayeredPane layers = new JLayeredPane();
-	public VTabuleiro Tb;
-	
-	// Menus cima e baixo com conteudo
-	
 	public Div menuCimaMaster = new Div(new Color(106,138,222));
 	public Div menuBaixoMaster = new Div(Color.white);
 	
-	//divs menores Cima e Baixo ( botoes e rodadas)
+	private ArrayList<JBotao> vbotoes = new ArrayList<>(); //tam 52 , 0 a 51
+	public JLayeredPane layers = new JLayeredPane();
+	public VTabuleiro Tb;
+	private ArrayList<Observador> lobs = new ArrayList<>(); 
+	private int numerodado;
+	
+	
+
 	
 	
 	public FrameView(){
+	
 		
 		int ajustaXpainelInfo=3;
 		int ajustaYpainelInfo=-2;
@@ -73,13 +72,14 @@ public class FrameView extends JFrame{ // Canvas
 //		layers.setSize(new Dimension(1200,700));
 		layers.setBounds(0, 0, 1200, 700);	
 		jp1.setImagemFundo("./Images/teste2.png",470,660);
-//		jp2.setImagemFundo("./Images/teste2.png",470,660);
-//		jp3.setImagemFundo("./Images/teste2.png",470,660);
+//		jp2.setImagemFundo("./Images/teste2.png",470,660); // imagem fundo
+//		jp3.setImagemFundo("./Images/teste2.png",470,660); // imagem fundo
 		
 		
 		Tb = new VTabuleiro();		
 		Tb.setBounds(505,0,(int)VTabuleiro.getLargura(),(int)VTabuleiro.getAltura());
 		Tb.setBackground(Color.orange);
+	
 		
 		
 		menuCimaMaster.setBounds(18,15,430,150);
@@ -214,7 +214,7 @@ public class FrameView extends JFrame{ // Canvas
 		layers.add(InfTexto,0);				
 		layers.add(bJogaDado, 0); 
 		
-		
+		//addBotoesPeoes(layers);
 		
 		// add layer no frame
 		getContentPane().add(layers);
@@ -228,27 +228,31 @@ public class FrameView extends JFrame{ // Canvas
 		bJogaDado.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // codigo a ser executado quando o botao for clicado
-                System.out.println("O botão foi clicado!");
-                Random random = new Random();
-                int numeroInteiro = random.nextInt(6);//numero de 0-5
-                numeroInteiro+=1;
-                System.out.println(numeroInteiro);
+                //System.out.println("O botão foi clicado!");
+                //Random random = new Random();
+                //int numeroInteiro = random.nextInt(6);//numero de 0-5
+                //numeroInteiro+=1;
+                //System.out.println(numeroInteiro);
                 
-                int alet = random.nextInt(400);
+                
                 //pos+=numeroInteiro;
                 //System.out.println(pos);
-                //double x = Tb.getEllipse1X();//pegando a posicao
+                
                 //System.out.println(x);
-                //Tb.setEllipse1X(x + 44);//alterando-a
+                
                 
                 
                 //Tb.move_peao(263+(44*numeroInteiro),alet);
                 
                 
-                Tb.redesenha((Graphics2D)Tb.getGraphics(),263+(44*numeroInteiro) ,alet);
-                VDado.GeraDado(numeroInteiro,(Graphics2D)VDado.getGraphics());
                 
-               
+                //Tb.redesenha((Graphics2D)Tb.getGraphics(),263+(44*numeroInteiro) ,alet); ***
+                //repaint();
+                
+                
+                
+                Notify();
+                VDado.GeraDado(numerodado,(Graphics2D)VDado.getGraphics());
                 CorPlayer.proximaCorPlayer();
                 
             }
@@ -271,6 +275,10 @@ public class FrameView extends JFrame{ // Canvas
 		}
 		
 	}
+	
+	public void setNumeroDado(int n) {
+		this.numerodado=n;
+	}
 	public JLayeredPane getVLayers() {
 		return layers;
 	}	
@@ -278,7 +286,64 @@ public class FrameView extends JFrame{ // Canvas
 		return this.Tb;
 	}
 	
+	public void InicializaVBotoes() {
+		int[] pospeao = new int[2];
+		
+		int i=0;	
+		for (i=0;i<16;i++) { // procurando em vpeoes
+			
+			pospeao=Tb.getCoordenadaPeaoIntXY(i);
+			//pospeao[0]
+			//pospeao[1]
+			
+			JBotao bpeao = new JBotao("B PEAO"); // botao Jogar dado
+			bpeao.setBounds(20,20,42,42);
+			bpeao.setBackground(Color.orange);
+			bpeao.setPressedBackgroundColor(new Color(30,30,30));
+			bpeao.setHoverBackgroundColor(new Color(35,35,35));
+			vbotoes.add(bpeao);
+		}
+		return ;
+	}
 	
+	public void addBotoesPeoes(JLayeredPane l) {
+		
+		
+		for(JButton j: this.vbotoes) {
+			l.add(j,0);
+		}
+		
+		return;
+	}
+
+	@Override
+	public void addObserver(Observador o) {
+		// TODO Auto-generated method stub
+		lobs.add(o);
+	}
+
+
+	@Override
+	public void removeObserver(Observador o) {
+		// TODO Auto-generated method stub
+		lobs.remove(o);
+	}
+
+
+	@Override
+	public Object getDados() {
+		// TODO Auto-generated method stub
+		return this;
+	}
+
+
+	@Override
+	public void Notify() {
+		// TODO Auto-generated method stub
+		for( Observador obj : this.lobs) {
+			obj.update();
+		}
+	}
 	
 
 }

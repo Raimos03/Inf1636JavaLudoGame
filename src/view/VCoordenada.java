@@ -32,11 +32,7 @@ class VCoordenada implements ICoordenada {
 	public void setY1(double y1) {
 		this.y1 = y1;
 	}
-		
-	public void setP1(double x, double y) {
-		this.x1=x;
-		this.y1=y;
-	}
+
 
 	
 	// comparaçao de coordenadas recebe dois objetos
@@ -60,6 +56,12 @@ class VCoordenada implements ICoordenada {
 		}
 		
 		return false;
+	}
+
+	@Override
+	public void setXY(double x1, double x2) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	// funcao que converte coordenada em point awt

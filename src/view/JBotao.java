@@ -35,6 +35,7 @@ public class JBotao extends JButton { // botao customizado
     
     @Override
     protected void paintComponent(Graphics g) {
+    	
         if (getModel().isPressed()) {
             g.setColor(pressedBackgroundColor);
         } else if (getModel().isRollover()) {

@@ -22,12 +22,12 @@ class Player {
 			
 	}
 	
-	public void ativar_peao(int x) {
+	public void ativar_peao(int x) { // ativando peao 1 a 4
 		peoes[x - 1] = 1;
 		qtd_ativo += 1;
 	}
 	
-	public void desativar_peao(int x) {
+	public void desativar_peao(int x) { // desativando 1 a 4
 		peoes[x - 1] = 0;
 		qtd_ativo -= 1;
 	}

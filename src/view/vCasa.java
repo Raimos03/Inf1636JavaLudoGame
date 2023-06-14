@@ -1,21 +1,19 @@
-package model;
-
+package view;
 import java.util.ArrayList;
 import controler.*;
 
-
-
- class Casa implements IPeao, ICoordenada {
-	 
+public class vCasa implements IPeao, ICoordenada {
+	
 	 // Classe criada para gerenciar ocorrencias de cassas especiais como abrigo e barreira
 	 
+	 private int posicao;
 	 private boolean barreira=false;
 	 private boolean abrigo=false;
 	 private boolean temPeao=false;
 	 
 	 // ver se guardo peoes aqui dentro ou nao
 	 
-//	 ArrayList <Peao> vPeoesCasa = new ArrayList <Peao>(); 
+//		 ArrayList <Peao> vPeoesCasa = new ArrayList <Peao>(); 
 	 private Object[] vPeoesCasa=new Object[2]; // max tamanho 2
 	 
 	 // vetor com numero maximo de poes que pode ficar em uma casa
@@ -88,6 +86,20 @@ import controler.*;
 	}
 	
 	// ----- IPEAO ----OVERRIDE
+	
+//	@Override
+//	public int getPosicaox() {
+//		// TODO Auto-generated method stub
+//		return 0;
+//	}
+//
+//
+//	@Override
+//	public int getPosicaoy() {
+//		// TODO Auto-generated method stub
+//		return 0;
+//	}
+
 
 	@Override
 	public int getId() {
@@ -330,20 +342,7 @@ import controler.*;
 		// TODO Auto-generated method stub
 		return null;
 	}
+		
+		 
 
-//	@Override
-//	public int getPosicaox() {
-//		// TODO Auto-generated method stub
-//		return 0;
-//	}
-//
-//	@Override
-//	public int getPosicaoy() {
-//		// TODO Auto-generated method stub
-//		return 0;
-//	}
-//	
 }
- 
- 
- 
