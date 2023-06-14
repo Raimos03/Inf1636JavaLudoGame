@@ -233,18 +233,7 @@ public class FrameView extends JFrame implements Observado{ // Canvas
                 //int numeroInteiro = random.nextInt(6);//numero de 0-5
                 //numeroInteiro+=1;
                 //System.out.println(numeroInteiro);
-                
-                
-                //pos+=numeroInteiro;
-                //System.out.println(pos);
-                
-                //System.out.println(x);
-                
-                
-                
-                //Tb.move_peao(263+(44*numeroInteiro),alet);
-                
-                
+     
                 
                 //Tb.redesenha((Graphics2D)Tb.getGraphics(),263+(44*numeroInteiro) ,alet); ***
                 //repaint();

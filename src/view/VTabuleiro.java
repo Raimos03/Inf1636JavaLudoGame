@@ -107,11 +107,7 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observado {
 		//DCriaPeao(g2d, o.getx(), o.gety());
 		
 		//DCriaPeao(g2d,this.xt,this.yt);
-		
-		//mover peao
-		
-		// novas funcoes
-		
+			
 		
 		
 	}
@@ -796,21 +792,6 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observado {
 //	}
 	
 
-	
-	public void  setPeoesCasaInicial( ){
-
-		
-		
-		repaint();
-		return;
-	}
-	
-	public void move_peao(int x, int y) {
-        //o.move(x, y);
-        this.xt=x;
-        this.yt=y;
-        repaint();
-    }
 	
 	public void DCriaPeao(Graphics2D g2d,int x, int y,Color c) {
 		
