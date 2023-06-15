@@ -37,7 +37,9 @@ public class FrameView extends JFrame implements Observado{ // Canvas
 	public Div menuCimaMaster = new Div(new Color(106,138,222));
 	public Div menuBaixoMaster = new Div(Color.white);
 	
-	private ArrayList<JBotao> vbotoes = new ArrayList<>(); //tam 52 , 0 a 51
+	private ArrayList<JBotao> vbotoes = new ArrayList<>(); //tam 16 , 0 a 15
+	
+	
 	public JLayeredPane layers = new JLayeredPane();
 	public VTabuleiro Tb;
 	private ArrayList<Observador> lobs = new ArrayList<>(); 
@@ -134,6 +136,7 @@ public class FrameView extends JFrame implements Observado{ // Canvas
 		BLoadGame.setPressedBackgroundColor(new Color(100,200,251));
 		BLoadGame.setHoverBackgroundColor(new Color(248,246,246));
 		
+		InicializaVBotoes();
 		
 		
 		Div InfPlayer = new Div(162,560,167,120,new Color(244,239,239));//new Color(244,239,239)
@@ -209,7 +212,7 @@ public class FrameView extends JFrame implements Observado{ // Canvas
 		layers.add(InfTexto,0);				
 		layers.add(bJogaDado, 0); 
 		
-		//addBotoesPeoes(layers);
+		addBotoesPeoes(layers);
 		
 		// add layer no frame
 		getContentPane().add(layers);
@@ -221,19 +224,7 @@ public class FrameView extends JFrame implements Observado{ // Canvas
 		
 		bJogaDado.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // codigo a ser executado quando o botao for clicado
-                //System.out.println("O botão foi clicado!");
-                //Random random = new Random();
-                //int numeroInteiro = random.nextInt(6);//numero de 0-5
-                //numeroInteiro+=1;
-                //System.out.println(numeroInteiro);
-     
-                
-                //Tb.redesenha((Graphics2D)Tb.getGraphics(),263+(44*numeroInteiro) ,alet); ***
-                //repaint();
-                
-                
-                
+
                 Notify();
                 VDado.GeraDado(numerodado,(Graphics2D)VDado.getGraphics());
                 CorPlayer.proximaCorPlayer();
@@ -261,6 +252,9 @@ public class FrameView extends JFrame implements Observado{ // Canvas
 		int[] pospeao = new int[2];
 		
 		int i=0;	
+		int x=850;
+		int y=300;
+		
 		for (i=0;i<16;i++) { // procurando em vpeoes
 			
 			pospeao=Tb.getCoordenadaPeaoIntXY(i);
@@ -268,7 +262,7 @@ public class FrameView extends JFrame implements Observado{ // Canvas
 			//pospeao[1]
 			
 			JBotao bpeao = new JBotao("B PEAO"); // botao Jogar dado
-			bpeao.setBounds(20,20,42,42);
+			bpeao.setBounds(x+=5,y+=5,42,42);
 			bpeao.setBackground(Color.orange);
 			bpeao.setPressedBackgroundColor(new Color(30,30,30));
 			bpeao.setHoverBackgroundColor(new Color(35,35,35));
@@ -285,6 +279,15 @@ public class FrameView extends JFrame implements Observado{ // Canvas
 		
 		return;
 	}
+	
+	public void setPosicaoPeoesBotoes(Object[] vp) {
+		
+		int i;
+		
+		
+	}
+	
+	
 
 	// ------------------ Observer
 	@Override

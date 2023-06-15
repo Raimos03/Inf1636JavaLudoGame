@@ -42,6 +42,7 @@ public class Rodada implements Observador {
 		vTb = fv.getVTabuleiro();
 		vTb.setVpeoes(vPeao);
 		vTb.setVcasas(vCasas);
+		
 		vTb.addObserver(this);
 		fv.addObserver(this);	
 		facade.CriaDado();
@@ -77,7 +78,7 @@ public class Rodada implements Observador {
 		System.out.println(dadoRodada);
 		fv.setNumeroDado(dadoRodada); // atualizar imagem dado
 		MovePeao(8,dadoRodada);
-		MovePeao(0,dadoRodada+2);
+		MovePeao(9,dadoRodada+2);
 		MovePeao(2,dadoRodada+2);
 		MovePeao(5,dadoRodada+4);
 		MovePeao(3,5);

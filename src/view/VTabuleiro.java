@@ -99,57 +99,29 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observado, 
 				icord = peao.getXY();
 				pospeao=peao.getPosicao();
 				
-				if(pospeao!=-1) {
+				if(pospeao!=-1) { // tabuleiro
 					
 					casa=(ICasa) vcasas[peao.getPosicao()];
 					
-					if(casa.eBarreira())// for barreira ou outra configuracao{
-					{
-						
+					if(casa.eBarreira()){// for barreira ou outra configuracao{
+					
 						if(casa.QualTipoBarreira()==1) {	// mesma cor									
 							dBarreiraMesmaCor(g2d, (int)icord.getX1()-2, (int)icord.getY1()-2,casa.getCor1());
 						}
-						else { // cor diferente
-							
+						else { // cor diferente				
 							dBarreiraCorDiferente(g2d, (int)icord.getX1()-2, (int)icord.getY1()-2,casa.getCor1(),casa.getCor2());
-						}
-										
-					}			
+						}					
+					}
+					else { // se nao
+						DCriaPeao(g2d,(int)icord.getX1(),(int)icord.getY1(),vCoresPeao[peao.getIntCor()]);
+					}
+				}				
+				else { // desenha peao na casa inicial
+					DCriaPeao(g2d,(int)icord.getX1(),(int)icord.getY1(),vCoresPeao[peao.getIntCor()]);				
+							
 				}
-				
-				else {
-					DCriaPeao(g2d,(int)icord.getX1(),(int)icord.getY1(),vCoresPeao[peao.getIntCor()]);
-				}
-				//DCriaPeao(g2d,(int)icord.getX1(),(int)icord.getY1(),vCoresPeao[peao.getIntCor()]);
-			}
-			
-//			for (i=0;i<52;i++) { // desenha pelo vetor de casas 
-//				
-//				vcasa=(vCasa) vcasas[i];
-//				if(vcasa.eBarreira() ){// for barreira ou outra configuracao{
-//					
-//						//dBarreiraMesmaCor
-//						if(vcasa.qtdPeoes()==1) {
-//							
-//							dBarreiraMesmaCor(g2d,icor x, int y,String s);
-//						}
-//						else {
-//							
-//						}
-//						//dBarreiraCorDiferente					
-//				}			
-//				else {
-//						// verifica o peao e desenha (caso esteja na victory road ou nao) IMPLEMENTAR
-//						DCriaPeao(g2d,(int)icord.getX1(),(int)icord.getY1(),vCoresPeao[peao.getIntCor()]);
-//				}
-//				
-//			}
-			
-
-			
+			}		
 		}
-		
-		
 		//DCriaPeao(g2d, o.getx(), o.gety());		
 		//DCriaPeao(g2d,this.xt,this.yt);
 		
@@ -860,14 +832,14 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observado, 
 		g2d.setPaint(Color.black);
 		g2d.draw(b1);
 		
-		Rectangle2D rt1 = new Rectangle2D.Float(x+5,y-4,largQuadrado,largQuadrado);	// Base maior
+		Rectangle2D rt1 = new Rectangle2D.Float(x+5,y-2,largQuadrado,largQuadrado);	// Base maior
 		g2d.setPaint(c);
 		g2d.setStroke(new BasicStroke(1));
 		g2d.fill(rt1);
 		g2d.setPaint(Color.black);
 		g2d.draw(rt1);
 					
-		Ellipse2D b2 = new Ellipse2D.Float(x+5, y-15, raioCMenor,raioCMenor); // Base cabeça	
+		Ellipse2D b2 = new Ellipse2D.Float(x+5, y-10, raioCMenor,raioCMenor); // Base cabeça	
 		g2d.setStroke(new BasicStroke(1));
 		g2d.setPaint(c);
 		g2d.fill(b2);
@@ -960,17 +932,25 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observado, 
 			Ellipse2D b1 = new Ellipse2D.Float(x, y, raioCMaior,raioCMaior); // Base maior
 			//e1.setFrame(rt2); colocando em outro frame	
 			g2d.setStroke(new BasicStroke(2));
+			//g2d.setPaint(c);
+			//g2d.fill(b1);
+			g2d.setPaint(c.black);
+			g2d.draw(b1);
+			
+			
+			Ellipse2D b3 = new Ellipse2D.Float(x+1, y+1, raioCMaior-2,raioCMaior-2); // linha cor meio
+			//e1.setFrame(rt2); colocando em outro frame	
+			g2d.setStroke(new BasicStroke(2));
 			g2d.setPaint(c);
 			//g2d.fill(b1);
-			g2d.setPaint(c);
-			g2d.draw(b1);
+			g2d.draw(b3);
 			
 				
 			Ellipse2D b2 = new Ellipse2D.Float(x+7, y+7, raioCMenor,raioCMenor); // Base cabeça	
 			g2d.setStroke(new BasicStroke(1));
 			g2d.setPaint(c);
 			g2d.fill(b2);
-			g2d.setPaint(c);
+			//g2d.setPaint(c);
 			g2d.draw(b2);						
 	}
 	
@@ -994,6 +974,14 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observado, 
 			g2d.setPaint(c);
 			g2d.draw(b1);
 			
+			
+			Ellipse2D b3 = new Ellipse2D.Float(x, y, raioCMaior,raioCMaior); // Base maior
+			//e1.setFrame(rt2); colocando em outro frame	
+			g2d.setStroke(new BasicStroke(1));
+			//g2d.setPaint(c);
+			//g2d.fill(b1);
+			g2d.setPaint(c.DARK_GRAY);
+			g2d.draw(b3);
 				
 			Ellipse2D b2 = new Ellipse2D.Float(x+7, y+7, raioCMenor,raioCMenor); // Base cabeça	
 			g2d.setStroke(new BasicStroke(1));

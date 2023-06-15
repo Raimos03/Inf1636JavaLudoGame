@@ -150,7 +150,7 @@ import java.awt.Color;
 		
 		String b="",a="",p="";
 		System.out.println("-----c ");
-		System.out.println("\t QTD VPEOES´CASA´: "+ vCasa.vQtdPeoes[this.getPosicaoCasa()]);
+		System.out.println("\t QTD VPEOES CASA: "+ vCasa.vQtdPeoes[this.getPosicaoCasa()]);
 		System.out.println("\t PosicaoCasa: "+this.getPosicaoCasa());
 		
 		
