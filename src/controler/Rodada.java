@@ -77,6 +77,9 @@ public class Rodada implements Observador {
 		this.dadoRodada=facade.JogaDado();
 		System.out.println(dadoRodada);
 		fv.setNumeroDado(dadoRodada); // atualizar imagem dado
+		
+		//identifico o peao a ser movido
+		
 		MovePeao(8,dadoRodada);
 		MovePeao(9,dadoRodada+2);
 		MovePeao(2,dadoRodada+2);

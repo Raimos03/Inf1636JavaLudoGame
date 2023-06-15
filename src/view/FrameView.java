@@ -262,10 +262,11 @@ public class FrameView extends JFrame implements Observado{ // Canvas
 			//pospeao[1]
 			
 			JBotao bpeao = new JBotao("B PEAO"); // botao Jogar dado
-			bpeao.setBounds(x+=5,y+=5,42,42);
+			bpeao.setBounds(0,0,42,42);
 			bpeao.setBackground(Color.orange);
 			bpeao.setPressedBackgroundColor(new Color(30,30,30));
 			bpeao.setHoverBackgroundColor(new Color(35,35,35));
+			bpeao.setVisible(false);
 			vbotoes.add(bpeao);
 		}
 		return ;
@@ -287,6 +288,7 @@ public class FrameView extends JFrame implements Observado{ // Canvas
 			
 			//j.setBounds(x,y,tam,tam);
 		j.move(x+500, y);
+		j.setVisible(true);
 		
 		
 	}
