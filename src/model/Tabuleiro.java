@@ -1,7 +1,7 @@
 package model;
 
 
-class Tabuleiro {
+class Tabuleiro  {
 
 		//private double[] Area = new double[2];
 		
@@ -11,16 +11,22 @@ class Tabuleiro {
 		private static Coordenada[] vCasaVitoriaAmarela = new Coordenada[6]; // fica na view
 		private static Coordenada[] vCasaVitoriaAzul = new Coordenada[6]; // fica na view
 		
-		Object[] vPeao = new Object[16];
+		//Object[] vPeao = new Object[16];
+		private Object[] vcasas = new Object[52];
 	
 		
 		public Tabuleiro () { // inicializo as coordenadas
 			
 			InicializaVcasas();
-		
+			InicializaCasasInfo();
 		}
 		
 		// Pensar nesta soluçao
+		
+		
+		public Object[] getVcasas() {
+			return this.vcasas;
+		}
 		
 		public int getDistanciaFinal( int numero , int tipo) {
 			
@@ -109,13 +115,24 @@ class Tabuleiro {
 					
 			return Tabuleiro.vCasaVitoriaAzul;			
 		}
-		
-		public void setVpeoes(Object[] vp){
+//		
+//		public void setVpeoes(Object[] vp){
+//			
+//			this.vPeao=vp;
+//			return;
+//		}
+		public void InicializaCasasInfo() {
 			
-			this.vPeao=vp;
+			int i;
+			
+			for(i=0;i<52;i++) {
+				
+				this.vcasas[i]= new Casa(i);
+			}
+			
 			return;
 		}
-
+		
 
 		public void InicializaVcasas() { // salva as posicoes x e y do tabuleiro em todos os vetores de posicao
 			

@@ -1,22 +1,33 @@
 package view;
+import java.awt.Color;
 import java.util.ArrayList;
 import controler.*;
 
-public class vCasa implements IPeao, ICoordenada {
+public class vCasa implements ICasa {
 	
 	 // Classe criada para gerenciar ocorrencias de cassas especiais como abrigo e barreira
 	 
-	 private int posicao;
+	
+	 public static int[] vQtdPeoes = new int[52];
+	 private int posicaoCasa;
 	 private boolean barreira=false;
 	 private boolean abrigo=false;
 	 private boolean temPeao=false;
+	 private String[] vcorPeoes = new String[2];
 	 
 	 // ver se guardo peoes aqui dentro ou nao
 	 
-//		 ArrayList <Peao> vPeoesCasa = new ArrayList <Peao>(); 
-	 private Object[] vPeoesCasa=new Object[2]; // max tamanho 2
+
+	// private Object[] vPeoesCasa=new Object[2]; // max tamanho 2
 	 
 	 // vetor com numero maximo de poes que pode ficar em uma casa
+	  
+	 
+	 vCasa(int i){
+		 posicaoCasa=i;
+		 vcorPeoes[0]=null;
+		 vcorPeoes[1]=null;
+	 }
 	 
 
 	 public boolean eBarreira() {
@@ -35,15 +46,24 @@ public class vCasa implements IPeao, ICoordenada {
 		 	return false;
 	 	}
  
-	public void SetCasaAbrigo() {
+	public void SetCasaAbrigo(boolean t) {
 		 
-		this.abrigo=true;
+		this.abrigo=t;
 		return;
 	}
-	public void SetCasaBarreira() {
+	public void SetCasaBarreira(boolean t) {
 		 
-		this.barreira=true;
+		this.barreira=t;
 		return;
+	}
+	public void setCorPeao(int i, String s) {
+		this.vcorPeoes[i]=s;
+	}
+	public void setTemPeao(boolean t) {
+		this.temPeao=t;
+	}
+	public boolean getTemPeao() {
+		return this.temPeao;
 	}
 	public void ReiniciaCasa() {
 		
@@ -51,13 +71,55 @@ public class vCasa implements IPeao, ICoordenada {
 		this.barreira=false;
 		this.temPeao=false;
 		
-		vPeoesCasa[0]=null;
-		vPeoesCasa[1]=null;
-		
+		vcorPeoes[0]=null;
+		vcorPeoes[1]=null;
 		return;
+		
+	}
+	public int getQtdPeao() {
+		int posicao = this.getPosicaoCasa();
+		int qtd =  vQtdPeoes[posicao];
+		return qtd;
+	}
+	public int IncrementaPeaoCasa() {
+		int posicao = this.getPosicaoCasa();
+		int qtd= vQtdPeoes[posicao];
+		qtd++;
+		vQtdPeoes[posicao]=qtd;
+		
+		if(qtd==1) {
+			this.temPeao=true;
+		}
+		return qtd;
+	}
+	public int DecrementaPeaoCasa() {
+		int posicao = this.getPosicaoCasa();
+		int qtd= vQtdPeoes[posicao];
+		qtd--;
+		vQtdPeoes[posicao]=qtd;
+		if(qtd==0) {
+			this.temPeao=false;
+		}
+		
+		return qtd;
+	}
+	public int QualTipoBarreira() {			
+			String c1= vcorPeoes[0];			
+			if(c1.equals(vcorPeoes[1])) { // mesma cor
+				return 1;
+			}	
+			return 2; // diferentes
+		}
+	public String getCor1() {
+			
+			return this.vcorPeoes[0];
+		}
+	
+	public String getCor2() {
+			return this.vcorPeoes[1];
 	}
 	
-	public boolean CasaZerada() {
+	public boolean eCasaZerada() {
 		
 		if (this.abrigo==false && this.barreira==false && this.temPeao==false) {
 			return true;
@@ -65,284 +127,59 @@ public class vCasa implements IPeao, ICoordenada {
 		return false;
 	}
 	
-	public Object[] getVpeoesCasa() {
-		return this.vPeoesCasa;
+	public int getPosicaoCasa() {
+		
+		return this.posicaoCasa;
 	}
 	
 	
-	
-	public String ExibeStatusCasa() {
+	public void ExibeStatus() {
+		
+		String b="",a="",p="";
+		System.out.println("-----c ");
+		System.out.println("\t QTD VPEOES´CASA´: "+ vCasa.vQtdPeoes[this.getPosicaoCasa()]);
+		System.out.println("\t PosicaoCasa: "+this.getPosicaoCasa());
+		
 		
 		if (this.barreira==true) {
-			return "\t"+""+" E Barreira";
+			b= " E Barreira";
 		}		
 		else if (this.abrigo==true) {		
-			return "\t"+""+" E Abrigo";
+			a =" E Abrigo";
 		}	
 		else if (this.temPeao==true) {
-			return "\t"+""+" Tem peao";
-		}	
-		return "\t Casa Livre";	
+			p= " Tem peao";
+		}
+		
+	
+		System.out.println("\t\t"+ b + a + p);
+		
+		if(this.vcorPeoes[0]!=null) {
+			System.out.println("\t\t Cor0: "+this.getCor1());
+		}
+		if(this.vcorPeoes[1]!=null) {
+			System.out.println("\t\t Cor1: "+this.getCor2());
+		}
+		
+		System.out.println(" ----c ");
+		return ;	
+	}
+
+
+	@Override
+	public void setCasaAbrigo(boolean t) {
+		// TODO Auto-generated method stub
+		this.abrigo=t;
+	}
+
+
+	@Override
+	public void setCasaBarreira(boolean t) {
+		// TODO Auto-generated method stub
+		this.barreira=t;
 	}
 	
-	// ----- IPEAO ----OVERRIDE
 	
-//	@Override
-//	public int getPosicaox() {
-//		// TODO Auto-generated method stub
-//		return 0;
-//	}
-//
-//
-//	@Override
-//	public int getPosicaoy() {
-//		// TODO Auto-generated method stub
-//		return 0;
-//	}
-
-
-	@Override
-	public int getId() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int getIntCor() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int getCorId() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public boolean isNoTabuleiro() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void setNoTabuleiro(boolean noTabuleiro) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public ICoordenada getXY() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setXY(ICoordenada n) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public int getPosicao() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void setPosicao(int posicao) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public boolean isCasaSaida() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void setCasaSaida(boolean casaSaida) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public boolean isCasaInicial() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void setCasaInicial(boolean casaInicial) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public boolean isBarreira() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void setBarreira(boolean barreira) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public boolean isAbrigo() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void setAbrigo(boolean abrigo) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public boolean isCasaFinal() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void setCasaFinal(boolean casaFinal) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public ICoordenada getPosicaoCasaSaidaVermelho() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	
-
-	@Override
-	public ICoordenada getPosicaoCasaSaidaVerde() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	@Override
-	public ICoordenada getPosicaoCasaSaidaAmarelo() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ICoordenada getPosicaoCasaSaidaAzul() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getCorS(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean eCoordenadaIgual(IPeao p) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public int getIndiceCor(String s) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public ICoordenada getCoordenadaInicialSCor(String cor) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public void setXY(double x1, double x2) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public boolean MoveCasaSaida() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public int MovePeao(int id , int dado) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public double getX1() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void setX1(double x1) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public double getY1() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void setY1(double y1) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	
-
-	@Override
-	public boolean eIgualCoordenada(ICoordenada n) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-
-
-	@Override
-	public String getCorIntS(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getCor() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void Exibe() {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	// -- ICoordenadas
-
-	@Override
-	public String ExibeCoordenadas() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-		
 		 
 
 }

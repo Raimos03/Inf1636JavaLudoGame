@@ -12,7 +12,7 @@ import java.awt.Color;
 ;
 
 
-public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observado {
+public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observado, ICasa {
 	
 	private static Color[] vCores = {new Color(218,36,28),new Color(5,191,89),new Color(255,243,0),new Color(03,148,222)};
 	private Color[] vCoresPeao = {new Color(250,53,53),new Color(104,250,53),new Color(250,218,53),new Color(53,84,250)};
@@ -46,10 +46,9 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observado {
 	
 	//----------------- testes
 	
-	private int xt=268;
-	private int yt=90;
-	
-	
+	//private int xt=268;
+	//private int yt=90;
+		
 	//-----------------
 	
 	private static float largura=660;
@@ -64,19 +63,20 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observado {
 	
 	IPeao peao;
 	ICoordenada icord;
+	ICasa casa;
 	
 	//public Observer o = new Observer(268, 400);
 
 	
 	VTabuleiro(){
 		InicializaVCoordenadas();
-		//InicializaVcasas();
+		
 	}
 	
 
 	@Override
 	public void paintComponent(Graphics g) {		
-		// tabuleiro
+		
 		super.paintComponent(g);	
 		Graphics2D g2d=(Graphics2D) g;
 		
@@ -90,27 +90,74 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observado {
 		
 		//DCriaPeoesInicio(g2d, vpeoes);
 		
-		if (!(vpeoes[0]==null)) {
+		if (!(vpeoes[0]==null) && !(vcasas[0]==null)) { // Desenha peoes e casas
 			
+			int pospeao;
 			int i=0;
-			for (i=0;i<16;i++) {
-				
+			for (i=0;i<16;i++) {	// vpeoes		
 				peao = (IPeao) vpeoes[i];
 				icord = peao.getXY();
-		
-				DCriaPeao(g2d,(int)icord.getX1(),(int)icord.getY1(),vCoresPeao[peao.getIntCor()]);
+				pospeao=peao.getPosicao();
 				
+				if(pospeao!=-1) {
+					
+					casa=(ICasa) vcasas[peao.getPosicao()];
+					
+					if(casa.eBarreira())// for barreira ou outra configuracao{
+					{
+						
+						if(casa.QualTipoBarreira()==1) {	// mesma cor									
+							dBarreiraMesmaCor(g2d, (int)icord.getX1()-2, (int)icord.getY1()-2,casa.getCor1());
+						}
+						else { // cor diferente
+							
+							dBarreiraCorDiferente(g2d, (int)icord.getX1()-2, (int)icord.getY1()-2,casa.getCor1(),casa.getCor2());
+						}
+										
+					}			
+				}
 				
+				else {
+					DCriaPeao(g2d,(int)icord.getX1(),(int)icord.getY1(),vCoresPeao[peao.getIntCor()]);
+				}
+				//DCriaPeao(g2d,(int)icord.getX1(),(int)icord.getY1(),vCoresPeao[peao.getIntCor()]);
 			}
+			
+//			for (i=0;i<52;i++) { // desenha pelo vetor de casas 
+//				
+//				vcasa=(vCasa) vcasas[i];
+//				if(vcasa.eBarreira() ){// for barreira ou outra configuracao{
+//					
+//						//dBarreiraMesmaCor
+//						if(vcasa.qtdPeoes()==1) {
+//							
+//							dBarreiraMesmaCor(g2d,icor x, int y,String s);
+//						}
+//						else {
+//							
+//						}
+//						//dBarreiraCorDiferente					
+//				}			
+//				else {
+//						// verifica o peao e desenha (caso esteja na victory road ou nao) IMPLEMENTAR
+//						DCriaPeao(g2d,(int)icord.getX1(),(int)icord.getY1(),vCoresPeao[peao.getIntCor()]);
+//				}
+//				
+//			}
+			
+
+			
 		}
 		
-		//DCriaPeao(g2d, o.getx(), o.gety());
 		
+		//DCriaPeao(g2d, o.getx(), o.gety());		
 		//DCriaPeao(g2d,this.xt,this.yt);
 		
-		
-		
-		
+
+	}
+	
+	public void setVcasas(Object[] vc) {
+		this.vcasas=vc;
 	}
 	
 	public void setVpeoes(Object[] vp) {
@@ -863,18 +910,12 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observado {
 		return VTabuleiro.vCores;
 	}
 	
-	public void redesenha(Graphics2D g2d, int x, int y) {
+	public void redesenha(Graphics2D g2d, int x, int y) { // testar para sobrescrever
 
 //        this.xt = x;
 //        this.yt = y;
 
-//        Ellipse2D test = new Ellipse2D.Float(x, y, 50,50); // Base maior
-//        g2d.setStroke(new BasicStroke(2));
-//        g2d.setPaint(Color.white);
-//        g2d.fill(test);
-//        g2d.setPaint(Color.black);
-//        g2d.draw(test);
-        
+       
         
 //		move_peao(x,y);	
         
@@ -885,11 +926,7 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observado {
 		
     }
 
-	
-//	public void setPeaotb() {
-//		
-//		
-//	}
+
 	
 	public Color encontraCor(String s) {
 		
@@ -970,25 +1007,17 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observado {
 	public int[] getCoordenadaPeaoIntXY(int i) {
 		
 		int[] vXY = new int[2]; // x e y
-		
-		
-		IPeao p = (IPeao) vpeoes[i];
-//		vXY[0]=p.getPosicaox();
-//		vXY[1]=p.getPosicaoy();
-		
-		//p.Exibe();
-		
+				
+		IPeao p = (IPeao) vpeoes[i];			
 		return vXY;
 	}
-	
-	public void ExibeVpeao() {
-		
-		
-		for(Object p: this.vpeoes) {			
-			IPeao pe = (IPeao) p;
-			pe.Exibe();
-		}
-	}
+//	
+//	public void ExibeVpeao() {		
+//		for(Object p: this.vpeoes) {			
+//			IPeao pe = (IPeao) p;
+//			pe.Exibe();
+//		}
+//	}
 
 
 	// ------------ Override
@@ -1002,8 +1031,7 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observado {
 
 	@Override
 	public void setX1(double x1) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub		
 	}
 
 
@@ -1013,13 +1041,11 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observado {
 		return 0;
 	}
 
-
 	@Override
 	public void setY1(double y1) {
 		// TODO Auto-generated method stub
 		
 	}
-
 
 	@Override
 	public boolean eIgualCoordenada(ICoordenada n) {
@@ -1029,20 +1055,7 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observado {
 	
 
    //------ IPeao
-//	
-//	@Override
-//	public int getPosicaox() {
-//		// TODO Auto-generated method stu
-//		
-//		return 0;
-//	}
-//
-//
-//	@Override
-//	public int getPosicaoy() {
-//		// TODO Auto-generated method stub
-//		return 0;
-//	}
+
 
 	@Override
 	public int getId() {
@@ -1050,13 +1063,11 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observado {
 		return 0;
 	}
 
-
 	@Override
 	public int getIntCor() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
 
 	@Override
 	public int getCorId() {
@@ -1064,13 +1075,11 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observado {
 		return 0;
 	}
 
-
 	@Override
 	public boolean isNoTabuleiro() {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
 
 	@Override
 	public void setNoTabuleiro(boolean noTabuleiro) {
@@ -1078,13 +1087,11 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observado {
 		
 	}
 
-
 	@Override
 	public ICoordenada getXY() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 
 	@Override
 	public void setXY(ICoordenada n) {
@@ -1092,13 +1099,11 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observado {
 		
 	}
 
-
 	@Override
 	public int getPosicao() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
 
 	@Override
 	public void setPosicao(int posicao) {
@@ -1106,13 +1111,11 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observado {
 		
 	}
 
-
 	@Override
 	public boolean isCasaSaida() {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
 
 	@Override
 	public void setCasaSaida(boolean casaSaida) {
@@ -1120,13 +1123,11 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observado {
 		
 	}
 
-
 	@Override
 	public boolean isCasaInicial() {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
 
 	@Override
 	public void setCasaInicial(boolean casaInicial) {
@@ -1134,13 +1135,11 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observado {
 		
 	}
 
-
 	@Override
 	public boolean isBarreira() {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
 
 	@Override
 	public void setBarreira(boolean barreira) {
@@ -1148,13 +1147,11 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observado {
 		
 	}
 
-
 	@Override
 	public boolean isAbrigo() {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
 
 	@Override
 	public void setAbrigo(boolean abrigo) {
@@ -1162,13 +1159,11 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observado {
 		
 	}
 
-
 	@Override
 	public boolean isCasaFinal() {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
 
 	@Override
 	public void setCasaFinal(boolean casaFinal) {
@@ -1176,13 +1171,11 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observado {
 		
 	}
 
-
 	@Override
 	public ICoordenada getPosicaoCasaSaidaVermelho() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 
 	@Override
 	public ICoordenada getPosicaoCasaSaidaVerde() {
@@ -1190,14 +1183,12 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observado {
 		return null;
 	}
 
-
 	@Override
 	public ICoordenada getPosicaoCasaSaidaAmarelo() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	
-
 	@Override
 	public ICoordenada getPosicaoCasaSaidaAzul() {
 		// TODO Auto-generated method stub
@@ -1210,13 +1201,11 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observado {
 		return null;
 	}
 
-
 	@Override
 	public String getCorS(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 
 	@Override
 	public boolean eCoordenadaIgual(IPeao p) {
@@ -1224,13 +1213,11 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observado {
 		return false;
 	}
 
-
 	@Override
 	public int getIndiceCor(String s) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
 
 	@Override
 	public ICoordenada getCoordenadaInicialSCor(String cor) {
@@ -1238,13 +1225,11 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observado {
 		return null;
 	}
 
-
 	@Override
 	public boolean MoveCasaSaida() {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
 
 	@Override
 	public int MovePeao(int peao, int dado) {
@@ -1254,12 +1239,12 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observado {
 	
 	@Override
 	public void Exibe() {
-		// TODO Auto-generated method stub
-		System.out.println("\t Cor:" + peao.getCor());
-		System.out.println("\t\tID:"+peao.getId()+"\n\t\t"+"Posicao tb:"+peao.getPosicao());
-//		System.out.println("\t\t X:"+peao.getPosicaox());
-//		System.out.println("\t\t Y:"+peao.getPosicaoy());
-		System.out.println("------// --");
+//		// TODO Auto-generated method stub
+//		System.out.println("\t Cor:" + peao.getCor());
+//		System.out.println("\t\tID:"+peao.getId()+"\n\t\t"+"Posicao tb:"+peao.getPosicao());
+////		System.out.println("\t\t X:"+peao.getPosicaox());
+////		System.out.println("\t\t Y:"+peao.getPosicaoy());
+//		System.out.println("------// --");
 	}
 	
 
@@ -1272,22 +1257,16 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observado {
 		// TODO Auto-generated method stub
 		lobs.add(o);
 	}
-
-
 	@Override
 	public void removeObserver(Observador o) {
 		// TODO Auto-generated method stub
 		lobs.remove(o);
 	}
-
-
 	@Override
 	public Object getDados() {
 		// TODO Auto-generated method stub
 		return this;
 	}
-
-
 	@Override
 	public void Notify() {
 		// TODO Auto-generated method stub
@@ -1295,8 +1274,8 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observado {
 			obj.update();
 		}
 	}
-
-
+	//------------------
+	
 	@Override
 	public String getCorIntS(int id) {
 		// TODO Auto-generated method stub
@@ -1316,6 +1295,126 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observado {
 	public String ExibeCoordenadas() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	// ------- ICasas
+
+	@Override
+	public boolean eBarreira() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	@Override
+	public boolean eAbrigo() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	@Override
+	public void setCasaAbrigo(boolean t) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void setCasaBarreira(boolean t) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void ReiniciaCasa() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public int getQtdPeao() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public void setTemPeao(boolean t) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public boolean getTemPeao() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	@Override
+	public int IncrementaPeaoCasa() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public int DecrementaPeaoCasa() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public int QualTipoBarreira() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public String getCor1() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public String getCor2() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public boolean eCasaZerada() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	@Override
+	public int getPosicaoCasa() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public void ExibeStatus() {
+		// TODO Auto-generated method stub
+		return;
+	}
+
+
+	@Override
+	public void setCorPeao(int i, String s) {
+		// TODO Auto-generated method stub
+		
 	}
 
 

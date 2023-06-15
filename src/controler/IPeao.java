@@ -21,10 +21,6 @@ public interface IPeao {
 	public void setXY(ICoordenada n);
 
 	public int getPosicao();
-	
-//	public int getPosicaox();
-//	
-//	public int getPosicaoy();
 
 	public void setPosicao(int posicao);
 
@@ -50,7 +46,7 @@ public interface IPeao {
 
 	public void setCasaFinal(boolean casaFinal);
 
-	//public IPlayer getPlayerPai();
+	//public IPlayer getPlayerPai(); //**
 	
 	public ICoordenada getPosicaoCasaSaidaVermelho();
 
@@ -58,9 +54,7 @@ public interface IPeao {
 
 	public  ICoordenada getPosicaoCasaSaidaAmarelo();
 
-	public ICoordenada getPosicaoCasaSaidaAzul();
-
-	
+	public ICoordenada getPosicaoCasaSaidaAzul();	
 	
 	public  String getCorS(int id);
 	
@@ -70,8 +64,7 @@ public interface IPeao {
 		
 	public ICoordenada getCoordenadaInicialSCor(String cor); 
 	
-	public boolean MoveCasaSaida();
-	
+	public boolean MoveCasaSaida(); //** ver
 	
 	public int MovePeao(int idpeao, int dado); 
 	

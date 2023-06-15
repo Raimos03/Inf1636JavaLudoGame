@@ -22,6 +22,8 @@ public class Rodada implements Observador {
 	public VTabuleiro vTb; // view tabuleiro
 	public Object[] vPlayers;
 	public Object[] vPeao;
+	public Object[] vCasas;
+
 
 	
 	public Rodada( FrameView fv,FcModel fc) { // controle o andamento do jogo
@@ -30,6 +32,7 @@ public class Rodada implements Observador {
 		
 		this.facade=fc;
 		facade.IniciaJogo();
+		vCasas=facade.getVcasas();
 		
 		
 		vPlayers= fc.getVplayers();
@@ -38,6 +41,7 @@ public class Rodada implements Observador {
 		vPeao =  fc.getVpeoes();
 		vTb = fv.getVTabuleiro();
 		vTb.setVpeoes(vPeao);
+		vTb.setVcasas(vCasas);
 		vTb.addObserver(this);
 		fv.addObserver(this);	
 		facade.CriaDado();
@@ -49,7 +53,8 @@ public class Rodada implements Observador {
 		
 		//MovePeao(1,dadoRodada);
 		
-		vTb.ExibeVpeao();
+		//vTb.ExibeVpeao();
+		facade.ExibeVpeoes();
 
 		
 		
@@ -72,15 +77,41 @@ public class Rodada implements Observador {
 		System.out.println(dadoRodada);
 		fv.setNumeroDado(dadoRodada); // atualizar imagem dado
 		MovePeao(8,dadoRodada);
+		MovePeao(0,dadoRodada+2);
+		MovePeao(2,dadoRodada+2);
+		MovePeao(5,dadoRodada+4);
+		MovePeao(3,5);
+		MovePeao(0,5);
+		MovePeao(3,dadoRodada);
+		MovePeao(13,dadoRodada+2);
+		MovePeao(11,dadoRodada+5);
+		MovePeao(10,dadoRodada+3);
+		MovePeao(7,dadoRodada+12);
+		MovePeao(1,dadoRodada+6);
+		MovePeao(15,dadoRodada+12);
+		MovePeao(12,dadoRodada+7);
 	}
 	
+	public int encontraNovaCasaTabuleiro(int posicaoantiga, int dado) {		
+		if(posicaoantiga+dado>51) {
+			posicaoantiga=(posicaoantiga+dado)-51-1;		
+		}		
+		else {
+			posicaoantiga+=dado;
+		}		
+		return posicaoantiga;
+	}
 	
 	public void MovePeao(int i,int dado){ // numero do peao no vetor de peoes e numero do dado
 		
 		IPeao p =(IPeao) vPeao[i];
+	
+		
+		int posAntiga =facade.getPosicaoPeao(p);
+		int posTabuleiro= posAntiga;
+		//posTabuleiro=posAntiga;
 		
 		
-		int posTabuleiro=p.getPosicao();
 		if(posTabuleiro==-1) {
 			posTabuleiro=0;
 		}
@@ -90,19 +121,52 @@ public class Rodada implements Observador {
 			
 		ICoordenada[] vcoord =vTb.getvCasaComum();
 		
-		if(posTabuleiro+dado>=52) {
-			posTabuleiro=(posTabuleiro+dado)-52;		
-		}
-		
-		else {
-			posTabuleiro+=dado;
-		}
+		posTabuleiro = encontraNovaCasaTabuleiro(posTabuleiro, dado);
 		
 		ICoordenada nc= vcoord[posTabuleiro];
 		x= nc.getX1()+5;
 		y= nc.getY1()+5;
 		
-		facade.MovePeao(vPeao[i],x,y,dado);
+		facade.MovePeao(vPeao[i],x,y,dado,posTabuleiro);
+		p.Exibe();
+		
+		//vTb.dBarreiraMesmaCor((Graphics2D) vTb.getGraphics(), (int) x,(int) y, p.getCor());
+		
+		// atualiza casa
+		
+		
+		ICasa antcasa;
+		
+		if(posAntiga!=-1) {	
+			antcasa = (ICasa) vCasas[posAntiga];
+			antcasa.DecrementaPeaoCasa();
+			
+			if (antcasa.getQtdPeao()==0) {
+				antcasa.eCasaZerada();
+			}
+			
+			antcasa.ExibeStatus();
+		}
+		
+		
+		
+		
+		ICasa ncasa = (ICasa) vCasas[posTabuleiro];
+		
+		if (ncasa.getTemPeao()) {
+			ncasa.setCasaBarreira(true);
+			ncasa.setCorPeao(1, p.getCor());
+			
+		}
+		else {
+			ncasa.setTemPeao(true);
+			ncasa.setCorPeao(0, p.getCor());
+		}
+		
+		ncasa.IncrementaPeaoCasa();
+		int n=ncasa.getQtdPeao();
+		
+		ncasa.ExibeStatus();
 		
 		vTb.repaint();
 	}

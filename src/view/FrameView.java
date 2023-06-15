@@ -16,7 +16,6 @@ import controler.*;
 public class FrameView extends JFrame implements Observado{ // Canvas 
 	
 	
-	
 	private final int LARG_DEFAULT = 1200; // Constantes de tamanho	- largura
 	private final int ALT_DEFAULT = 700; // Constantes de tamanho - altura
 	
@@ -31,9 +30,8 @@ public class FrameView extends JFrame implements Observado{ // Canvas
 	
 	
 	
-	
 	public Div jp1 = new Div(0,0,470,700, Color.blue);  // Menu info
-	public Div jp2 = new Div(470,0,10,700,Color.GREEN);
+	public Div jp2 = new Div(470,0,10,700,Color.GREEN); // Divisoria meio
 	public Div jp3 = new Div(480,0,700,700,Color.RED);	// Tabuleiro
 	
 	public Div menuCimaMaster = new Div(new Color(106,138,222));
@@ -172,29 +170,26 @@ public class FrameView extends JFrame implements Observado{ // Canvas
 		
 		InfPlayer.add(CorPlayer);
 		
-		// adicionando filhos aos paineis Pai
-		
+//      adicionando filhos aos paineis Pai  **
 //		jp1.add(menuCimaMaster);
 //		jp1.add(menuBaixoMaster);	
-//		jp1.add(PainelDado);
-		
+//		jp1.add(PainelDado);		
 //		menuBaixoMaster.add(PainelDado);
 //		PainelDado.add(VDado);
 //		menuBaixoMaster.add(bJogaDado);
 		
-		
-
 	
 		// Setagem de profundidade	
 		
 		layers.add(jp1, 500); // menor, mais em cima		
-		layers.add(jp2, 70); // de 10 em 10
+		layers.add(jp2, 70); 
 		layers.add(jp3, 500);
 		layers.add(Tb,0);
 		
+	
+		//layers.add(jp1,Integer.valueOf(5)); // 
 		
 		
-//		layers.add(jp1,Integer.valueOf(5)); // menor, mais em cima, ideal
 		
 		// add menus ao layer
 	
@@ -223,7 +218,6 @@ public class FrameView extends JFrame implements Observado{ // Canvas
 		// ---------------------- Eventos ------------------
 		
 		
-		//Tb.move_peao(268,90);
 		
 		bJogaDado.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -252,18 +246,6 @@ public class FrameView extends JFrame implements Observado{ // Canvas
 		
 	}
 	
-	public Div  getDivs(int i) { //retorna as divs baseado no numero // teste	
-		
-		if (i==1){
-			return this.jp1;
-		}
-		else if (i==2){
-			return this.jp2;
-		} else {
-			return this.jp3;
-		}
-		
-	}
 	
 	public void setNumeroDado(int n) {
 		this.numerodado=n;
@@ -271,11 +253,11 @@ public class FrameView extends JFrame implements Observado{ // Canvas
 	public JLayeredPane getVLayers() {
 		return layers;
 	}	
-	public VTabuleiro getVTabuleiro() { //retorna as divs baseado no numero	
+	public VTabuleiro getVTabuleiro() { //retorna o tabuleiro
 		return this.Tb;
 	}
 	
-	public void InicializaVBotoes() {
+	public void InicializaVBotoes() { // botoes dos peoes
 		int[] pospeao = new int[2];
 		
 		int i=0;	
@@ -295,9 +277,8 @@ public class FrameView extends JFrame implements Observado{ // Canvas
 		return ;
 	}
 	
-	public void addBotoesPeoes(JLayeredPane l) {
-		
-		
+	public void addBotoesPeoes(JLayeredPane l) { // botoes peoes
+			
 		for(JButton j: this.vbotoes) {
 			l.add(j,0);
 		}
@@ -305,6 +286,7 @@ public class FrameView extends JFrame implements Observado{ // Canvas
 		return;
 	}
 
+	// ------------------ Observer
 	@Override
 	public void addObserver(Observador o) {
 		// TODO Auto-generated method stub
@@ -318,14 +300,6 @@ public class FrameView extends JFrame implements Observado{ // Canvas
 		lobs.remove(o);
 	}
 
-
-	@Override
-	public Object getDados() {
-		// TODO Auto-generated method stub
-		return this;
-	}
-
-
 	@Override
 	public void Notify() {
 		// TODO Auto-generated method stub
@@ -334,5 +308,13 @@ public class FrameView extends JFrame implements Observado{ // Canvas
 		}
 	}
 	
+	@Override
+	public Object getDados() {
+		// TODO Auto-generated method stub
+		return this;
+	}
+	
+	//---------------------
+
 
 }

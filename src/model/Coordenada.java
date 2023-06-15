@@ -12,8 +12,7 @@ class Coordenada implements ICoordenada{
 		this.y1=0;
 	}
 
-	Coordenada (double x, double y ){
-		
+	Coordenada (double x, double y ){	
 		x1=x;
 		y1=y;		
 	}
@@ -24,7 +23,6 @@ class Coordenada implements ICoordenada{
 		this.x1 = x1;
 	}
 
-
 	public double getY1() {
 		return y1;
 	}
@@ -32,8 +30,7 @@ class Coordenada implements ICoordenada{
 	public void setY1(double y1) {
 		this.y1 = y1;
 	}
-		
-	
+			
 	// comparaçao de coordenadas recebe dois objetos
 	public boolean eIgualCoordenada( ICoordenada n) {
 		
@@ -50,13 +47,7 @@ class Coordenada implements ICoordenada{
 
 	@Override
 	public void setXY(double x1, double x2) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub	
 	}
 	
-
-	
-	// funcao que converte coordenada em point awt
-	
-	//public Point2D 
 }

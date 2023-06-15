@@ -10,18 +10,6 @@ class Peao implements IPeao, ICoordenada {
 	static String[] cores ={"vermelho","verde","amarelo","azul"}; //talvez tenha que excluir
 	
 	
-	static double[] XPosicaoInicialVermelho= {75.5,154,75.5,154}; // matriz
-	static double[] YPosicaoInicialVermelho= {75,75,153,153}; //  posicoes iniciais ok
-	
-	static double[] XPosicaoInicialVerde= {471,549,471,549};
-	static double[] YPosicaoInicialVerde= {75,75,153,153};
-	
-	static double[] XPosicaoInicialAmarelo= {471,549,471,549};
-	static double[] YPosicaoInicialAmarelo= {469,469,548,548};
-	
-	static double[] XPosicaoInicialAzul= {75.5,154,75.5,154};
-	static double[] YPosicaoInicialAzul= {469,469,548,548};
-	
 	// casa para saida de cada cor
 	
 	static Coordenada PosicaoCasaSaidaVermelho = new Coordenada(43.99999,262.7999); // OK
@@ -231,19 +219,19 @@ class Peao implements IPeao, ICoordenada {
 		//int posicaoAtual=this.getPosicao();		
 		//this.setPosicao(posicaoAtual+dado);	
 		
-		int posicaoatual=this.getPosicao();
+		
 		
 		// dependendo onde esteja (casa comun ou outra ele procura a posicao)
 		
-		if (this.CasaFinal==false) { // casas normais
+//		if (this.CasaFinal==false) { // casas normais
+//			
+//			if( posicaoatual+dado>=51) {
+//				this.setPosicao((posicaoatual+dado)-51);	
+//			}
 			
-			if( posicaoatual+dado>=52) {
-				this.setPosicao((posicaoatual+dado)-52);	
-			}
-			
-			this.setPosicao(posicaoatual+dado);				
+						
 			this.setXY(nc);
-		}
+//		}
 		
 		
 		// Ver como integras as regras de ter barreira na frente ou nao
@@ -257,9 +245,16 @@ class Peao implements IPeao, ICoordenada {
 	public void Exibe() {
 		
 		System.out.println("\t Cor:" + this.getCor());
-		System.out.println("\t\tIDPeao:"+ Peao.idTotPeao +"\n\t\tid:"+this.getId()+"\n\t\t"+"Posicao tb:"+this.getPosicao());
-		System.out.println("\t\t X:"+ this.getXY().getX1());
-		System.out.println("\t\t Y:"+ this.getXY().getY1());
+		//System.out.println("\t\tIDPeao:"+ Peao.idTotPeao);
+		System.out.println("\t\tId:"+this.getId()+"\n\t\t"+"Posicao tb:"+this.getPosicao());
+		System.out.println("\t\t X:"+ this.getXY().getX1() + " --  Casa Inicial:"+ this.CasaInicial + " -- Casa Final:"+ this.CasaFinal);
+		System.out.println("\t\t Y:"+ this.getXY().getY1()+ " -- Casa Saida:"+ this.CasaSaida + " -- Casa Barreira:"+ this.Barreira);		
+		//System.out.println("\t\t--  Casa Inicial:"+ this.CasaInicial);
+		//System.out.println("\t\t-- Casa Saida:"+ this.CasaSaida );
+		//System.out.println("\t\t-- Casa Final:"+ this.CasaFinal);
+		//System.out.println("\t\t-- Casa Barreira:"+ this.Barreira);
+		System.out.println("\t\t\t -- Casa Abrigo:"+ this.Abrigo);
+		
 		System.out.println("------");
 	}
 //	

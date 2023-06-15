@@ -50,12 +50,12 @@ public class FcModel   { // Facade
 		vPlayers[3]=p4;
 		adicionaPeoes(p4,12);
 		
-		mTb.vPeao=vPeoes;
+		//mTb.vPeao=vPeoes;
 		//ExibeVpeoes();
 		
 		
 	}
-		
+
 	public Object[] getVplayers() {	
 		return vPlayers;
 	}
@@ -75,13 +75,19 @@ public class FcModel   { // Facade
 		round.nextRound();		
 		return ;
 	}
+	public int getPosicaoPeao(IPeao p ) {
+		Peao np = (Peao) p;
+		return  np.getPosicao();
+	}
 	
-	public void MovePeao(Object  p, double x, double y , int dado) { // move peao IMPLEMENTAR
+	public void MovePeao(Object  p, double x, double y , int dado, int postabuleiro) { // move peao IMPLEMENTAR
 		
 		Peao np = (Peao) p;
 		Coordenada c = new Coordenada(x,y);
 		//np.setPosicao(np.getPosicao()+dado);
 		np.MovePeao(dado, c);
+		np.setPosicao(postabuleiro);
+		
 		
 	}	
 	public boolean VerificaRegras() {
@@ -186,6 +192,9 @@ public class FcModel   { // Facade
 			Peao pe = (Peao) p;
 			pe.Exibe();
 		}
+	}
+	public Object[] getVcasas() {
+		return mTb.getVcasas();
 	}
 	
 }
