@@ -168,8 +168,10 @@ public class Rodada implements Observador {
 		int n=ncasa.getQtdPeao();
 		
 		ncasa.ExibeStatus();
+		fv.setPosicaoPeoesBotoes(i,(int)x,(int) y);
 		
 		vTb.repaint();
+		fv.repaint();
 	}
 
 	

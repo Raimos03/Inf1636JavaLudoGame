@@ -273,16 +273,20 @@ public class FrameView extends JFrame implements Observado{ // Canvas
 	
 	public void addBotoesPeoes(JLayeredPane l) { // botoes peoes
 			
-		for(JButton j: this.vbotoes) {
+		for(JBotao j: this.vbotoes) {
 			l.add(j,0);
 		}
 		
 		return;
 	}
 	
-	public void setPosicaoPeoesBotoes(Object[] vp) {
-		
-		int i;
+	public void setPosicaoPeoesBotoes(int i,int x, int y) {
+		int tam=40;
+
+		JBotao j =  this.vbotoes.get(i) ;
+			
+			//j.setBounds(x,y,tam,tam);
+		j.move(x+500, y);
 		
 		
 	}
