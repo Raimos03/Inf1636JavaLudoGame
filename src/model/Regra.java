@@ -16,9 +16,7 @@ class Regra {
 		// coloca um peao na posicao de saida
 			
 		if (dado == 5 && p.isCasaInicial()) {
-			
-			
-						
+				
 			int rPeoesSaida =  VerificaPeoesSaida(p.getPlayerPai()); // 1 se nenhum estiver na casa saida
 			int rPeoesAtivos =	 VerificaPeoesAtivos(p.getPlayerPai());
 						
@@ -53,8 +51,7 @@ class Regra {
 				System.out.println("Digite o numero de Outro peao que deseja mover:");
 				Scanner sc= new Scanner(System.in);						
 				int opcaoPeao= sc.nextInt();
-				
-				
+								
 				
 //				if (opcaoPeao>4 || opcaoPeao<0) {	
 //					
@@ -70,8 +67,7 @@ class Regra {
 //				}
 				
 				sc.close();
-						
-					
+										
 //				Peao pEscolhido;		
 //				Player pai = p.getPlayerPai();
 //			
@@ -88,8 +84,7 @@ class Regra {
 //					pEscolhido = pai.getPeao4();
 //					
 //				}
-//			
-				
+//				
 				//pEscolhido.MovePeao(dado);	// move depois de escolhido		**atualizar	
 				}					
 			}			

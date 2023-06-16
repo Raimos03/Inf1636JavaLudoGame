@@ -47,7 +47,7 @@ public class Rodada implements Observador, Observado {
 		
 		
 		
-		// TESTE BRACNK PATRICK
+		//GerenciaRodada();
 		
 		
 		//vTb.ExibeVpeao();
@@ -70,7 +70,7 @@ public class Rodada implements Observador, Observado {
 	        }
 	    });
 		
-		 jbLoad.addActionListener(new ActionListener() {
+		jbLoad.addActionListener(new ActionListener() {
 	            public void actionPerformed(ActionEvent e) {
 	                JFileChooser fileChooser = new JFileChooser();
 	                int resultado = fileChooser.showOpenDialog(null);
@@ -84,7 +84,7 @@ public class Rodada implements Observador, Observado {
 	            }
 	        });
 		 
-		 jbNovoJogo.addActionListener(new ActionListener() {
+		jbNovoJogo.addActionListener(new ActionListener() {
 	            public void actionPerformed(ActionEvent e) {
 	              
 	            	System.out.println(" --- Iniciar Novo Jogo ---");
@@ -305,7 +305,7 @@ public class Rodada implements Observador, Observado {
 		
 		//identifico o peao a ser movido
 		
-//		MovePeao(fv.getIndiceBotaoPeao(),dadoRodada);
+		MovePeao(fv.getIndiceBotaoPeao(),dadoRodada);
 //		MovePeao(9,dadoRodada+2);
 //		MovePeao(2,dadoRodada+2);
 //		MovePeao(5,dadoRodada+4);

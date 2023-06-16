@@ -13,6 +13,7 @@ public class FcModel   { // Facade
 	private Object[] vPlayers = new Object[4];
 	private Object[] vPeoes = new Object[16];
 	private Tabuleiro mTb;
+	private Regra regras;
 	
 
 	public void  CriaDado() {		
@@ -31,6 +32,7 @@ public class FcModel   { // Facade
 		this.mTb=new Tabuleiro();	
 		CriaPlayers();	
 		this.round = new Round(); // crio o round
+		this.regras = new Regra();
 
 	}
 	
@@ -90,12 +92,22 @@ public class FcModel   { // Facade
 		
 		
 	}	
-	public boolean VerificaRegras() {
-		
-		boolean c = true;		
-		//condicional de todas as regras	
+	public boolean VerificaRegrasI1(Peao p, int dado) {	
+		if (regras.RegraI1(p, dado) == 1){
+			return true;
+		}		
 		return false;
 	}
+	
+	
+	public boolean VerificaRegrasB1() {
+			
+			boolean c = true;		
+			
+			return false;
+		}
+	
+	
 	
 	private void adicionaPeoes(Player p,int i) {
 		

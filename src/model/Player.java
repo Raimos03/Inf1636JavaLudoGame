@@ -4,6 +4,7 @@ class Player {
 
 	private String cor;
 	private int[] peoes = {0, 0, 0, 0}; // quais pioes estao ativos
+	private int qtdPeoesVitoria=0;
 	private int qtd_ativo = 0;
 	
 	private Peao p1;
@@ -12,8 +13,7 @@ class Player {
 	private Peao p4;
 	
 	
-	Player (String x) {
-		
+	Player (String x) {	
 		cor = x;	
 		p1=new Peao(x,this);
 		p2=new Peao(x,this);
@@ -70,5 +70,8 @@ class Player {
 
 	public void setPeao4(Peao p) {
 		this.p4=p;
+	}
+	public void ContabilizaVictoriaPeao() {
+		this.qtdPeoesVitoria++;
 	}
 }
