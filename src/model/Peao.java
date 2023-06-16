@@ -218,27 +218,10 @@ class Peao implements IPeao, ICoordenada {
 		
 		//int posicaoAtual=this.getPosicao();		
 		//this.setPosicao(posicaoAtual+dado);	
-		
-		
-		
-		// dependendo onde esteja (casa comun ou outra ele procura a posicao)
-		
-//		if (this.CasaFinal==false) { // casas normais
-//			
-//			if( posicaoatual+dado>=51) {
-//				this.setPosicao((posicaoatual+dado)-51);	
-//			}
-			
-						
-			this.setXY(nc);
-//		}
-		
-		
-		// Ver como integras as regras de ter barreira na frente ou nao
-		
-		
-		
-		
+				
+		// dependendo onde esteja (casa comun ou outra ele procura a posicao)						
+		this.setXY(nc);
+
 		return 1;
 	}
 	
@@ -356,25 +339,25 @@ class Peao implements IPeao, ICoordenada {
 	}
 
 	@Override
-	public ICoordenada getPosicaoCasaSaidaVermelho() {
+	public   ICoordenada getPosicaoCasaSaidaVermelho() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ICoordenada getPosicaoCasaSaidaVerde() {
+	public  ICoordenada getPosicaoCasaSaidaVerde() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ICoordenada getPosicaoCasaSaidaAmarelo() {
+	public   ICoordenada getPosicaoCasaSaidaAmarelo() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ICoordenada getPosicaoCasaSaidaAzul() {
+	public  ICoordenada getPosicaoCasaSaidaAzul() {
 		// TODO Auto-generated method stub
 		return null;
 	}

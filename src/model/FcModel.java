@@ -29,10 +29,9 @@ public class FcModel   { // Facade
 	public void IniciaJogo() { // Cria os objetos e inicializa tudo
 		
 		this.mTb=new Tabuleiro();	
-		CriaPlayers();
-		
-		
-		//Crio model tabuleiro
+		CriaPlayers();	
+		this.round = new Round(); // crio o round
+
 	}
 	
 	public void CriaPlayers() { // crio e seto vetor de players			
@@ -52,8 +51,6 @@ public class FcModel   { // Facade
 		
 		//mTb.vPeao=vPeoes;
 		//ExibeVpeoes();
-		
-		
 	}
 
 	public Object[] getVplayers() {	
@@ -68,8 +65,11 @@ public class FcModel   { // Facade
 	public Tabuleiro getTabuleiro() {	
 		return mTb;
 	}
-	public int IntPlayerDaVez() {		
+	public int getIntPlayerDaVez() {		
 		return round.getIntPlayerVez();
+	}
+	public void NovoRound() {
+		round.New_round();
 	}
 	public void ProximoJogador() { // passa para o proximo jogador no ROund	
 		round.nextRound();		

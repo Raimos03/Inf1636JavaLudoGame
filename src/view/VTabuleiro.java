@@ -12,7 +12,7 @@ import java.awt.Color;
 ;
 
 
-public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observado, ICasa {
+public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observador, ICasa {
 	
 	private static Color[] vCores = {new Color(218,36,28),new Color(5,191,89),new Color(255,243,0),new Color(03,148,222)};
 	private Color[] vCoresPeao = {new Color(250,53,53),new Color(104,250,53),new Color(250,218,53),new Color(53,84,250)};
@@ -57,7 +57,7 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observado, 
 //	private static float espacoEntreCasaInicial= 132;
 //	private static float deslocamentoCasaInicial = larguraCasaInicial + espacoEntreCasaInicial;
 
-	private ArrayList<Observador> lobs = new ArrayList<>(); 
+	
 	private Object[] vpeoes = new Object[16];
 	private Object[] vcasas = new Object[52];
 	
@@ -120,7 +120,9 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observado, 
 					DCriaPeao(g2d,(int)icord.getX1(),(int)icord.getY1(),vCoresPeao[peao.getIntCor()]);				
 							
 				}
-			}		
+			}	
+			
+			
 		}
 		//DCriaPeao(g2d, o.getx(), o.gety());		
 		//DCriaPeao(g2d,this.xt,this.yt);
@@ -1240,28 +1242,29 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observado, 
 	
 	// ------------------------ Observer
 
-	@Override
-	public void addObserver(Observador o) {
-		// TODO Auto-generated method stub
-		lobs.add(o);
-	}
-	@Override
-	public void removeObserver(Observador o) {
-		// TODO Auto-generated method stub
-		lobs.remove(o);
-	}
-	@Override
-	public Object getDados() {
-		// TODO Auto-generated method stub
-		return this;
-	}
-	@Override
-	public void Notify() {
-		// TODO Auto-generated method stub
-		for( Observador obj : this.lobs) {
-			obj.update();
-		}
-	}
+//	@Override
+//	public void addObserver(Observador o) {
+//		// TODO Auto-generated method stub
+//		lobs.add(o);
+//	}
+//	@Override
+//	public void removeObserver(Observador o) {
+//		// TODO Auto-generated method stub
+//		lobs.remove(o);
+//	}
+//	@Override
+//	public Object getDados() {
+//		// TODO Auto-generated method stub
+//		return this;
+//	}
+//	@Override
+//	public void Notify(int i) {
+//		// TODO Auto-generated method stub
+//		for( Observador obj : this.lobs) {
+//			obj.update(i);
+//		}
+//	}
+	
 	//------------------
 	
 	@Override
@@ -1404,6 +1407,17 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observado, 
 		// TODO Auto-generated method stub
 		
 	}
+
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		//System.out.println("O model mudou");
+		repaint();
+		
+	}
+
+
 
 
 	

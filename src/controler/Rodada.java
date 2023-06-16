@@ -10,7 +10,7 @@ import javax.swing.JLayeredPane;
 import java.util.ArrayList;
 
 
-public class Rodada implements Observador { 
+public class Rodada implements Observador, Observado { 
 	//Controler
 	
 	
@@ -23,54 +23,68 @@ public class Rodada implements Observador {
 	public Object[] vPlayers;
 	public Object[] vPeao;
 	public Object[] vCasas;
+	private ArrayList<Observador> lobs = new ArrayList<>(); 
 
 
 	
 	public Rodada( FrameView fv,FcModel fc) { // controle o andamento do jogo
-			
-		// acesso tudo de model pelo facade (FcModel)
 		
-		CarregaInicio( fv, fc );
+//		Object[] Vencedor = new Object[4];
+//		int pVencedor = -1; //player dif de -1 , -1 nao tem vencedor
+//		int respContinueUsr=1;  // 1 continuar o jogo , 0 sair
+//		int qtdVencedor=0;
+//		
+//		int rRegraI1=0;
+//		int rRegraB1=0;
+//		int rRegraB2=0;
+//		int rRegraB3=0;
+//		int rRegra6=0;
+//		int rRegraBR=0;
+//		int rRegraCA=0;
+		
+		// acesso tudo de model pelo facade
+		
+		CarregaInicio(fv, fc);
 		
 		
 		
+		GerenciaRodada();
 		
 		
 		//vTb.ExibeVpeao();
-		facade.ExibeVpeoes();
-
-
+		//facade.ExibeVpeoes();
 		
-		
-		
-
 	}
 
 
 	@Override
 	public void update() {
+		
 		// TODO Auto-generated method stub
+		// botao de jogar dado foi clicado
+			
 		System.out.println("Cliquei para sortear o dado");
 		this.dadoRodada=facade.JogaDado();
 		System.out.println(dadoRodada);
 		fv.setNumeroDado(dadoRodada); // atualizar imagem dado
+		//fv.desabilitaBJogaDado();
+		System.out.println("BPeao clicado:"+fv.getIndiceBotaoPeao());
+		
+		
+		
 		
 		//identifico o peao a ser movido
 		
-		MovePeao(8,dadoRodada);
-		MovePeao(9,dadoRodada+2);
+		MovePeao(fv.getIndiceBotaoPeao(),dadoRodada);
+//		MovePeao(9,dadoRodada+2);
 //		MovePeao(2,dadoRodada+2);
 //		MovePeao(5,dadoRodada+4);
 //		MovePeao(3,5);
 //		MovePeao(0,5);
-//		MovePeao(3,dadoRodada);
-//		MovePeao(13,dadoRodada+2);
-//		MovePeao(11,dadoRodada+5);
-//		MovePeao(10,dadoRodada+3);
-//		MovePeao(7,dadoRodada+12);
-//		MovePeao(1,dadoRodada+6);
-//		MovePeao(15,dadoRodada+12);
-//		MovePeao(12,dadoRodada+7);
+		
+		fv.resetaIndiceBotaoClicado();
+		System.out.println("BPeao clicado:"+fv.getIndiceBotaoPeao());
+		
 	}
 	
 	public int encontraNovaCasaTabuleiro(int posicaoantiga, int dado) {		
@@ -147,7 +161,7 @@ public class Rodada implements Observador {
 		ncasa.ExibeStatus();
 		fv.setPosicaoBotoesPeoes(i,(int)x,(int) y);
 		
-		vTb.repaint();
+		Notify();
 		
 	}
 	
@@ -180,13 +194,101 @@ public class Rodada implements Observador {
 		vTb.setVpeoes(vPeao);
 		vTb.setVcasas(vCasas);
 		
-		vTb.addObserver(this);
+		//vTb.addObserver(this);
+		this.addObserver(vTb);
 		fv.addObserver(this);	
 		facade.CriaDado();	
 		
 		facade.setCasaInicial(VTabuleiro.XPosicaoInicialVermelho,VTabuleiro.YPosicaoInicialVermelho,VTabuleiro.XPosicaoInicialVerde,VTabuleiro.YPosicaoInicialVerde,VTabuleiro.XPosicaoInicialAmarelo,VTabuleiro.YPosicaoInicialAmarelo,VTabuleiro.XPosicaoInicialAzul,VTabuleiro.YPosicaoInicialAzul);
 		incializaBotoesPeoes();	
 	}
+
+	public void GerenciaRodada() {
+		
+		Object[] Vencedor = new Object[4];
+		int pVencedor = -1; //player dif de -1 , -1 nao tem vencedor
+		int respContinueUsr=1;  // 1 continuar o jogo , 0 sair
+		int qtdVencedor=0;
+		
+		int rRegraI1=0;
+		int rRegraB1=0;
+		int rRegraB2=0;
+		int rRegraB3=0;
+		int rRegra6=0;
+		int rRegraBR=0;
+		int rRegraCA=0;
+		
+		
+					
+					
+		// while(respContinueUsr!=0){			
+					//turno
+					
+	
+		if(pVencedor!=-1) {// houve um vencedor	
+			
+			System.out.println("Houve um vencedor. Digite 1 para continuar ou 0 para terminar");
+			Scanner sc = new Scanner(System.in);
+			respContinueUsr = sc.nextInt();
+			
+			if(respContinueUsr==0) {
+				
+				// 1 - Exibe painel de vitoria
+				
+				System.out.println("Fechando o jogo");
+				
+			}
+			else { // cotinuo e salvo o vencedor
+				
+				Vencedor[qtdVencedor]=facade.GetPlayerVez();
+				pVencedor=-1;					
+			}
+			
+			qtdVencedor++;
+		}
+		
+		
+		
+		//atualizo para o proximo jogador
+		
+		facade.ProximoJogador();
+		facade.NovoRound();
+		
+	
+	 //}
+			
+		}
+
+
+	@Override
+	public void addObserver(Observador o) {
+		// TODO Auto-generated method stub
+		lobs.add(o);
+	}
+
+
+	@Override
+	public void removeObserver(Observador o) {
+		// TODO Auto-generated method stub
+		lobs.remove(o);
+	}
+
+	@Override
+	public void Notify() {
+		// TODO Auto-generated method stub
+		for( Observador obj : this.lobs) {
+			obj.update();
+		}
+	}
+
+
+	@Override
+	public Object getDados() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 
 	
 }

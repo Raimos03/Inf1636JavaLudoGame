@@ -12,36 +12,36 @@ class Regra {
 //---- Regras Iniciais
 		
 	
-	public int RegraI1( Peao p, int dado ) { //recebe um peao e coloca na saida 
+	public int RegraI1( Peao p, int dado ) { //recebe um peao e verifica se esta ok ou nao 
 		// coloca um peao na posicao de saida
 			
 		if (dado == 5 && p.isCasaInicial()) {
 			
-			//coloco casa de saida
+			
 						
-			int rPeoesSaida =  VerificaPeoesSaida(p.getPlayerPai());
+			int rPeoesSaida =  VerificaPeoesSaida(p.getPlayerPai()); // 1 se nenhum estiver na casa saida
 			int rPeoesAtivos =	 VerificaPeoesAtivos(p.getPlayerPai());
 						
-			if (rPeoesSaida == 1 && rPeoesAtivos ==1) {
+			if (rPeoesSaida == 1 && rPeoesAtivos ==1) { // sucesso
 						
 				//atualizo o peao  // modificar
 				
-//				if (p.getIntCor()==0) { //vermelho				
-//					p.setXY(Peao.getPosicaoCasaSaidaVermelho());
-//				}
-//				else if (p.getIntCor()==1) { //verde
-//					p.setXY(Peao.getPosicaoCasaSaidaVerde());                 *** atualizar toda essa parte
-//				}
-//				else if (p.getIntCor()==2) {
-//					p.setXY(Peao.getPosicaoCasaSaidaAmarelo());
-//				}
-//				else {
-//					p.setXY(Peao.getPosicaoCasaSaidaAzul());
-//					
-//				}
+				if (p.getIntCor()==0) { //vermelho				
+					p.setXY(Peao.PosicaoCasaSaidaVermelho);
+				}
+				else if (p.getIntCor()==1) { //verde
+					p.setXY(Peao.PosicaoCasaSaidaVerde);                 //*** atualizar toda essa parte
+				}
+				else if (p.getIntCor()==2) {
+					p.setXY(Peao.PosicaoCasaSaidaAmarelo);
+				}
+				else {
+					p.setXY(Peao.PosicaoCasaSaidaAzul);
+					
+				}
 				
 				p.setCasaSaida(true);
-				p.setCasaInicial(true);
+				p.setCasaInicial(false);
 				p.setPosicao(0);
 				
 				return 1;
@@ -50,48 +50,50 @@ class Regra {
 			// escolho outro peao para mover
 			else {
 				
-				System.out.println("Digite o numero do peao que deseja mover:");
-				Scanner sc= new Scanner(System.in);
-				
+				System.out.println("Digite o numero de Outro peao que deseja mover:");
+				Scanner sc= new Scanner(System.in);						
 				int opcaoPeao= sc.nextInt();
+				
+				
+				
+//				if (opcaoPeao>4 || opcaoPeao<0) {	
+//					
+//					while(opcaoPeao<4 && opcaoPeao>0 && ) { // ate acertar
+//						System.out.println("Digite o numero do peao que deseja mover:");
+//						opcaoPeao= sc.nextInt();			
+//					
+//						System.out.println("Numero escolhido do peao:"+opcaoPeao);
+//					}
+//					
+//						//return 0;
+//						
+//				}
+				
 				sc.close();
-				
-				
-				if (opcaoPeao>4 || opcaoPeao<0) {				
-					return 0;
-				}
-				
-					
-				else {		
-					
-					Peao pEscolhido;
-					
-					Player pai = p.getPlayerPai();
-					
-					if (opcaoPeao==1) {
-						pEscolhido = pai.getPeao1();
 						
-					}
-					else if (opcaoPeao==2) {
-											
-						pEscolhido = pai.getPeao2();					
-										}
-					else if (opcaoPeao==3) {
-											
-						pEscolhido = pai.getPeao3();
-					}
 					
-					else {
-						pEscolhido = pai.getPeao4();
-						
-					}
-					
-					
-					//pEscolhido.MovePeao(dado);	// move depois de escolhido		**atualizar	
+//				Peao pEscolhido;		
+//				Player pai = p.getPlayerPai();
+//			
+//				if (opcaoPeao==1) {
+//					pEscolhido = pai.getPeao1();					
+//				}
+//				else if (opcaoPeao==2) {										
+//					pEscolhido = pai.getPeao2();					
+//									}
+//				else if (opcaoPeao==3) {									
+//					pEscolhido = pai.getPeao3();
+//				}			
+//				else {
+//					pEscolhido = pai.getPeao4();
+//					
+//				}
+//			
+				
+				//pEscolhido.MovePeao(dado);	// move depois de escolhido		**atualizar	
 				}					
 			}			
-		}	
-		
+
 		return 0;
 	}
 	
@@ -132,7 +134,7 @@ class Regra {
 	
 //---- Regras Básicas
 	
-	public int regraB1(Peao p, int x) { // verifica se o peao se desloca corretamente
+	public int RegraB1(Peao p, int x) { // verifica se o peao se desloca corretamente
 		
 		if (x<=0) { // erro de andar no sentido antihorario
 			return 0;
@@ -147,7 +149,7 @@ class Regra {
         }
     }
 
-    public int regraB2(Peao p) { // verifica se o peao esta na casa de saida ou na inicial
+    public int RegraB2(Peao p) { // verifica se o peao esta na casa de saida ou na inicial
         if(p.isCasaSaida() == true ||  p.isCasaInicial() == true) {
             return 1;
         }
@@ -157,7 +159,7 @@ class Regra {
         }
     }
 
-   public int regraB3(Peao p) { // Regra se o peao esta na barreira ou no abrigo
+   public int RegraB3(Peao p) { // Regra se o peao esta na barreira ou no abrigo
         if(p.isBarreira() == true ||  p.isAbrigo() == true) {
             return 1;
         }

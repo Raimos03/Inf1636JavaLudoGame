@@ -13,7 +13,7 @@ import controler.*;
 
 // apenas para sortear o dado
 
-public class FrameView extends JFrame implements Observado{ // Canvas 
+public class FrameView extends JFrame implements Observado,Observador2{ // Canvas 
 	
 	
 	private final int LARG_DEFAULT = 1200; // Constantes de tamanho	- largura
@@ -44,6 +44,8 @@ public class FrameView extends JFrame implements Observado{ // Canvas
 	public VTabuleiro Tb;
 	private ArrayList<Observador> lobs = new ArrayList<>(); 
 	private int numerodado;
+	private JButton bjogadado;
+	private int IndiceBotaoPeao=-1;
 	
 	
 
@@ -107,29 +109,30 @@ public class FrameView extends JFrame implements Observado{ // Canvas
 		VDado.Inicia();
 		
 		
-		JBotao bJogaDado = new JBotao("Jogue o dado"); // botao Jogar dado
+		JBotaoFill bJogaDado = new JBotaoFill("Jogue o dado"); // botao Jogar dado
 		bJogaDado.setBounds(ajusataXCompDireita+262,422,167,70);
 		bJogaDado.setBorder(new RoundedBorder(7));
 		bJogaDado.setBackground(new Color(37,220,40));
 		bJogaDado.setPressedBackgroundColor(new Color(101,254,3));
 		bJogaDado.setHoverBackgroundColor(new Color(82,227,124));
+		this.bjogadado =  bJogaDado;
 		
 		
-		JBotao BSalvar = new JBotao("Salvar");
+		JBotaoFill BSalvar = new JBotaoFill("Salvar");
 		BSalvar.setBounds(47+ajustaXpainelInfo,40+ajustaYpainelInfo,176,45);
 		BSalvar.setBorder(new RoundedBorder(7));
 		BSalvar.setBackground(new Color(255,255,255));
 		BSalvar.setPressedBackgroundColor(new Color(100,200,251));
 		BSalvar.setHoverBackgroundColor(new Color(248,246,246));
 		
-		JBotao BNovoJogo = new JBotao("Novo Jogo");
+		JBotaoFill BNovoJogo = new JBotaoFill("Novo Jogo");
 		BNovoJogo.setBounds(47+ajustaXpainelInfo,98+ajustaYpainelInfo,176,45);
 		BNovoJogo.setBorder(new RoundedBorder(7));
 		BNovoJogo.setBackground(new Color(255,255,255));
 		BNovoJogo.setPressedBackgroundColor(new Color(100,200,251));
 		BNovoJogo.setHoverBackgroundColor(new Color(248,246,246));
 		
-		JBotao BLoadGame = new JBotao("Carregar Jogo");
+		JBotaoFill BLoadGame = new JBotaoFill("Carregar Jogo");
 		BLoadGame.setBounds(239+ajustaXpainelInfo,40+ajustaYpainelInfo,176,45);
 		BLoadGame.setBorder(new RoundedBorder(7));
 		BLoadGame.setBackground(new Color(255,255,255));
@@ -226,15 +229,19 @@ public class FrameView extends JFrame implements Observado{ // Canvas
             public void actionPerformed(ActionEvent e) {
                 Notify();
                 //VDado.GeraDado(numerodado,(Graphics2D)VDado.getGraphics());
+                
                 VDado.AtualizaImagem(numerodado);
-                CorPlayer.proximaCorPlayer();              
+                //CorPlayer.proximaCorPlayer();    
+                
             }
         });
 
 		
 		
 	}
-	
+//	public JBotao getBJogaDado() {
+//		return 
+//	}
 	
 	public void setNumeroDado(int n) {
 		this.numerodado=n;
@@ -250,14 +257,24 @@ public class FrameView extends JFrame implements Observado{ // Canvas
 	
 		int i=0;		
 		for (i=0;i<16;i++) { // procurando em vpeoes		
-			JBotao bpeao = new JBotao("B PEAO"); // botao Jogar dado
+			JBotao bpeao = new JBotao(i); // botao Jogar dado
 			bpeao.setBounds(0,0,42,42);
-			bpeao.setBackground(new Color(161,131,222));
-			bpeao.setPressedBackgroundColor(new Color(184,160,232));
-			bpeao.setHoverBackgroundColor(new Color(133,71,255));
-			//bpeao.setVisible(false);			
-			vbotoes.add(bpeao);
+			//bpeao.setBackground(new Color(161,131,222));
+			//bpeao.setPressedBackgroundColor(new Color(184,160,232));
+			//bpeao.setHoverBackgroundColor(new Color(133,71,255));
+			bpeao.addActionListener(bpeao);
+			bpeao.setVisible(false);
+			bpeao.addObserver2(this);
+			vbotoes.add(bpeao);		
+			
 		}
+		
+//		for (i=0;i<16;i++) { // exibindo o indice de cada botao de peoes		
+//			JBotao bpeao =vbotoes.get(i);
+//			System.out.println("BPeao "+i+"\n\tIndice:"+bpeao.getIndice());
+//			
+//		}
+		
 		return ;
 	}
 	
@@ -272,9 +289,18 @@ public class FrameView extends JFrame implements Observado{ // Canvas
 
 		JBotao j =  this.vbotoes.get(i) ;
 		j.setLocation(x+502, y-3);
-		j.setVisible(true);	
+		j.setVisible(true);
+		j.setOpaque(false);
+		j.setContentAreaFilled(false);
+		j.setBorderPainted(false);
+		
+		
+		
 	}
 	
+	public int getIndiceBotaoPeao() {
+		return this.IndiceBotaoPeao;
+	}
 	
 
 	// ------------------ Observer
@@ -298,11 +324,28 @@ public class FrameView extends JFrame implements Observado{ // Canvas
 			obj.update();
 		}
 	}
+	public void desabilitaBJogaDado() {
+		this.bjogadado.setEnabled(false);
+	}
+	public void habilitaBJogaDado() {
+		this.bjogadado.setEnabled(true);
+	}
 	
 	@Override
 	public Object getDados() {
 		// TODO Auto-generated method stub
 		return this;
+	}
+
+	@Override
+	public void update2(int i) {
+		// TODO Auto-generated method stub
+		this.IndiceBotaoPeao = i;
+		//System.out.println("FrameView - BotaoPeao clicado:"+this.IndiceBotaoPeao);	
+
+	}
+	public void resetaIndiceBotaoClicado() {
+		this.IndiceBotaoPeao=-1;
 	}
 	
 	//---------------------

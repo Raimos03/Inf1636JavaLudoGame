@@ -3,7 +3,7 @@ package model;
 class Player {
 
 	private String cor;
-	private int[] peoes = {0, 0, 0, 0};
+	private int[] peoes = {0, 0, 0, 0}; // quais pioes estao ativos
 	private int qtd_ativo = 0;
 	
 	private Peao p1;
