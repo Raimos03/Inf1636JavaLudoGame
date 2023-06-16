@@ -6,7 +6,7 @@ import model.FcModel;
 public class Main {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		
 		FrameView frame = new FrameView();	
 		frame.setTitle("Ludo Game");
 		frame.setLayout(null);

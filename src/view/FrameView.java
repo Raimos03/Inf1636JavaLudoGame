@@ -103,8 +103,8 @@ public class FrameView extends JFrame implements Observado{ // Canvas
 		VDado.setBounds(ajusataXCompDireita+5,10,500,500);		
 		
 		 // Inicializa o desenho do dado
-		VDado.pinta_dado(-1);
-		
+		//Dado_graf.setFace(-1);
+		VDado.Inicia();
 		
 		
 		JBotao bJogaDado = new JBotao("Jogue o dado"); // botao Jogar dado
@@ -224,13 +224,11 @@ public class FrameView extends JFrame implements Observado{ // Canvas
 		
 		bJogaDado.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
                 Notify();
-                VDado.GeraDado(numerodado,(Graphics2D)VDado.getGraphics());
-                CorPlayer.proximaCorPlayer();
-                
+                //VDado.GeraDado(numerodado,(Graphics2D)VDado.getGraphics());
+                VDado.AtualizaImagem(numerodado);
+                CorPlayer.proximaCorPlayer();              
             }
-
         });
 
 		
@@ -249,48 +247,32 @@ public class FrameView extends JFrame implements Observado{ // Canvas
 	}
 	
 	public void InicializaVBotoes() { // botoes dos peoes
-		int[] pospeao = new int[2];
-		
-		int i=0;	
-		int x=850;
-		int y=300;
-		
-		for (i=0;i<16;i++) { // procurando em vpeoes
-			
-			pospeao=Tb.getCoordenadaPeaoIntXY(i);
-			//pospeao[0]
-			//pospeao[1]
-			
+	
+		int i=0;		
+		for (i=0;i<16;i++) { // procurando em vpeoes		
 			JBotao bpeao = new JBotao("B PEAO"); // botao Jogar dado
 			bpeao.setBounds(0,0,42,42);
-			bpeao.setBackground(Color.orange);
-			bpeao.setPressedBackgroundColor(new Color(30,30,30));
-			bpeao.setHoverBackgroundColor(new Color(35,35,35));
-			bpeao.setVisible(false);
+			bpeao.setBackground(new Color(161,131,222));
+			bpeao.setPressedBackgroundColor(new Color(184,160,232));
+			bpeao.setHoverBackgroundColor(new Color(133,71,255));
+			//bpeao.setVisible(false);			
 			vbotoes.add(bpeao);
 		}
 		return ;
 	}
 	
-	public void addBotoesPeoes(JLayeredPane l) { // botoes peoes
-			
+	public void addBotoesPeoes(JLayeredPane l) { // botoes peoes	
 		for(JBotao j: this.vbotoes) {
-			l.add(j,0);
+			l.add(j,5);
 		}
-		
 		return;
 	}
 	
-	public void setPosicaoPeoesBotoes(int i,int x, int y) {
-		int tam=40;
+	public void setPosicaoBotoesPeoes(int i,int x, int y) {
 
 		JBotao j =  this.vbotoes.get(i) ;
-			
-			//j.setBounds(x,y,tam,tam);
-		j.move(x+500, y);
-		j.setVisible(true);
-		
-		
+		j.setLocation(x+502, y-3);
+		j.setVisible(true);	
 	}
 	
 	

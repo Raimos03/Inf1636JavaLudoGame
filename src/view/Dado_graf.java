@@ -43,20 +43,7 @@ class Dado_graf extends JPanel {
 	Image imagem6_scale;
 	Image imagemInicial_scale;
 	
-
-	public void pinta_dado(int n) {
-		//Adapts g for better resourses
-		
-		//Dice builder	
-		//paint(super.getGraphics(),n);
-		
-		
-		listaImagens();
-		Dado_graf.setFace(n);
-		
-	}
-	
-	public void listaImagens() {				
+	Dado_graf(){
 		try {
 			imagemInicial = ImageIO.read(new File("./Images/DadoInicial.png"));
 			imagem1=ImageIO.read(new File("./Images/Dado1.png"));
@@ -72,15 +59,25 @@ class Dado_graf extends JPanel {
 			System.out.println(e.getMessage());
 			System.exit(1);
 		}
-				imagem1_scale = imagem1.getScaledInstance(tamanho, tamanho, Image.SCALE_DEFAULT);		imagem2_scale = imagem2.getScaledInstance(tamanho, tamanho, Image.SCALE_DEFAULT);		imagem3_scale = imagem3.getScaledInstance(tamanho, tamanho, Image.SCALE_DEFAULT);		imagem4_scale = imagem4.getScaledInstance(tamanho, tamanho, Image.SCALE_DEFAULT);		imagem5_scale = imagem5.getScaledInstance(tamanho, tamanho, Image.SCALE_DEFAULT);		imagem6_scale = imagem6.getScaledInstance(tamanho, tamanho, Image.SCALE_DEFAULT);
+		
+		imagem1_scale = imagem1.getScaledInstance(tamanho, tamanho, Image.SCALE_DEFAULT);
+		imagem2_scale = imagem2.getScaledInstance(tamanho, tamanho, Image.SCALE_DEFAULT);
+		imagem3_scale = imagem3.getScaledInstance(tamanho, tamanho, Image.SCALE_DEFAULT);
+		imagem4_scale = imagem4.getScaledInstance(tamanho, tamanho, Image.SCALE_DEFAULT);
+		imagem5_scale = imagem5.getScaledInstance(tamanho, tamanho, Image.SCALE_DEFAULT);
+		imagem6_scale = imagem6.getScaledInstance(tamanho, tamanho, Image.SCALE_DEFAULT);
 		imagemInicial_scale =imagemInicial.getScaledInstance(tamanho, tamanho, Image.SCALE_DEFAULT);
+		
 	}
 	
 	public void GeraDado(int n, Graphics2D g2d) {
+	
+		if (Face == -1) {
+			
+			g2d.drawImage(imagemInicial_scale, X,Y, null);
+		}
 		
-		Dado_graf.setFace(n);
-		
-		if(Face == 1) {
+		else if(Face == 1) {
 			g2d.drawImage(imagem1_scale, X,Y, null);
 		}
 		
@@ -103,19 +100,27 @@ class Dado_graf extends JPanel {
 		else if(Face == 6) {
 			g2d.drawImage(imagem6_scale, X,Y, null);
 		}
-	
 		return ;
 	}
 	
 	public void paint(Graphics graphics) {
 	
-		//Adapts g for better resourses
 		Graphics2D g2D = (Graphics2D) graphics;
-		g2D.drawImage(imagemInicial_scale, X,Y, null);
+		//g2D.drawImage(imagemInicial_scale, X,Y, null);	
+		GeraDado(Dado_graf.Face, g2D);
+		
 	}
 	
+	public void Inicia() {
+		Dado_graf.setFace(-1);
+		return;
+	}
 	
-	
+	public void AtualizaImagem(int n) {
+		Dado_graf.Face=n;
+		this.GeraDado(n,(Graphics2D) this.getGraphics());
+	}
+
 	public static void setFace(int n) {	
 		Dado_graf.Face=n;
 	}

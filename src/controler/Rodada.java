@@ -30,43 +30,20 @@ public class Rodada implements Observador {
 			
 		// acesso tudo de model pelo facade (FcModel)
 		
-		this.facade=fc;
-		facade.IniciaJogo();
-		vCasas=facade.getVcasas();
+		CarregaInicio( fv, fc );
 		
 		
-		vPlayers= fc.getVplayers();
-		
-		this.fv=fv;
-		vPeao =  fc.getVpeoes();
-		vTb = fv.getVTabuleiro();
-		vTb.setVpeoes(vPeao);
-		vTb.setVcasas(vCasas);
-		
-		vTb.addObserver(this);
-		fv.addObserver(this);	
-		facade.CriaDado();
-		
-//		fv.InicializaVBotoes();
-		
-		facade.setCasaInicial(VTabuleiro.XPosicaoInicialVermelho,VTabuleiro.YPosicaoInicialVermelho,VTabuleiro.XPosicaoInicialVerde,VTabuleiro.YPosicaoInicialVerde,VTabuleiro.XPosicaoInicialAmarelo,VTabuleiro.YPosicaoInicialAmarelo,VTabuleiro.XPosicaoInicialAzul,VTabuleiro.YPosicaoInicialAzul);
 		
 		
-		//MovePeao(1,dadoRodada);
 		
 		//vTb.ExibeVpeao();
 		facade.ExibeVpeoes();
 
+
 		
-		
-		
-		
-		
-		// Enquando nao ha um vencedor
 		
 		
 
-	
 	}
 
 
@@ -82,18 +59,18 @@ public class Rodada implements Observador {
 		
 		MovePeao(8,dadoRodada);
 		MovePeao(9,dadoRodada+2);
-		MovePeao(2,dadoRodada+2);
-		MovePeao(5,dadoRodada+4);
-		MovePeao(3,5);
-		MovePeao(0,5);
-		MovePeao(3,dadoRodada);
-		MovePeao(13,dadoRodada+2);
-		MovePeao(11,dadoRodada+5);
-		MovePeao(10,dadoRodada+3);
-		MovePeao(7,dadoRodada+12);
-		MovePeao(1,dadoRodada+6);
-		MovePeao(15,dadoRodada+12);
-		MovePeao(12,dadoRodada+7);
+//		MovePeao(2,dadoRodada+2);
+//		MovePeao(5,dadoRodada+4);
+//		MovePeao(3,5);
+//		MovePeao(0,5);
+//		MovePeao(3,dadoRodada);
+//		MovePeao(13,dadoRodada+2);
+//		MovePeao(11,dadoRodada+5);
+//		MovePeao(10,dadoRodada+3);
+//		MovePeao(7,dadoRodada+12);
+//		MovePeao(1,dadoRodada+6);
+//		MovePeao(15,dadoRodada+12);
+//		MovePeao(12,dadoRodada+7);
 	}
 	
 	public int encontraNovaCasaTabuleiro(int posicaoantiga, int dado) {		
@@ -109,8 +86,7 @@ public class Rodada implements Observador {
 	public void MovePeao(int i,int dado){ // numero do peao no vetor de peoes e numero do dado
 		
 		IPeao p =(IPeao) vPeao[i];
-	
-		
+			
 		int posAntiga =facade.getPosicaoPeao(p);
 		int posTabuleiro= posAntiga;
 		//posTabuleiro=posAntiga;
@@ -132,7 +108,7 @@ public class Rodada implements Observador {
 		y= nc.getY1()+5;
 		
 		facade.MovePeao(vPeao[i],x,y,dado,posTabuleiro);
-		p.Exibe();
+		p.Exibe();//debug
 		
 		//vTb.dBarreiraMesmaCor((Graphics2D) vTb.getGraphics(), (int) x,(int) y, p.getCor());
 		
@@ -153,8 +129,6 @@ public class Rodada implements Observador {
 		}
 		
 		
-		
-		
 		ICasa ncasa = (ICasa) vCasas[posTabuleiro];
 		
 		if (ncasa.getTemPeao()) {
@@ -171,10 +145,47 @@ public class Rodada implements Observador {
 		int n=ncasa.getQtdPeao();
 		
 		ncasa.ExibeStatus();
-		fv.setPosicaoPeoesBotoes(i,(int)x,(int) y);
+		fv.setPosicaoBotoesPeoes(i,(int)x,(int) y);
 		
 		vTb.repaint();
-		fv.repaint();
+		
+	}
+	
+	public void incializaBotoesPeoes() {
+		
+		int i;
+		double x;
+		double y;
+		for(i=0;i<16;i++) {
+			
+			IPeao p =(IPeao) this.vPeao[i];
+			x=p.getXY().getX1();
+			y=p.getXY().getY1();
+			fv.setPosicaoBotoesPeoes(i,(int)x,(int) y);
+			
+		}	
+	}
+	
+	public void CarregaInicio(FrameView fv,FcModel fc) {
+		
+		this.facade=fc;
+		facade.IniciaJogo();
+		vCasas=facade.getVcasas();
+			
+		vPlayers= fc.getVplayers();
+		
+		this.fv=fv;
+		vPeao =  fc.getVpeoes();
+		vTb = fv.getVTabuleiro();
+		vTb.setVpeoes(vPeao);
+		vTb.setVcasas(vCasas);
+		
+		vTb.addObserver(this);
+		fv.addObserver(this);	
+		facade.CriaDado();	
+		
+		facade.setCasaInicial(VTabuleiro.XPosicaoInicialVermelho,VTabuleiro.YPosicaoInicialVermelho,VTabuleiro.XPosicaoInicialVerde,VTabuleiro.YPosicaoInicialVerde,VTabuleiro.XPosicaoInicialAmarelo,VTabuleiro.YPosicaoInicialAmarelo,VTabuleiro.XPosicaoInicialAzul,VTabuleiro.YPosicaoInicialAzul);
+		incializaBotoesPeoes();	
 	}
 
 	
