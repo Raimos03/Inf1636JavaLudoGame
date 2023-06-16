@@ -4,9 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
-
-
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -48,13 +45,15 @@ public class FrameView extends JFrame implements Observado,Observador2{ // Canva
 	private int numerodado;
 	private JButton bjogadado;
 	private int IndiceBotaoPeao=-1;
+	private Rodada rd;
 	
-	
+	private Object[] vBotoesMenu = new Object[3];
 
 	
 	
 	public FrameView(){
-	
+		
+		
 		
 		int ajustaXpainelInfo=3;
 		int ajustaYpainelInfo=-2;
@@ -142,6 +141,9 @@ public class FrameView extends JFrame implements Observado,Observador2{ // Canva
 		BLoadGame.setHoverBackgroundColor(new Color(248,246,246));
 		
 		InicializaVBotoes();
+		vBotoesMenu[0]= BSalvar;	
+		vBotoesMenu[1]= BLoadGame;
+		vBotoesMenu[2]= BNovoJogo;
 		
 		
 		Div InfPlayer = new Div(162,560,167,120,new Color(244,239,239));//new Color(244,239,239)
@@ -237,32 +239,41 @@ public class FrameView extends JFrame implements Observado,Observador2{ // Canva
                 
             }
         });
-		
-		BSalvar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                JFileChooser fileChooser = new JFileChooser();
-                int resultado = fileChooser.showSaveDialog(BSalvar);
-                if (resultado == JFileChooser.APPROVE_OPTION) {
-                    String caminhoArquivo = fileChooser.getSelectedFile().getPath();
-                    String conteudo = "teste";
-                    JBotaoFill.salvarArquivo(caminhoArquivo, conteudo);
-                }
-            }
-        });
-		
-		 BLoadGame.addActionListener(new ActionListener() {
-	            public void actionPerformed(ActionEvent e) {
-	                JFileChooser fileChooser = new JFileChooser();
-	                int resultado = fileChooser.showOpenDialog(null);
-	                if (resultado == JFileChooser.APPROVE_OPTION) {
-	                    String caminhoArquivo = fileChooser.getSelectedFile().getPath();
-	                    // Chamar o método carregarConteudoArquivo através da instância do JBotao
-	                    String conteudo = BLoadGame.carregaArquivo(caminhoArquivo);
-
-	                    System.out.println(conteudo);
-	                }
-	            }
-	        });
+//		
+//		BSalvar.addActionListener(new ActionListener() {
+//            public void actionPerformed(ActionEvent e) {
+//                JFileChooser fileChooser = new JFileChooser();
+//                int resultado = fileChooser.showSaveDialog(BSalvar);
+//                if (resultado == JFileChooser.APPROVE_OPTION) {
+//                    String caminhoArquivo = fileChooser.getSelectedFile().getPath();
+//                    String conteudo = "teste";
+//                    
+//                    
+//                    JBotaoFill.salvarArquivo(caminhoArquivo, conteudo );
+//                }
+//            }
+//        });
+//		
+//		 BLoadGame.addActionListener(new ActionListener() {
+//	            public void actionPerformed(ActionEvent e) {
+//	                JFileChooser fileChooser = new JFileChooser();
+//	                int resultado = fileChooser.showOpenDialog(null);
+//	                if (resultado == JFileChooser.APPROVE_OPTION) {
+//	                    String caminhoArquivo = fileChooser.getSelectedFile().getPath();
+//	                    // Chamar o método carregarConteudoArquivo através da instância do JBotao
+//	                    String conteudo = BLoadGame.carregaArquivo(caminhoArquivo);
+//
+//	                    System.out.println(conteudo);
+//	                }
+//	            }
+//	        });
+//		 
+//		 BNovoJogo.addActionListener(new ActionListener() {
+//	            public void actionPerformed(ActionEvent e) {
+//	              
+//	            	System.out.println(" --- Iniciar Novo Jogo ---");
+//	            }
+//	        });
 
 		
 		
@@ -376,6 +387,12 @@ public class FrameView extends JFrame implements Observado,Observador2{ // Canva
 		this.IndiceBotaoPeao=-1;
 	}
 	
+	public void setRodada(Rodada rodada) {
+		this.rd=rodada;
+	}
+	public Object[] getvBotoesMenu() {
+		return this.vBotoesMenu;
+	}
 	//---------------------
 
 

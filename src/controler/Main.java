@@ -7,6 +7,9 @@ public class Main {
 
 	public static void main(String[] args) {
 		
+		
+		
+		
 		FrameView frame = new FrameView();	
 		frame.setTitle("Ludo Game");
 		frame.setLayout(null);
@@ -16,6 +19,7 @@ public class Main {
 		
 		
 		Rodada rd = new Rodada(frame, fachada);
+		frame.setRodada(rd);
 
 
 		

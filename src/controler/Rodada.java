@@ -6,8 +6,12 @@ import model.FcModel;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import javax.swing.JFileChooser;
 import javax.swing.JLayeredPane;
 import java.util.ArrayList;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 
 
@@ -24,6 +28,12 @@ public class Rodada implements Observador, Observado {
 	public Object[] vPlayers;
 	public Object[] vPeao;
 	public Object[] vCasas;
+	
+	public JBotaoFill jbSalvar;
+	public JBotaoFill jbLoad;
+	public JBotaoFill jbNovoJogo;
+	
+	
 	private ArrayList<Observador> lobs = new ArrayList<>(); 
 
 
@@ -46,7 +56,10 @@ public class Rodada implements Observador, Observado {
 		// acesso tudo de model pelo facade
 		
 		CarregaInicio(fv, fc);
-		
+		Object[] vBotoesMenu = fv.getvBotoesMenu();
+		jbSalvar = (JBotaoFill) vBotoesMenu[0];
+		jbLoad = (JBotaoFill) vBotoesMenu[1];
+		jbNovoJogo = (JBotaoFill) vBotoesMenu[2];
 		
 		
 		GerenciaRodada();
@@ -54,6 +67,42 @@ public class Rodada implements Observador, Observado {
 		
 		//vTb.ExibeVpeao();
 		//facade.ExibeVpeoes();
+		
+		jbSalvar.addActionListener(new ActionListener() {
+	        public void actionPerformed(ActionEvent e) {
+	            JFileChooser fileChooser = new JFileChooser();
+	            int resultado = fileChooser.showSaveDialog(jbSalvar);
+	            if (resultado == JFileChooser.APPROVE_OPTION) {
+	                String caminhoArquivo = fileChooser.getSelectedFile().getPath();
+	                String conteudo = "teste";
+	                
+	                
+	                JBotaoFill.salvarArquivo(caminhoArquivo, conteudo );
+	            }
+	        }
+	    });
+		
+		 jbLoad.addActionListener(new ActionListener() {
+	            public void actionPerformed(ActionEvent e) {
+	                JFileChooser fileChooser = new JFileChooser();
+	                int resultado = fileChooser.showOpenDialog(null);
+	                if (resultado == JFileChooser.APPROVE_OPTION) {
+	                    String caminhoArquivo = fileChooser.getSelectedFile().getPath();
+	                    // Chamar o método carregarConteudoArquivo através da instância do JBotao
+	                    String conteudo = JBotaoFill.carregaArquivo(caminhoArquivo);
+
+	                    System.out.println(conteudo);
+	                }
+	            }
+	        });
+		 
+		 jbNovoJogo.addActionListener(new ActionListener() {
+	            public void actionPerformed(ActionEvent e) {
+	              
+	            	System.out.println(" --- Iniciar Novo Jogo ---");
+	            }
+		 		
+	        });
 		
 	}
 
@@ -258,8 +307,11 @@ public class Rodada implements Observador, Observado {
 	
 	 //}
 			
-		}
+	}
+	
 
+
+	// ---------- Observadores 
 
 	@Override
 	public void addObserver(Observador o) {
@@ -290,9 +342,14 @@ public class Rodada implements Observador, Observado {
 	}
 
 
-
+	// --------------- Listener Botao
+	
+	
 	
 }
+
+
+
 
 // codigo Rodada antiga
 
