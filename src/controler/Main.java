@@ -19,8 +19,6 @@ public class Main {
 		
 		
 		Rodada rd = new Rodada(frame, fachada);
-		frame.setRodada(rd);
-
 
 		
 	}

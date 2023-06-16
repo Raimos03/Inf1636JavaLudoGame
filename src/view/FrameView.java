@@ -39,15 +39,16 @@ public class FrameView extends JFrame implements Observado,Observador2{ // Canva
 	private ArrayList<JBotao> vbotoes = new ArrayList<>(); //tam 16 , 0 a 15
 	
 	
-	public JLayeredPane layers = new JLayeredPane();
+	
 	public VTabuleiro Tb;
 	private ArrayList<Observador> lobs = new ArrayList<>(); 
 	private int numerodado;
-	private JButton bjogadado;
+	
 	private int IndiceBotaoPeao=-1;
-	private Rodada rd;
 	
 	private Object[] vBotoesMenu = new Object[3];
+	private JButton bjogadado;
+	private PainelPlayer CorPlayer;
 
 	
 	
@@ -71,7 +72,7 @@ public class FrameView extends JFrame implements Observado,Observador2{ // Canva
 		jp2.setBounds(470,0,10,700);
 		jp3.setBounds(480,0,700,700);
 	
-		
+		JLayeredPane layers = new JLayeredPane();
 //		layers.setSize(new Dimension(1200,700));
 		layers.setBounds(0, 0, 1200, 700);	
 		jp1.setImagemFundo("./Images/teste2.png",470,660);
@@ -107,6 +108,7 @@ public class FrameView extends JFrame implements Observado,Observador2{ // Canva
 		
 		 // Inicializa o desenho do dado
 		//Dado_graf.setFace(-1);
+		
 		VDado.Inicia();
 		
 		
@@ -151,9 +153,11 @@ public class FrameView extends JFrame implements Observado,Observador2{ // Canva
 		InfPlayer.setBackground(PainelDado.getColor());
 		
 		
-		PainelPlayer CorPlayer = new PainelPlayer(162,550,167,120);//new Color(244,239,239)
-		CorPlayer.setBounds(ajusataXCompDireita+272,570,147,40);
+		this.CorPlayer = new PainelPlayer();//new Color(244,239,239)
+		CorPlayer.setBounds(ajusataXCompDireita+272,570,147,40); // cor do player
 		CorPlayer.setBackground(CorPlayer.getColor());
+		
+		
 		
 		Div InfTexto = new Div(35,300,167,400,new Color(244,239,239));//new Color(244,239,239)
 		InfTexto.setBounds(ajusataXCompEsquerda+45,255,167,365);
@@ -235,59 +239,20 @@ public class FrameView extends JFrame implements Observado,Observador2{ // Canva
                 //VDado.GeraDado(numerodado,(Graphics2D)VDado.getGraphics());
                 
                 VDado.AtualizaImagem(numerodado);
-                //CorPlayer.proximaCorPlayer();    
+                
+//              CorPlayer.proximaCorPlayer();
+//              CorPlayer.ExibePainel();             
                 
             }
         });
-//		
-//		BSalvar.addActionListener(new ActionListener() {
-//            public void actionPerformed(ActionEvent e) {
-//                JFileChooser fileChooser = new JFileChooser();
-//                int resultado = fileChooser.showSaveDialog(BSalvar);
-//                if (resultado == JFileChooser.APPROVE_OPTION) {
-//                    String caminhoArquivo = fileChooser.getSelectedFile().getPath();
-//                    String conteudo = "teste";
-//                    
-//                    
-//                    JBotaoFill.salvarArquivo(caminhoArquivo, conteudo );
-//                }
-//            }
-//        });
-//		
-//		 BLoadGame.addActionListener(new ActionListener() {
-//	            public void actionPerformed(ActionEvent e) {
-//	                JFileChooser fileChooser = new JFileChooser();
-//	                int resultado = fileChooser.showOpenDialog(null);
-//	                if (resultado == JFileChooser.APPROVE_OPTION) {
-//	                    String caminhoArquivo = fileChooser.getSelectedFile().getPath();
-//	                    // Chamar o método carregarConteudoArquivo através da instância do JBotao
-//	                    String conteudo = BLoadGame.carregaArquivo(caminhoArquivo);
-//
-//	                    System.out.println(conteudo);
-//	                }
-//	            }
-//	        });
-//		 
-//		 BNovoJogo.addActionListener(new ActionListener() {
-//	            public void actionPerformed(ActionEvent e) {
-//	              
-//	            	System.out.println(" --- Iniciar Novo Jogo ---");
-//	            }
-//	        });
 
 		
-		
 	}
-//	public JBotao getBJogaDado() {
-//		return 
-//	}
 	
 	public void setNumeroDado(int n) {
 		this.numerodado=n;
 	}
-	public JLayeredPane getVLayers() {
-		return layers;
-	}	
+
 	public VTabuleiro getVTabuleiro() { //retorna o tabuleiro
 		return this.Tb;
 	}
@@ -363,12 +328,6 @@ public class FrameView extends JFrame implements Observado,Observador2{ // Canva
 			obj.update();
 		}
 	}
-	public void desabilitaBJogaDado() {
-		this.bjogadado.setEnabled(false);
-	}
-	public void habilitaBJogaDado() {
-		this.bjogadado.setEnabled(true);
-	}
 	
 	@Override
 	public Object getDados() {
@@ -383,16 +342,38 @@ public class FrameView extends JFrame implements Observado,Observador2{ // Canva
 		//System.out.println("FrameView - BotaoPeao clicado:"+this.IndiceBotaoPeao);	
 
 	}
+	
+	public void desabilitaBJogaDado() {
+		this.bjogadado.setEnabled(false);
+	}
+	
+	public void habilitaBJogaDado() {
+		this.bjogadado.setEnabled(true);
+	}
+	
 	public void resetaIndiceBotaoClicado() {
 		this.IndiceBotaoPeao=-1;
 	}
 	
-	public void setRodada(Rodada rodada) {
-		this.rd=rodada;
-	}
 	public Object[] getvBotoesMenu() {
 		return this.vBotoesMenu;
 	}
+	
+	public PainelPlayer getPainelPlayer() {
+		return this.CorPlayer;
+	}
+	
+	public void AtualizaPainelPlayer() {
+		this.CorPlayer.proximaCorPlayer();
+		this.CorPlayer.ExibePainel();;
+	}	
+	
+//	public void AtualizaPainelPlayerCor() {
+//		this.CorPlayer.proximaCorPlayer();
+//	}
+//	public void ExibePainelPlayer() {
+//		this.CorPlayer.ExibePainel();
+//	}
 	//---------------------
 
 

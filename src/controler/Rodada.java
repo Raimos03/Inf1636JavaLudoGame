@@ -7,7 +7,6 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 import javax.swing.JFileChooser;
-import javax.swing.JLayeredPane;
 import java.util.ArrayList;
 
 import java.awt.event.ActionEvent;
@@ -32,6 +31,7 @@ public class Rodada implements Observador, Observado {
 	public JBotaoFill jbSalvar;
 	public JBotaoFill jbLoad;
 	public JBotaoFill jbNovoJogo;
+	public PainelPlayer pplayer;
 	
 	
 	private ArrayList<Observador> lobs = new ArrayList<>(); 
@@ -39,34 +39,22 @@ public class Rodada implements Observador, Observado {
 
 	
 	public Rodada( FrameView fv,FcModel fc) { // controle o andamento do jogo
-		
-//		Object[] Vencedor = new Object[4];
-//		int pVencedor = -1; //player dif de -1 , -1 nao tem vencedor
-//		int respContinueUsr=1;  // 1 continuar o jogo , 0 sair
-//		int qtdVencedor=0;
-//		
-//		int rRegraI1=0;
-//		int rRegraB1=0;
-//		int rRegraB2=0;
-//		int rRegraB3=0;
-//		int rRegra6=0;
-//		int rRegraBR=0;
-//		int rRegraCA=0;
+
 		
 		// acesso tudo de model pelo facade
 		
 		CarregaInicio(fv, fc);
-		Object[] vBotoesMenu = fv.getvBotoesMenu();
-		jbSalvar = (JBotaoFill) vBotoesMenu[0];
-		jbLoad = (JBotaoFill) vBotoesMenu[1];
-		jbNovoJogo = (JBotaoFill) vBotoesMenu[2];
 		
 		
-		GerenciaRodada();
+		
+		//GerenciaRodada();
 		
 		
 		//vTb.ExibeVpeao();
 		//facade.ExibeVpeoes();
+		
+		
+		// --- Event Listener
 		
 		jbSalvar.addActionListener(new ActionListener() {
 	        public void actionPerformed(ActionEvent e) {
@@ -107,35 +95,7 @@ public class Rodada implements Observador, Observado {
 	}
 
 
-	@Override
-	public void update() {
-		
-		// TODO Auto-generated method stub
-		// botao de jogar dado foi clicado
-			
-		System.out.println("Cliquei para sortear o dado");
-		this.dadoRodada=facade.JogaDado();
-		System.out.println(dadoRodada);
-		fv.setNumeroDado(dadoRodada); // atualizar imagem dado
-		//fv.desabilitaBJogaDado();
-		System.out.println("BPeao clicado:"+fv.getIndiceBotaoPeao());
-		
-		
-		
-		
-		//identifico o peao a ser movido
-		
-//		MovePeao(fv.getIndiceBotaoPeao(),dadoRodada);
-//		MovePeao(9,dadoRodada+2);
-//		MovePeao(2,dadoRodada+2);
-//		MovePeao(5,dadoRodada+4);
-//		MovePeao(3,5);
-//		MovePeao(0,5);
-		
-//		fv.resetaIndiceBotaoClicado();
-		System.out.println("BPeao clicado:"+fv.getIndiceBotaoPeao());
-		
-	}
+	
 	
 	public int encontraNovaCasaTabuleiro(int posicaoantiga, int dado) {		
 		if(posicaoantiga+dado>51) {
@@ -251,9 +211,18 @@ public class Rodada implements Observador, Observado {
 		
 		facade.setCasaInicial(VTabuleiro.XPosicaoInicialVermelho,VTabuleiro.YPosicaoInicialVermelho,VTabuleiro.XPosicaoInicialVerde,VTabuleiro.YPosicaoInicialVerde,VTabuleiro.XPosicaoInicialAmarelo,VTabuleiro.YPosicaoInicialAmarelo,VTabuleiro.XPosicaoInicialAzul,VTabuleiro.YPosicaoInicialAzul);
 		incializaBotoesPeoes();	
+		
+		Object[] vBotoesMenu = fv.getvBotoesMenu();
+		jbSalvar = (JBotaoFill) vBotoesMenu[0];
+		jbLoad = (JBotaoFill) vBotoesMenu[1];
+		jbNovoJogo = (JBotaoFill) vBotoesMenu[2];
+		pplayer = (PainelPlayer) fv.getPainelPlayer();
 	}
 
 	public void GerenciaRodada() {
+		
+		fv.desabilitaBJogaDado();
+		
 		
 		Object[] Vencedor = new Object[4];
 		int pVencedor = -1; //player dif de -1 , -1 nao tem vencedor
@@ -274,8 +243,10 @@ public class Rodada implements Observador, Observado {
 		// while(respContinueUsr!=0){			
 					//turno
 					
-	
-		if(pVencedor!=-1) {// houve um vencedor	
+		
+		
+		
+		if(pVencedor!=-1) {// houve um vencedor	ultimo
 			
 			System.out.println("Houve um vencedor. Digite 1 para continuar ou 0 para terminar");
 			Scanner sc = new Scanner(System.in);
@@ -301,17 +272,56 @@ public class Rodada implements Observador, Observado {
 		
 		//atualizo para o proximo jogador
 		
-		facade.ProximoJogador();
+		facade.ProximoJogador();				
 		facade.NovoRound();
+		fv.habilitaBJogaDado();
 		
 	
-	 //}
+	 //} // fim while
+		
 			
 	}
 	
 
 
 	// ---------- Observadores 
+	
+	@Override
+	public void update() {
+	
+		// botao de jogar dado foi clicado
+			
+		System.out.println("Cliquei para sortear o dado");
+		this.dadoRodada=facade.JogaDado();
+		System.out.println(dadoRodada);
+		fv.setNumeroDado(dadoRodada); // atualizar imagem dado
+		
+		
+		System.out.println("BPeao clicado:"+fv.getIndiceBotaoPeao());
+		
+		
+		GerenciaRodada();
+		
+		
+		//identifico o peao a ser movido
+		
+//		MovePeao(fv.getIndiceBotaoPeao(),dadoRodada);
+//		MovePeao(9,dadoRodada+2);
+//		MovePeao(2,dadoRodada+2);
+//		MovePeao(5,dadoRodada+4);
+//		MovePeao(3,5);
+//		MovePeao(0,5);
+		
+		
+		
+		
+		fv.resetaIndiceBotaoClicado();
+		
+		//System.out.println("BPeao clicado:"+fv.getIndiceBotaoPeao());
+		
+		fv.AtualizaPainelPlayer();
+		
+	}
 
 	@Override
 	public void addObserver(Observador o) {
@@ -340,10 +350,6 @@ public class Rodada implements Observador, Observado {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
-	// --------------- Listener Botao
-	
 	
 	
 }
@@ -362,9 +368,7 @@ public class Rodada implements Observador, Observado {
 //
 ////Players
 //Player player = new Player("vermelho");
-//
-//
-//  
+
 //Player 1 turn p = round.player_turn; dice.joga_dado();
 //System.out.println("Player " + "\n" + "Die Throw: " + dice.face +
 //"Regra de casa inicial" + regra.regraB1(player.getPeao1(),dice.face));

@@ -8,7 +8,7 @@ import java.awt.geom.Rectangle2D;
 import javax.swing.*;
 
 
-class PainelPlayer extends JPanel {
+public class PainelPlayer extends JPanel {
 	// painel que mostra a cor do player
 	
 	
@@ -18,6 +18,10 @@ class PainelPlayer extends JPanel {
 
 	int x,y,larg,alt;
 	
+	
+	PainelPlayer (){
+		this.cor = vCores[IndCor];
+	}
 	
 	PainelPlayer ( int x, int y, int larg, int alt){
 		this.cor=Color.red;
@@ -34,13 +38,13 @@ class PainelPlayer extends JPanel {
 	
 	public void setCor(int i) {
 		this.cor=vCores[i];	
-		this.setBackground(this.cor);
+		//this.setBackground(this.cor);
 		return;
 	}
 	
 	public void setCor(Color c) {
 		this.cor=c;
-		this.setBackground(c);
+		//this.setBackground(c);
 		return;
 	}
 
@@ -49,10 +53,15 @@ class PainelPlayer extends JPanel {
 		
 		if (novo>=4) {
 			novo=0;
-		}		
+		}	
+		
 		this.IndCor=novo;	
 		this.setCor(novo);
+		
 		return ;
+	}
+	public void ExibePainel() {
+		this.setBackground(this.cor);
 	}
 	
 }
