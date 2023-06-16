@@ -14,6 +14,7 @@ import controler.*;
 
 
 
+
 public class JBotao extends JButton implements ActionListener, Observado2 { // botao customizado 
 	
 	private int indice;
@@ -91,7 +92,7 @@ public class JBotao extends JButton implements ActionListener, Observado2 { // b
 		
 		//String label = novo.getActionCommand();
 		JBotao j = (JBotao) novo.getSource(); 
-		//System.out.println("Botao Peao: "+j.indice);
+		System.out.println("Botao Peao: "+j.indice);
 		this.Notify2(j.indice);
 	}
 

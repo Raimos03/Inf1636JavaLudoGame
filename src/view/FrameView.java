@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 
 
 
+
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -235,6 +237,32 @@ public class FrameView extends JFrame implements Observado,Observador2{ // Canva
                 
             }
         });
+		
+		BSalvar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fileChooser = new JFileChooser();
+                int resultado = fileChooser.showSaveDialog(BSalvar);
+                if (resultado == JFileChooser.APPROVE_OPTION) {
+                    String caminhoArquivo = fileChooser.getSelectedFile().getPath();
+                    String conteudo = "teste";
+                    JBotaoFill.salvarArquivo(caminhoArquivo, conteudo);
+                }
+            }
+        });
+		
+		 BLoadGame.addActionListener(new ActionListener() {
+	            public void actionPerformed(ActionEvent e) {
+	                JFileChooser fileChooser = new JFileChooser();
+	                int resultado = fileChooser.showOpenDialog(null);
+	                if (resultado == JFileChooser.APPROVE_OPTION) {
+	                    String caminhoArquivo = fileChooser.getSelectedFile().getPath();
+	                    // Chamar o método carregarConteudoArquivo através da instância do JBotao
+	                    String conteudo = BLoadGame.carregaArquivo(caminhoArquivo);
+
+	                    System.out.println(conteudo);
+	                }
+	            }
+	        });
 
 		
 		

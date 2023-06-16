@@ -10,6 +10,7 @@ import javax.swing.JLayeredPane;
 import java.util.ArrayList;
 
 
+
 public class Rodada implements Observador, Observado { 
 	//Controler
 	
@@ -75,14 +76,14 @@ public class Rodada implements Observador, Observado {
 		
 		//identifico o peao a ser movido
 		
-		MovePeao(fv.getIndiceBotaoPeao(),dadoRodada);
+//		MovePeao(fv.getIndiceBotaoPeao(),dadoRodada);
 //		MovePeao(9,dadoRodada+2);
 //		MovePeao(2,dadoRodada+2);
 //		MovePeao(5,dadoRodada+4);
 //		MovePeao(3,5);
 //		MovePeao(0,5);
 		
-		fv.resetaIndiceBotaoClicado();
+//		fv.resetaIndiceBotaoClicado();
 		System.out.println("BPeao clicado:"+fv.getIndiceBotaoPeao());
 		
 	}

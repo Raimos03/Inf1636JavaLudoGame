@@ -7,6 +7,13 @@ import java.awt.Graphics;
 
 import javax.swing.JButton;
 
+//import para fazer o file chooser
+import javax.swing.JFileChooser;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 
 public class JBotaoFill extends JButton {
@@ -77,4 +84,29 @@ public class JBotaoFill extends JButton {
     }
 
 	
+    public static void salvarArquivo(String caminhoArquivo, String conteudo) {
+        try {
+            PrintWriter writer = new PrintWriter(new FileWriter(caminhoArquivo+".txt"));
+            writer.println(conteudo);
+            writer.close();
+            System.out.println("Conteúdo salvo com sucesso no arquivo!");
+        } catch (IOException e) {
+            System.out.println("Erro ao salvar o arquivo: " + e.getMessage());
+        }
+    }
+    
+    public static String carregaArquivo(String caminhoArquivo) {
+        StringBuilder conteudo = new StringBuilder();
+        try (BufferedReader reader = new BufferedReader(new FileReader(caminhoArquivo))) {
+            String linha;
+            while ((linha = reader.readLine()) != null) {
+                conteudo.append(linha).append("\n");
+            }
+        } catch (IOException e) {
+            System.out.println("Erro ao carregar o arquivo: " + e.getMessage());
+        }
+        return conteudo.toString();
+    }
+    
+    
 }
