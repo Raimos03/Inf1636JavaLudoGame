@@ -47,7 +47,7 @@ public class Rodada implements Observador, Observado {
 		
 		
 		
-		//GerenciaRodada();
+		// TESTE BRACNK PATRICK
 		
 		
 		//vTb.ExibeVpeao();
