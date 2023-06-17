@@ -64,6 +64,14 @@ public class FcModel   { // Facade
 	public Object GetPlayerVez() {		
 		return vPlayers[round.getIntPlayerVez()];
 	}
+	public String getCorPlayerVez() {
+
+		Player p = (Player) vPlayers[round.getIntPlayerVez()-1];
+		//System.out.println("int vez player" + (round.getIntPlayerVez()-1) );
+		String icor = p.get_cor();
+		//System.out.println("cor player vez ->" + icor);
+		return icor;	
+	}
 	public Tabuleiro getTabuleiro() {	
 		return mTb;
 	}
@@ -82,16 +90,30 @@ public class FcModel   { // Facade
 		return  np.getPosicao();
 	}
 	
-	public void MovePeao(Object  p, double x, double y , int dado, int postabuleiro) { // move peao IMPLEMENTAR
+	public void MovePeao(Object  p, double nx, double ny , int postabuleiro) { // move peao IMPLEMENTAR
+
 		
 		Peao np = (Peao) p;
-		Coordenada c = new Coordenada(x,y);
+		Coordenada c = new Coordenada(nx,ny);
 		//np.setPosicao(np.getPosicao()+dado);
-		np.MovePeao(dado, c);
+		np.MovePeao(c);
 		np.setPosicao(postabuleiro);
 		
 		
 	}	
+<<<<<<< HEAD
+	
+
+	
+	public int VerificaRegrasI1(Object p, int dado) {				
+		return regras.RegraI1((Peao) p, dado);
+	}
+	
+	
+	public int VerificaRegrasB1(Object p, int dado) {							
+		return VerificaRegrasB1((Peao) p, dado);
+	}
+=======
 	public boolean VerificaRegrasI1(Peao p, int dado) {	
 		if (regras.RegraI1(p, dado) == 1){
 			return true;
@@ -106,6 +128,7 @@ public class FcModel   { // Facade
 			
 			return false;
 		}
+>>>>>>> master
 	
 	
 	
@@ -123,6 +146,17 @@ public class FcModel   { // Facade
 		np=p.getPeao4();
 		this.vPeoes[i+3]=np;
 
+	}
+	public void setCasaSaidaPeao(Object p,boolean b) {
+		Peao np = (Peao) p;
+		np.setCasaSaida(b);
+		
+	}	
+	
+	public void setCasaInicialPeao(Object p,boolean b) {
+		Peao np = (Peao) p;
+		np.setCasaInicial(b);
+		
 	}
 	
 	public void setCasaInicial(double[] posinvermelhox,double[] posinvermelhoy,double[] posinverdex,double[] posinverdey,double[] posinamarelx,double[] posinamarely,double[] posinazulx,double[] posinazuly) {

@@ -17,6 +17,8 @@ import java.awt.Color;
 	 private boolean barreira=false;
 	 private boolean abrigo=false;
 	 private boolean temPeao=false;
+	 private boolean casaSaida=false;
+	 private String corCasadeSaida=null;
 	 private String[] vcorPeoes = new String[2];
 	 
 	 // ver se guardo peoes aqui dentro ou nao
@@ -50,6 +52,13 @@ import java.awt.Color;
 		 }
 		 	return false;
 	 	}
+	 public boolean eCasaSaida() {
+		 
+		if( this.casaSaida==true) {
+			return true;
+		}	 
+		 return false;
+	 }
 
 	 public boolean eAbrigo() {
 		 
@@ -69,6 +78,10 @@ import java.awt.Color;
 		this.barreira=t;
 		return;
 	}
+	public void setCasaSaida(boolean t) {
+		this.casaSaida=t;
+		return;
+	}
 	public void setCorPeao(int i, String s) {
 		this.vcorPeoes[i]=s;
 	}
@@ -78,6 +91,13 @@ import java.awt.Color;
 	public boolean getTemPeao() {
 		return this.temPeao;
 	}
+	public void setCorCasa(String s) {
+		this.corCasadeSaida= s;
+	}
+	public String getCorCasa() {
+		return this.corCasadeSaida;
+	}
+	
 	public void ReiniciaCasa() {
 		
 		this.abrigo=false;

@@ -19,5 +19,9 @@ public interface ICasa {
 	public boolean eCasaZerada();	
 	public int getPosicaoCasa();
 	public void ExibeStatus();
+	public void setCorCasa(String s);
+	public String getCorCasa();
+	public boolean eCasaSaida(); 
+	public void setCasaSaida(boolean t);
 
 }
