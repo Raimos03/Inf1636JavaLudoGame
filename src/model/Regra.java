@@ -21,74 +21,23 @@ class Regra {
 			int rPeoesAtivos =	 VerificaPeoesAtivos(p.getPlayerPai());
 						
 			if (rPeoesSaida == 1 && rPeoesAtivos ==1) { // sucesso
-						
-				//atualizo o peao  // modificar
-				
-				if (p.getIntCor()==0) { //vermelho				
-					p.setXY(Peao.PosicaoCasaSaidaVermelho);
-				}
-				else if (p.getIntCor()==1) { //verde
-					p.setXY(Peao.PosicaoCasaSaidaVerde);                 //*** atualizar toda essa parte
-				}
-				else if (p.getIntCor()==2) {
-					p.setXY(Peao.PosicaoCasaSaidaAmarelo);
-				}
-				else {
-					p.setXY(Peao.PosicaoCasaSaidaAzul);
-					
-				}
-				
-				p.setCasaSaida(true);
-				p.setCasaInicial(false);
-				p.setPosicao(0);
-				
 				return 1;
 			}
 			
 			// escolho outro peao para mover
-			else {
+			
+			else { // peao ativa < 4 ou peao na casa de saida
 				
-				System.out.println("Digite o numero de Outro peao que deseja mover:");
-				Scanner sc= new Scanner(System.in);						
-				int opcaoPeao= sc.nextInt();
-								
-				
-//				if (opcaoPeao>4 || opcaoPeao<0) {	
-//					
-//					while(opcaoPeao<4 && opcaoPeao>0 && ) { // ate acertar
-//						System.out.println("Digite o numero do peao que deseja mover:");
-//						opcaoPeao= sc.nextInt();			
-//					
-//						System.out.println("Numero escolhido do peao:"+opcaoPeao);
-//					}
-//					
-//						//return 0;
-//						
-//				}
-				
-				sc.close();
-										
-//				Peao pEscolhido;		
-//				Player pai = p.getPlayerPai();
-//			
-//				if (opcaoPeao==1) {
-//					pEscolhido = pai.getPeao1();					
-//				}
-//				else if (opcaoPeao==2) {										
-//					pEscolhido = pai.getPeao2();					
-//									}
-//				else if (opcaoPeao==3) {									
-//					pEscolhido = pai.getPeao3();
-//				}			
-//				else {
-//					pEscolhido = pai.getPeao4();
-//					
-//				}
-//				
-				//pEscolhido.MovePeao(dado);	// move depois de escolhido		**atualizar	
-				}					
-			}			
+				System.out.println("Regra - Escolha outro peao que deseja mover:");				
 
+				if(rPeoesSaida==0) {
+					return 2;
+				}
+				else 
+					return 3;		
+									
+			}			
+		}		
 		return 0;
 	}
 	
@@ -111,18 +60,17 @@ class Regra {
 		}
 		
 		else if (pai.getPeao4().isCasaSaida()==true) {		
-			return 0;
-			
+			return 0;			
 		}	
 		return 1;		
 	}
 	
 	public int VerificaPeoesAtivos(Player pai) {
 			
-		if (pai.get_qtd_ativo()==4) {		
-			return 0;
+		if (pai.get_qtd_ativo()<4) {		
+			return 1;
 		}	
-		return 1;	
+		return 0;	
 	}
 	
 
@@ -145,7 +93,7 @@ class Regra {
     }
 
     public int RegraB2(Peao p) { // verifica se o peao esta na casa de saida ou na inicial
-        if(p.isCasaSaida() == true ||  p.isCasaInicial() == true) {
+        if(p.isCasaSaida() == true ||  p.isCasaInicial() == true) { // casa saida
             return 1;
         }
 

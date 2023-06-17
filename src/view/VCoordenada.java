@@ -45,8 +45,9 @@ class VCoordenada implements ICoordenada {
 		return false;
 	}
 	
-	public String ExibeCoordenadas() {
-		return "\tX:"+this.getX1()+ "\n\tY:"+this.getY1(); 
+	public void ExibeCoordenadas() {
+		System.out.println("\tX:"+this.getX1()+ "\n\tY:"+this.getY1());
+		return; 
 	}
 
 	@Override

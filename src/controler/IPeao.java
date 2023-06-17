@@ -14,7 +14,7 @@ public interface IPeao {
 
 	public boolean isNoTabuleiro();
 	
-	public void setNoTabuleiro(boolean noTabuleiro);
+//	public void setNoTabuleiro(boolean noTabuleiro);
 
 	public ICoordenada getXY();
 
