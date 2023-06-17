@@ -28,7 +28,50 @@ class Regra {
 			
 			else { // peao ativa < 4 ou peao na casa de saida
 				
+<<<<<<< HEAD
 				System.out.println("Regra - Escolha outro peao que deseja mover:");				
+=======
+				System.out.println("Digite o numero de Outro peao que deseja mover:");
+				Scanner sc= new Scanner(System.in);						
+				int opcaoPeao= sc.nextInt();
+								
+				
+//				if (opcaoPeao>4 || opcaoPeao<0) {	
+//					
+//					while(opcaoPeao<4 && opcaoPeao>0 && ) { // ate acertar
+//						System.out.println("Digite o numero do peao que deseja mover:");
+//						opcaoPeao= sc.nextInt();			
+//					
+//						System.out.println("Numero escolhido do peao:"+opcaoPeao);
+//					}
+//					
+//						//return 0;
+//						
+//				}
+				
+				sc.close();
+										
+//				Peao pEscolhido;		
+//				Player pai = p.getPlayerPai();
+//			
+//				if (opcaoPeao==1) {
+//					pEscolhido = pai.getPeao1();					
+//				}
+//				else if (opcaoPeao==2) {										
+//					pEscolhido = pai.getPeao2();					
+//									}
+//				else if (opcaoPeao==3) {									
+//					pEscolhido = pai.getPeao3();
+//				}			
+//				else {
+//					pEscolhido = pai.getPeao4();
+//					
+//				}
+//				
+				//pEscolhido.MovePeao(dado);	// move depois de escolhido		**atualizar	
+				}					
+			}			
+>>>>>>> master
 
 				if(rPeoesSaida==0) {
 					return 2;

@@ -101,6 +101,7 @@ public class FcModel   { // Facade
 		
 		
 	}	
+<<<<<<< HEAD
 	
 
 	
@@ -112,6 +113,22 @@ public class FcModel   { // Facade
 	public int VerificaRegrasB1(Object p, int dado) {							
 		return VerificaRegrasB1((Peao) p, dado);
 	}
+=======
+	public boolean VerificaRegrasI1(Peao p, int dado) {	
+		if (regras.RegraI1(p, dado) == 1){
+			return true;
+		}		
+		return false;
+	}
+	
+	
+	public boolean VerificaRegrasB1() {
+			
+			boolean c = true;		
+			
+			return false;
+		}
+>>>>>>> master
 	
 	
 	

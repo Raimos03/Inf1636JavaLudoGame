@@ -44,7 +44,16 @@ public class Rodada implements Observador, Observado {
 		// acesso tudo de model pelo facade
 		
 		CarregaInicio(fv, fc);
+<<<<<<< HEAD
 			
+=======
+		
+		
+		
+		//GerenciaRodada();
+		
+		
+>>>>>>> master
 		//vTb.ExibeVpeao();
 		//facade.ExibeVpeoes();
 		
@@ -370,9 +379,13 @@ public class Rodada implements Observador, Observado {
 		}
 		//identifico o peao a ser movido
 		
+<<<<<<< HEAD
 		
 //		MovePeao(3,dadoRodada);	
 //		MovePeao(fv.getIndiceBotaoPeao(),dadoRodada);
+=======
+		MovePeao(fv.getIndiceBotaoPeao(),dadoRodada);
+>>>>>>> master
 //		MovePeao(9,dadoRodada+2);
 //		MovePeao(2,dadoRodada+2);
 //		MovePeao(5,dadoRodada+4);
