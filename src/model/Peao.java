@@ -43,11 +43,6 @@ class Peao implements IPeao, ICoordenada {
 		this.IntCor=getIndiceCor(scor);
 	
 		this.xy =new Coordenada() ; //getCoordenadaInicialSCor(Peao.getCorS(IntCor));
-		
-		this.CasaSaida=false;
-		this.CasaInicial=false;
-		this.Barreira=false;
-		this.Abrigo=false;
 		Peao.ContabilizaPeao();	
 		
 	}
@@ -214,14 +209,9 @@ class Peao implements IPeao, ICoordenada {
 
 
 	
-	public int MovePeao(int dado, Coordenada nc) { // Jogada normal
-		
-		//int posicaoAtual=this.getPosicao();		
-		//this.setPosicao(posicaoAtual+dado);	
-				
-		// dependendo onde esteja (casa comun ou outra ele procura a posicao)						
+	public int MovePeao(Coordenada nc) { // Jogada normal
+					
 		this.setXY(nc);
-
 		return 1;
 	}
 	
@@ -258,11 +248,7 @@ class Peao implements IPeao, ICoordenada {
 //	}
 
 
-	@Override
-	public void setNoTabuleiro(boolean noTabuleiro) {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 	@Override
 	public void setXY(ICoordenada n) {
@@ -367,9 +353,9 @@ class Peao implements IPeao, ICoordenada {
 	// ----- ICOORDENADA
 	
 	@Override
-	public String ExibeCoordenadas() {
+	public void ExibeCoordenadas() {
 		// TODO Auto-generated method stub
-		return null;
+		return ;
 	}
 	
 }

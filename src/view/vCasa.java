@@ -13,6 +13,8 @@ public class vCasa implements ICasa {
 	 private boolean barreira=false;
 	 private boolean abrigo=false;
 	 private boolean temPeao=false;
+	 private boolean casaSaida=false;
+	 private String corCasadeSaida=null;
 	 private String[] vcorPeoes = new String[2];
 	 
 	 // ver se guardo peoes aqui dentro ou nao
@@ -64,6 +66,12 @@ public class vCasa implements ICasa {
 	}
 	public boolean getTemPeao() {
 		return this.temPeao;
+	}
+	public void setCorCasa(String s) {
+		this.corCasadeSaida= s;
+	}
+	public String getCorCasa() {
+		return this.corCasadeSaida;
 	}
 	public void ReiniciaCasa() {
 		
@@ -177,6 +185,21 @@ public class vCasa implements ICasa {
 	public void setCasaBarreira(boolean t) {
 		// TODO Auto-generated method stub
 		this.barreira=t;
+	}
+
+
+	public boolean eCasaSaida() {
+		 
+		if( this.casaSaida==true) {
+			return true;
+		}	 
+		 return false;
+	 }
+
+
+	public void setCasaSaida(boolean t) {
+		this.casaSaida=t;
+		return;
 	}
 	
 	

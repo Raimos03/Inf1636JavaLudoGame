@@ -10,6 +10,6 @@ public interface ICoordenada {
 	public double getY1();
 	public void setY1(double y1);
 	public boolean eIgualCoordenada( ICoordenada n);
-	public String ExibeCoordenadas();
+	public void ExibeCoordenadas();
 
 }

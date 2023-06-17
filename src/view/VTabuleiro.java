@@ -37,12 +37,12 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observador,
 	
 	public static double[] XPosicaoInicialAzul= {75.5,154,75.5,154};
 	public static double[] YPosicaoInicialAzul= {469,469,548,548};
+
 	
-	public static VCoordenada PosicaoCasaSaidaVermelho = new VCoordenada(43.99999,262.7999); // OK
-	public static VCoordenada PosicaoCasaSaidaVerde = new VCoordenada(350.6,43.8); // OK
-	public static VCoordenada PosicaoCasaSaidaAmarelo = new VCoordenada(569.6,350.40); //OK
-	public static VCoordenada PosicaoCasaSaidaAzul = new VCoordenada(263,569.4); //OK
-	
+	public static ICoordenada PosicaoCasaSaidaVermelho = new VCoordenada(43.99999,262.7999); // OK
+	public static ICoordenada PosicaoCasaSaidaVerde = new VCoordenada(350.6,43.8); // OK
+	public static ICoordenada PosicaoCasaSaidaAmarelo = new VCoordenada(569.6,350.40); //OK
+	public static ICoordenada PosicaoCasaSaidaAzul = new VCoordenada(263,569.4); //OK
 	
 	//----------------- testes
 	
@@ -175,6 +175,21 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observador,
 		VTabuleiro.vCasaVitoriaVerde = vCasaVitoria;
 	}
 	
+	public static ICoordenada getCasaSaidaVermelho() {
+		return VTabuleiro.PosicaoCasaSaidaVermelho;
+	}
+	
+	public static ICoordenada getCasaSaidaVerde() {
+		return VTabuleiro.PosicaoCasaSaidaVerde;
+	}
+	
+	public static ICoordenada getCasaSaidaAmarelo() {
+		return VTabuleiro.PosicaoCasaSaidaAmarelo;
+	}
+	
+	public static ICoordenada getCasaSaidaAzul() {
+		return VTabuleiro.PosicaoCasaSaidaAzul;
+	}
 	
 	
 	public static VCoordenada[] getVcasasComuns(){
@@ -1071,11 +1086,7 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observador,
 		return false;
 	}
 
-	@Override
-	public void setNoTabuleiro(boolean noTabuleiro) {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 	@Override
 	public ICoordenada getXY() {
@@ -1283,9 +1294,9 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observador,
 	}
 	
 	@Override
-	public String ExibeCoordenadas() {
+	public void ExibeCoordenadas() {
 		// TODO Auto-generated method stub
-		return null;
+		return ;
 	}
 
 	// ------- ICasas
@@ -1415,6 +1426,27 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observador,
 		//System.out.println("O model mudou");
 		repaint();
 		
+	}
+
+
+	@Override
+	public void setCorCasa(String s) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public String getCorCasa() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public boolean eCasaSaida() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 
