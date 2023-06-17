@@ -44,16 +44,7 @@ public class Rodada implements Observador, Observado {
 		// acesso tudo de model pelo facade
 		
 		CarregaInicio(fv, fc);
-<<<<<<< Updated upstream
-		
-		
-		
-		
-		
-		
-=======
 			
->>>>>>> Stashed changes
 		//vTb.ExibeVpeao();
 		//facade.ExibeVpeoes();
 		
