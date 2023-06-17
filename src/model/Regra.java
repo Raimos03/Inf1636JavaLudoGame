@@ -134,23 +134,17 @@ class Regra {
 	
 //---- Regras Básicas
 	
-	public int RegraB1(Peao p, int x) { // verifica se o peao se desloca corretamente
-		
-		if (x<=0) { // erro de andar no sentido antihorario
-			return 0;
-		}
+	public int RegraB1(Peao p) { // verifica se o peao se desloca corretamente
 		
         if(p.isCasaFinal() == true) {
-            return 1;
+        	return 1;
         }
-
-        else {
-            return 0;
-        }
+        
+        return 0;
     }
 
-    public int RegraB2(Peao p) { // verifica se o peao esta na casa de saida ou na inicial
-        if(p.isCasaSaida() == true ||  p.isCasaInicial() == true) {
+    public int RegraB2(Peao p, Casa c) { // verifica se o peao esta na casa de saida ou na inicial
+        if(p.isCasaSaida() == true ||  p.isCasaInicial() == true && c.getQtdPeao() < 2) {
             return 1;
         }
 

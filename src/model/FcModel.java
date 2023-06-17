@@ -1,5 +1,7 @@
 package model;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.*;  
 
 import controler.ICoordenada;
 import controler.IPeao;
@@ -13,6 +15,7 @@ public class FcModel   { // Facade
 	private Object[] vPlayers = new Object[4];
 	private Object[] vPeoes = new Object[16];
 	private Tabuleiro mTb;
+	private Regra regras;
 	
 
 	public void  CriaDado() {		
@@ -21,6 +24,9 @@ public class FcModel   { // Facade
 
 	public Dado getDado () {
 		return this.dado;
+	}
+	public int getDadoFace () {
+		return this.dado.get_face();
 	}
 	public int JogaDado() {		
 		dado.joga_dado();	
@@ -90,11 +96,86 @@ public class FcModel   { // Facade
 		
 		
 	}	
-	public boolean VerificaRegras() {
+	
+	public boolean VerificaRegrasI1(Object p) {
+		Peao pe = (Peao) p;
+        if (regras.RegraI1(pe, dado.get_face()) == 1){
+            return true;
+        }
+        return false;
+    }
+	
+	public int VerificaRegrasB1(Object p) {
 		
-		boolean c = true;		
-		//condicional de todas as regras	
-		return false;
+		Peao pe = (Peao) p;
+		
+        if (regras.RegraB1(pe) == 1) {
+           Player P = pe.getPlayerPai();
+           P.update_qtd_vitoria();
+        }
+        
+        return 0;
+    }
+	
+	public boolean VerificaRegrasB2(Object p) {
+		
+		Peao P = (Peao) p;
+		Casa[] c = (Casa[]) mTb.getVcasas();
+		Casa C = c[P.getPosicao()];
+        if (regras.RegraB2(P, C) == 1){
+            return true;
+        }
+        
+        int x = P.getPosicao();
+        P.setPosicao(x - 1);
+        return false;
+    }
+	
+	public boolean VerificaRegrasB3(Object p) {
+		
+		Peao P = (Peao) p;
+		Casa[] c = (Casa[]) mTb.getVcasas();
+		Casa C = c[P.getPosicao() + 1];
+		int x = P.getPosicao();
+		
+        if (regras.RegraB3(P) == 1){
+        	x = P.getPosicao();
+            P.setPosicao(x - 1);
+            return true;
+        }
+        
+        return false;
+    }
+	
+	public boolean VerificaRegras6(Object p) {
+		Peao P = (Peao) p;
+		if (regras.Regra6(P, dado) == 1) {
+            return true;
+        }
+        
+        return false;
+	}
+	
+	public boolean VerificaRegrasBR(Object p) {
+		Peao P = (Peao) p;
+		Peao[] pv = (Peao[]) vPeoes;
+		List<Peao> pl = Arrays.asList(pv);
+		if (regras.RegraBR(P, dado, pl) == 1) {
+            return true;
+        }
+        
+        return false;
+	}
+	
+	public boolean VerificaRegrasCA(Object p) {
+		Peao P = (Peao) p;
+		Peao[] pv = (Peao[]) vPeoes;
+		List<Peao> pl = Arrays.asList(pv);
+		if (regras.RegraCA(P, dado, pl) == 1) {
+            return true;
+        }
+        
+        return false;
 	}
 	
 	private void adicionaPeoes(Player p,int i) {

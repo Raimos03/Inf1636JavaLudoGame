@@ -17,6 +17,7 @@ import java.awt.Color;
 	 private boolean barreira=false;
 	 private boolean abrigo=false;
 	 private boolean temPeao=false;
+	 private boolean casaSaida = false;
 	 private String[] vcorPeoes = new String[2];
 	 
 	 // ver se guardo peoes aqui dentro ou nao
@@ -41,6 +42,15 @@ import java.awt.Color;
 		 
 		 
 	 }
+	 
+	 
+	 public boolean eCasaSaida() {
+
+	        if( this.casaSaida==true) {
+	            return true;
+	        }
+	         return false;
+	     }
 	 
 
 	 public boolean eBarreira() {

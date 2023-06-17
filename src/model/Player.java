@@ -5,6 +5,7 @@ class Player {
 	private String cor;
 	private int[] peoes = {0, 0, 0, 0}; // quais pioes estao ativos
 	private int qtd_ativo = 0;
+	private int qtd_vitoria = 0;
 	
 	private Peao p1;
 	private Peao p2;
@@ -21,6 +22,16 @@ class Player {
 		p4=new Peao(x,this);	
 			
 	}
+	
+	public void update_qtd_vitoria() {
+		this.qtd_vitoria++;
+	}
+	
+	public int get_qtd_vitoria() {
+		return this.qtd_vitoria;
+	}
+	
+	
 	
 	public void ativar_peao(int x) { // ativando peao 1 a 4
 		peoes[x - 1] = 1;
