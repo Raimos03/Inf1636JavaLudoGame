@@ -4,7 +4,7 @@ class Player {
 
 	private String cor;
 	private int[] peoes = {0, 0, 0, 0}; // quais pioes estao ativos
-	private int qtdPeoesVitoria=0;
+	private int qtdPeoesVitoria=0; // qtd de players na casa de vitoria do player
 	private int qtd_ativo = 0;
 	
 	private Peao p1;
@@ -74,4 +74,14 @@ class Player {
 	public void ContabilizaVictoriaPeao() {
 		this.qtdPeoesVitoria++;
 	}
+
+    public int get_qtd_vitoria() {
+        return this.qtdPeoesVitoria;
+    }
+    public void incrementaPeaoAtivo() {
+    	this.qtd_ativo++;
+    }
+    public void decrementaPeaoAtivo() {
+    	this.qtd_ativo--;
+    }
 }

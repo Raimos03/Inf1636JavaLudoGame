@@ -18,6 +18,7 @@ class Dado_graf extends JPanel {
 	// x 280, y 255
 	public int X=280;
 	public int Y=255;
+
 	
 
 //	Image imagem1 = new ImageIcon("./Images/Dado1.png").getImage();
@@ -27,6 +28,7 @@ class Dado_graf extends JPanel {
 //	Image imagem5 = new ImageIcon("./Images/Dado5.png").getImage();
 //	Image imagem6 = new ImageIcon("./Images/Dado6.png").getImage();
 	
+	Image imagem0;
 	Image imagem1;
 	Image imagem2;
 	Image imagem3;
@@ -35,6 +37,7 @@ class Dado_graf extends JPanel {
 	Image imagem6;
 	Image imagemInicial;
 
+	Image imagem0_scale;
 	Image imagem1_scale;
 	Image imagem2_scale;
 	Image imagem3_scale;
@@ -46,6 +49,7 @@ class Dado_graf extends JPanel {
 	Dado_graf(){
 		try {
 			imagemInicial = ImageIO.read(new File("./Images/DadoInicial.png"));
+			imagem0=ImageIO.read(new File("./Images/DadoFim.png"));
 			imagem1=ImageIO.read(new File("./Images/Dado1.png"));
 			imagem2=ImageIO.read(new File("./Images/Dado2.png"));
 			imagem3=ImageIO.read(new File("./Images/Dado3.png"));
@@ -59,7 +63,7 @@ class Dado_graf extends JPanel {
 			System.out.println(e.getMessage());
 			System.exit(1);
 		}
-		
+		imagem0_scale = imagem0.getScaledInstance(tamanho, tamanho, Image.SCALE_DEFAULT);
 		imagem1_scale = imagem1.getScaledInstance(tamanho, tamanho, Image.SCALE_DEFAULT);
 		imagem2_scale = imagem2.getScaledInstance(tamanho, tamanho, Image.SCALE_DEFAULT);
 		imagem3_scale = imagem3.getScaledInstance(tamanho, tamanho, Image.SCALE_DEFAULT);
@@ -75,6 +79,9 @@ class Dado_graf extends JPanel {
 		if (Face == -1) {
 			
 			g2d.drawImage(imagemInicial_scale, X,Y, null);
+		}
+		else if (Face == 0) {
+			g2d.drawImage(imagem0_scale, X,Y, null);
 		}
 		
 		else if(Face == 1) {
@@ -127,5 +134,7 @@ class Dado_graf extends JPanel {
 	public static int getFace() {	
 		return Dado_graf.Face;
 	}
+
+
 	
 }

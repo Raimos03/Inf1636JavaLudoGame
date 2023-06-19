@@ -68,7 +68,7 @@ import java.awt.Color;
 		 	return false;
 	 	}
  
-	public void SetCasaAbrigo(boolean t) {
+	public void setCasaAbrigo(boolean t) {
 		 
 		this.abrigo=t;
 		return;
@@ -100,7 +100,7 @@ import java.awt.Color;
 	
 	public void ReiniciaCasa() {
 		
-		this.abrigo=false;
+		
 		this.barreira=false;
 		this.temPeao=false;
 		
@@ -170,7 +170,7 @@ import java.awt.Color;
 		
 		String b="",a="",p="";
 		System.out.println("-----c ");
-		System.out.println("\t QTD VPEOES CASA: "+ vCasa.vQtdPeoes[this.getPosicaoCasa()]);
+		System.out.println("\t QTD VPEOES CASA: "+ this.vQtdPeoes[this.getPosicaoCasa()]);
 		System.out.println("\t PosicaoCasa: "+this.getPosicaoCasa());
 		
 		
@@ -180,6 +180,9 @@ import java.awt.Color;
 		else if (this.abrigo==true) {		
 			a =" E Abrigo";
 		}	
+		else if (this.casaSaida==true) {
+			p= " Casa saida";
+		}
 		else if (this.temPeao==true) {
 			p= " Tem peao";
 		}
@@ -194,15 +197,11 @@ import java.awt.Color;
 			System.out.println("\t\t Cor1: "+this.getCor2());
 		}
 		
-		System.out.println(" ----c ");
+		//System.out.println(" ----c ");
 		return ;	
 	}
 
-	@Override
-	public void setCasaAbrigo(boolean t) {
-		// TODO Auto-generated method stub
-		this.abrigo=t;
-	}
+
 
 
 	@Override

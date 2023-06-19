@@ -1450,6 +1450,23 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observador,
 	}
 
 
+	@Override
+	public boolean isCasaComum() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	@Override
+	public void setCasaComum(boolean b) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	
+
+
 
 
 	

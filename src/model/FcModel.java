@@ -1,9 +1,8 @@
 package model;
 import java.util.ArrayList;
+import java.util.Arrays;
 
-import controler.ICoordenada;
-import controler.IPeao;
-
+import controler.*;
 
 public class FcModel   { // Facade
 
@@ -14,6 +13,7 @@ public class FcModel   { // Facade
 	private Object[] vPeoes = new Object[16];
 	private Tabuleiro mTb;
 	private Regra regras;
+
 	
 
 	public void  CriaDado() {		
@@ -64,9 +64,18 @@ public class FcModel   { // Facade
 	public Object GetPlayerVez() {		
 		return vPlayers[round.getIntPlayerVez()];
 	}
+	public void SetIntPlayerVez(int n) {
+		round.setIntPlayerVez(n);
+	}
+	
 	public String getCorPlayerVez() {
-
-		Player p = (Player) vPlayers[round.getIntPlayerVez()-1];
+		
+		
+		int indp= round.getIntPlayerVez();
+		if (indp ==4){
+			indp=0;
+		}
+		Player p = (Player) vPlayers[indp];
 		//System.out.println("int vez player" + (round.getIntPlayerVez()-1) );
 		String icor = p.get_cor();
 		//System.out.println("cor player vez ->" + icor);
@@ -90,6 +99,7 @@ public class FcModel   { // Facade
 		return  np.getPosicao();
 	}
 	
+	
 	public void MovePeao(Object  p, double nx, double ny , int postabuleiro) { // move peao IMPLEMENTAR
 
 		
@@ -109,11 +119,67 @@ public class FcModel   { // Facade
 	}
 	
 	
-	public int VerificaRegrasB1(Object p, int dado) {							
-		return VerificaRegrasB1((Peao) p, dado);
+	public int VerificaRegrasB1(Object p) {
+
+        Peao pe = (Peao) p;
+
+        if (regras.RegraB1(pe) == 1) {
+           Player P = pe.getPlayerPai();
+           P.ContabilizaVictoriaPeao();
+        }
+        return 0;
+    }
+	
+	 public boolean VerificaRegrasB2(Object p) {
+
+	        Peao P = (Peao) p;
+	        Casa[] c = (Casa[]) mTb.getVcasas();
+	        Casa C = c[P.getPosicao()];
+	        if (regras.RegraB2(P, C) == 1){
+	            return true;
+	        }
+
+	        int x = P.getPosicao();
+	        P.setPosicao(x - 1);
+	        return false;
+	    }
+	 
+	 public boolean VerificaRegrasB3(Object p, Object[] vcasa) {
+	        Peao P = (Peao) p;
+	        Casa[] c = (Casa[]) vcasa;
+	        
+	        Casa C = c[P.getPosicao() + 1]; // ver o +1
+	        int x = P.getPosicao();
+
+	        if (regras.RegraB3((Casa) C ) == 1){
+	            //x = P.getPosicao();
+	            P.setPosicao(x - 1);
+	            return true;
+	        }
+
+	        return false;
+	    }
+	 
+	 public int VerificaRegraCA(Object p, int dado, Object[] vp) {
+		 
+		 Peao np = (Peao) p; 
+		 Casa[] vcasa= (Casa[]) vp;
+				 
+		 return regras.RegraCA( np, vcasa, dado );
+		 
+	 }
+	
+	public void setPeaoAtivoNoPlayer(Object p) {
+		Peao np = (Peao) p;
+		Player pl = np.getPlayerPai();
+				
+		pl.incrementaPeaoAtivo();
 	}
 	
-	
+	public int getQtdPeoesAtivos(Object p ) {
+		Peao np = (Peao) p;	
+		return  np.getPlayerPai().get_qtd_ativo();
+	}
 	
 	private void adicionaPeoes(Player p,int i) {
 		
@@ -130,6 +196,12 @@ public class FcModel   { // Facade
 		this.vPeoes[i+3]=np;
 
 	}
+	public void setCasaComumPeao(Object p,boolean b) {
+		Peao np = (Peao) p;
+		np.setCasaComum(b);
+		
+	}
+	
 	public void setCasaSaidaPeao(Object p,boolean b) {
 		Peao np = (Peao) p;
 		np.setCasaSaida(b);
@@ -215,6 +287,9 @@ public class FcModel   { // Facade
 		
 	}
 	
+	public Object getDadoObject() {
+		return this.dado;
+	}
 	public void ExibeVpeoes() {
 		
 		for(Object p: vPeoes) {			

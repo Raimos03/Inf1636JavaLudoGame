@@ -49,7 +49,9 @@ public class FrameView extends JFrame implements Observado,Observador2{ // Canva
 	private Object[] vBotoesMenu = new Object[3];
 	private JButton bjogadado;
 	private PainelPlayer CorPlayer;
-
+	
+	private Rodada rd;
+	
 	
 	
 	public FrameView(){
@@ -142,6 +144,19 @@ public class FrameView extends JFrame implements Observado,Observador2{ // Canva
 		BLoadGame.setPressedBackgroundColor(new Color(100,200,251));
 		BLoadGame.setHoverBackgroundColor(new Color(248,246,246));
 		
+		
+		//botao para Testar e entrar com o dado
+		
+		String[] op = {"rand","1","2","3","4","5","6"};
+		JComboBox cb=new JComboBox( op) ;
+		JLabel testeS=new JLabel("Ent Dado");
+		testeS.setBounds(200,390,50,50);
+		cb.setBounds(190,422,55,70);
+		cb.setBackground(Color.orange);
+		cb.setVisible(true);
+		
+		////
+		
 		InicializaVBotoes();
 		vBotoesMenu[0]= BSalvar;	
 		vBotoesMenu[1]= BLoadGame;
@@ -222,6 +237,8 @@ public class FrameView extends JFrame implements Observado,Observador2{ // Canva
 		layers.add(labelCorPlayer,0);
 		layers.add(InfTexto,0);				
 		layers.add(bJogaDado, 0); 
+		layers.add(cb,0);
+		layers.add(testeS,0);
 		
 		addBotoesPeoes(layers);
 		
@@ -231,22 +248,35 @@ public class FrameView extends JFrame implements Observado,Observador2{ // Canva
 
 		// ---------------------- Eventos ------------------
 		
+		cb.addActionListener(new ActionListener() { // botao dado teste
+			
+			public void actionPerformed(ActionEvent e) {
+				
+				String opcao =  (String) cb.getSelectedItem();
+				if(opcao.equals("rand")) {
+					opcao="0";
+				}
+				
+				int tdado = Integer.parseInt(opcao);
+				System.out.println("dado teste selecao:"+tdado);
+				rd.setDadoRodada(tdado);
+			}
+			
+		});
 		
 		
-		bJogaDado.addActionListener(new ActionListener() {
+		bJogaDado.addActionListener(new ActionListener() { // botao joga dado
             public void actionPerformed(ActionEvent e) {
-                Notify();
-                //VDado.GeraDado(numerodado,(Graphics2D)VDado.getGraphics());
                 
+            	Notify();                       
                 VDado.AtualizaImagem(numerodado);
-                
+           
 //              CorPlayer.proximaCorPlayer();
 //              CorPlayer.ExibePainel();             
                 
             }
         });
-
-		
+	
 	}
 	
 	public void setNumeroDado(int n) {
@@ -261,8 +291,9 @@ public class FrameView extends JFrame implements Observado,Observador2{ // Canva
 	
 		int i=0;		
 		for (i=0;i<16;i++) { // procurando em vpeoes		
-			JBotao bpeao = new JBotao(i); // botao Jogar dado
-			bpeao.setBounds(0,0,42,42);
+			JBotao bpeao = new JBotao(i,String.valueOf(i)); // botao Jogar dado com texto i 
+			bpeao.setBounds(0,0,50,45);
+			//bpeao.setBounds(0,0,42,42);
 			//bpeao.setBackground(new Color(161,131,222));
 			//bpeao.setPressedBackgroundColor(new Color(184,160,232));
 			//bpeao.setHoverBackgroundColor(new Color(133,71,255));
@@ -294,8 +325,8 @@ public class FrameView extends JFrame implements Observado,Observador2{ // Canva
 		JBotao j =  this.vbotoes.get(i) ;
 		j.setLocation(x+502, y-3);
 		j.setVisible(true);
-		j.setOpaque(false);
-		j.setContentAreaFilled(false);
+		//j.setOpaque(false);
+		//j.setContentAreaFilled(false);
 		j.setBorderPainted(false);
 		
 		
@@ -365,8 +396,16 @@ public class FrameView extends JFrame implements Observado,Observador2{ // Canva
 	
 	public void AtualizaPainelPlayer() {
 		this.CorPlayer.proximaCorPlayer();
-		this.CorPlayer.ExibePainel();;
+		this.CorPlayer.ExibePainel();
 	}	
+	public void setIndiceBotaoPeao(int n) {
+		this.IndiceBotaoPeao=n;
+	}
+	public void setRodada(Rodada rd) {
+		this.rd=rd;
+	}
+	
+	
 	
 //	public void AtualizaPainelPlayerCor() {
 //		this.CorPlayer.proximaCorPlayer();

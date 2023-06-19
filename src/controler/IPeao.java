@@ -25,6 +25,8 @@ public interface IPeao {
 	public void setPosicao(int posicao);
 
 	public boolean isCasaSaida();
+	
+	public boolean isCasaComum();
 
 	public void setCasaSaida(boolean casaSaida);
 
@@ -69,7 +71,9 @@ public interface IPeao {
 	public int MovePeao(int idpeao, int dado); 
 	
 	public void Exibe();
-
+	
+	public void setCasaComum(boolean b);
+	
 
 }
 	

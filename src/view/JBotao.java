@@ -38,6 +38,13 @@ public class JBotao extends JButton implements ActionListener, Observado2 { // b
         this.indice=i;
     }
     
+    public JBotao(int i,String text) {
+    	
+        super(text);
+        super.setContentAreaFilled(false);
+        this.indice=i;
+    }
+    
     
 	 
 //	JBotao(String s){

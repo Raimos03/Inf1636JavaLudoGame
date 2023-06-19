@@ -17,7 +17,7 @@ public class PainelPlayer extends JPanel {
 	Color cor;
 
 	int x,y,larg,alt;
-	
+
 	
 	PainelPlayer (){
 		this.cor = vCores[IndCor];
@@ -63,5 +63,8 @@ public class PainelPlayer extends JPanel {
 	public void ExibePainel() {
 		this.setBackground(this.cor);
 	}
+
+	
+	
 	
 }

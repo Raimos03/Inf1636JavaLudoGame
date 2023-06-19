@@ -34,6 +34,7 @@ class Peao implements IPeao, ICoordenada {
 	private boolean Barreira=false; // esta na barreira
 	private boolean Abrigo=false;  //esta no abrigo
 	private boolean CasaFinal=false; // victory road
+	private boolean CasaComum=false;
 	
 	
 	public Peao (String scor, Player pai) {
@@ -227,8 +228,8 @@ class Peao implements IPeao, ICoordenada {
 		//System.out.println("\t\t-- Casa Final:"+ this.CasaFinal);
 		//System.out.println("\t\t-- Casa Barreira:"+ this.Barreira);
 		System.out.println("\t\t\t -- Casa Abrigo:"+ this.Abrigo);
-		
-		System.out.println("------");
+		System.out.println("\t\t\t -- Casa Comum:"+ this.CasaComum);
+		//System.out.println("------");
 	}
 //	
 //	@Override
@@ -248,6 +249,10 @@ class Peao implements IPeao, ICoordenada {
 //	}
 
 
+	public void setCasaComum(boolean b) {
+		this.CasaComum=b;
+		
+	}
 
 
 	@Override
@@ -357,5 +362,12 @@ class Peao implements IPeao, ICoordenada {
 		// TODO Auto-generated method stub
 		return ;
 	}
+
+	@Override
+	public boolean isCasaComum() {
+		
+		return this.CasaComum;
+	}
+
 	
 }

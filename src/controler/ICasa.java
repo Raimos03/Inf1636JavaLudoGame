@@ -23,5 +23,6 @@ public interface ICasa {
 	public String getCorCasa();
 	public boolean eCasaSaida(); 
 	public void setCasaSaida(boolean t);
+	
 
 }

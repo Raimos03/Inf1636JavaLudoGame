@@ -14,8 +14,10 @@ class Regra {
 	
 	public int RegraI1( Peao p, int dado ) { //recebe um peao e verifica se esta ok ou nao 
 		// coloca um peao na posicao de saida
+		
+		
 			
-		if (dado == 5 && p.isCasaInicial()) {
+		if (dado == 5) {
 				
 			int rPeoesSaida =  VerificaPeoesSaida(p.getPlayerPai()); // 1 se nenhum estiver na casa saida
 			int rPeoesAtivos =	 VerificaPeoesAtivos(p.getPlayerPai());
@@ -24,21 +26,20 @@ class Regra {
 				return 1;
 			}
 			
-			// escolho outro peao para mover
-			
+			// escolho outro peao para mover	
 			else { // peao ativa < 4 ou peao na casa de saida
 				
 				System.out.println("Regra - Escolha outro peao que deseja mover:");				
 
-				if(rPeoesSaida==0) {
+				if(rPeoesSaida==0) { // peao casa de saida
 					return 2;
 				}
 				else 
-					return 3;		
+					return 3;	// peoes ativos	
 									
 			}			
 		}		
-		return 0;
+		return 0; // dado nao e 5
 	}
 	
 	public int VerificaPeoesSaida(Player pai) {
@@ -77,40 +78,49 @@ class Regra {
 	
 //---- Regras Básicas
 	
-	public int RegraB1(Peao p, int x) { // verifica se o peao se desloca corretamente
-		
-		if (x<=0) { // erro de andar no sentido antihorario
-			return 0;
-		}
-		
+	public int RegraB1(Peao p) { // verifica se o peao se desloca corretamente
+
         if(p.isCasaFinal() == true) {
             return 1;
         }
 
-        else {
-            return 0;
-        }
+        return 0;
     }
 
-    public int RegraB2(Peao p) { // verifica se o peao esta na casa de saida ou na inicial
-        if(p.isCasaSaida() == true ||  p.isCasaInicial() == true) { // casa saida
-            return 1;
-        }
+	 public int RegraB2(Peao p, Casa c) { // verifica se o peao esta na casa de saida ou na inicial
+	        if(p.isCasaFinal() == true && c.getQtdPeao() > 1) {
+	            return 1;
+	        }
 
-        else {
-            return 0;
-        }
-    }
+	        else {
+	            return 0; //Retorna se tem menos de 2 peoes ou se a casa nao e final
+	        }
+	    }
 
-   public int RegraB3(Peao p) { // Regra se o peao esta na barreira ou no abrigo
-        if(p.isBarreira() == true ||  p.isAbrigo() == true) {
-            return 1;
-        }
-
-        else {
-            return 0;
-        }
-    }
+	 public int RegraB3(Casa c) { // Regra se o peao esta na barreira ou no abrigo
+		 
+	        if(c.eAbrigo() == true) {
+	            return 1;
+	        }
+	        else if (c.eCasaSaida() == true) {
+	        	
+	        	String sp1=c.getCor1();
+	        	String sp2=c.getCor2();	        			
+	            if(sp1 != null && sp2 != null) { // se tem dois peoes nela
+	            	
+	                if(!(sp1.equals(sp2))) {	                	
+	                    if(c.getCorCasa().equals(sp1) || c.getCorCasa().equals(sp2)) { //pegar cor da casa
+	                        return 2; // cores diferentes para barreira
+	                    }
+	                }
+	            }
+	            else {
+	            	return 3; // nao e barreira com 2 peoes nela, casa saida com 1 peao
+	            }
+	        }
+        
+	        return 4; //barreira de qualquer outra cor em qualquer outra casa	        
+	    }
 
 
 // ----- Demais Regras 
@@ -150,23 +160,43 @@ class Regra {
 	    }
 	    return 0; // não há peões na frente
 	}
+	
+	
 
-	public int RegraCA(Peao peao, Dado dado, List<Peao> peoes) {
-	    int posicaoFinal = peao.getPosicao() + dado.get_face();
-	    for (Peao p : peoes) {
-	        if (p.getCorId() != peao.getCorId() && p.getPosicao() == posicaoFinal) {
-	        	if (peao.isNoTabuleiro() && peao.isAbrigo() && peao.isCasaSaida() && peao.isCasaInicial() && peao.isCasaFinal()){
-	                // movimenta o peão de volta para casa inicial
-	                peao.setPosicao(0);
-	                return 1; // retorna true para indicar que o peão foi movido de volta para casa inicial
-	            
-	        	} else {
-	                return 0; // há um peão na frente, mas não é possível mover o peão de volta para casa inicial
-	            }
-	        }
-	    }
-	    return 0; // não há peões na frente
-	}
+//	public int RegraCA(Peao peao, int dado, Object[] peoes) {
+//	    int posicaoFinal = peao.getPosicao() + dado;
+//	   
+//	    
+//	    for (Object p :  peoes) {
+//	    	Peao np = (Peao) p;
+//	    	
+//	        if ((np.getCorId() != peao.getCorId()) && (np.getPosicao() == posicaoFinal)) {
+//	        	//if (peao.isNoTabuleiro() && peao.isAbrigo() && peao.isCasaSaida() && peao.isCasaInicial() && peao.isCasaFinal()){
+//	        	if (peao.isNoTabuleiro() && peao.isAbrigo() && peao.isCasaSaida() && peao.isCasaInicial() && peao.isCasaFinal()){
+//	                // movimenta o peão de volta para casa inicial
+//	                peao.setPosicao(0);
+//	                return 1; // retorna true para indicar que o peão foi movido de volta para casa inicial
+//	            
+//	        	} else {
+//	                return 0; // há um peão na frente, mas não é possível mover o peão de volta para casa inicial
+//	            }
+//	        }
+//	    }
+//	    return 0; // não há peões na frente
+//	}
+	
+	public int RegraCA(Peao peao, Casa[] casa, int dado) {
+        
+		int x = dado + peao.getPosicao();
+        if(casa[x].getTemPeao()) {
+            if(!casa[x].getCor1().equals(peao.getCor())) {
+               return x;
+            }
+        }      
+        return 0;
+    }
+	
+	
 
 	public int verificarCasaFinal(Peao peao, int valorDado, List<Peao> peoes) {
 	    if (peao.getPosicao() >= 52) { // verifica se o peão já está na reta final
