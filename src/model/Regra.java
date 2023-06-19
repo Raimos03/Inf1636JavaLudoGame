@@ -27,11 +27,11 @@ class Regra {
 			}
 			
 			// escolho outro peao para mover	
-			else { // peao ativa < 4 ou peao na casa de saida
+			else { // peao ativa < 4 ou casa de saida livre
 				
 				System.out.println("Regra - Escolha outro peao que deseja mover:");				
 
-				if(rPeoesSaida==0) { // peao casa de saida
+				if(rPeoesSaida==0) { // sem peao na casa de saida
 					return 2;
 				}
 				else 
@@ -48,22 +48,22 @@ class Regra {
 		 // verifica pelo pai do peao
 		
 		if (pai.getPeao1().isCasaSaida()==true) {			
-			return 0;
+			return 1;
 		}
 		
 		else if (pai.getPeao2().isCasaSaida()==true) {			
-			return 0;
+			return 1;
 		}
 		
 		else if (pai.getPeao3().isCasaSaida()==true) {					
-			return 0;
+			return 1;
 			
 		}
 		
 		else if (pai.getPeao4().isCasaSaida()==true) {		
-			return 0;			
+			return 1;			
 		}	
-		return 1;		
+		return 0;		
 	}
 	
 	public int VerificaPeoesAtivos(Player pai) {
@@ -185,11 +185,18 @@ class Regra {
 //	    return 0; // não há peões na frente
 //	}
 	
-	public int RegraCA(Peao peao, Casa[] casa, int dado) {
-        
+	public int RegraCA(Peao peao, Object[] obj, int dado) {	
 		int x = dado + peao.getPosicao();
-        if(casa[x].getTemPeao()) {
-            if(!casa[x].getCor1().equals(peao.getCor())) {
+		
+		System.out.println(">>>>> Regra ca X: "+ x);
+		if(x>=52) {
+			x=x%52;
+		}
+		
+		Casa casa = (Casa) obj[x];
+		
+        if(casa.getTemPeao()) {
+            if(!casa.getCor1().equals(peao.getCor())) {
                return x;
             }
         }      

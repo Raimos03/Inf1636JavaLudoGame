@@ -301,25 +301,25 @@ class Peao implements IPeao, ICoordenada {
 	@Override
 	public double getX1() {
 		// TODO Auto-generated method stub
-		return 0;
+		return this.xy.getX1();
 	}
 
 	@Override
 	public void setX1(double x1) {
 		// TODO Auto-generated method stub
-		
+		this.xy.setX1(x1);
 	}
 
 	@Override
 	public double getY1() {
 		// TODO Auto-generated method stub
-		return 0;
+		return this.xy.getY1();
 	}
 
 	@Override
 	public void setY1(double y1) {
 		// TODO Auto-generated method stub
-		
+		this.xy.setY1(y1);
 	}
 
 

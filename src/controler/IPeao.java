@@ -73,8 +73,10 @@ public interface IPeao {
 	public void Exibe();
 	
 	public void setCasaComum(boolean b);
-	
 
-}
-	
+	public double getX1();
+	public double getY1();
+
+	public void setX1(double x);
+	public void setY1(double y);}	
 

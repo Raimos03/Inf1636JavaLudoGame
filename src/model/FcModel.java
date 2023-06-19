@@ -15,7 +15,6 @@ public class FcModel   { // Facade
 	private Regra regras;
 
 	
-
 	public void  CriaDado() {		
 		this.dado = new Dado();
 	}
@@ -112,6 +111,7 @@ public class FcModel   { // Facade
 		
 	}	
 	
+	
 
 	
 	public int VerificaRegrasI1(Object p, int dado) {				
@@ -162,12 +162,20 @@ public class FcModel   { // Facade
 	 
 	 public int VerificaRegraCA(Object p, int dado, Object[] vp) {
 		 
-		 Peao np = (Peao) p; 
-		 Casa[] vcasa= (Casa[]) vp;
-				 
-		 return regras.RegraCA( np, vcasa, dado );
+		 Peao np = (Peao) p; 		 
+		 return regras.RegraCA( np, vp, dado );
 		 
 	 }
+	 
+	 
+
+	 
+	 public void setPeaoDesativadoNoPlayer(Object p) {
+			Peao np = (Peao) p;
+			Player pl = np.getPlayerPai();
+					
+			pl.decrementaPeaoAtivo();
+		}
 	
 	public void setPeaoAtivoNoPlayer(Object p) {
 		Peao np = (Peao) p;
@@ -301,4 +309,17 @@ public class FcModel   { // Facade
 		return mTb.getVcasas();
 	}
 	
+
+	public int getRound() {
+		return round.getIntPlayerVez();
+	}
+	public void setIntPlayerVez(int n) {
+		
+		round.setIntPlayerVez(n);
+		return;
+	}
+	public String getCorPlayerPai(Object p) {		
+		Peao np = (Peao) p;
+		return np.getPlayerPai().get_cor() ;
+	}
 }

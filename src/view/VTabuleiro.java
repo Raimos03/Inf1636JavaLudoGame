@@ -130,6 +130,44 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observador,
 
 	}
 	
+	
+	public static double[] getCoordenadasXvermelho() {
+		
+		return VTabuleiro.XPosicaoInicialVermelho;
+	}
+	public static double[] getCoordenadasYvermelho() {
+		
+		return VTabuleiro.YPosicaoInicialVermelho;
+	}
+	
+	public static double[] getCoordenadasXverde() {
+		
+		return VTabuleiro.XPosicaoInicialVerde;
+	}
+	public static double[] getCoordenadasYverde() {
+		
+		return VTabuleiro.YPosicaoInicialVerde;
+	}
+	
+	public static double[] getCoordenadasXamarelo() {
+		
+		return VTabuleiro.XPosicaoInicialAmarelo;
+	}
+	public static double[] getCoordenadasYamarelo() {
+		
+		return VTabuleiro.YPosicaoInicialAmarelo;
+	}
+	public static double[] getCoordenadasXazul() {
+		
+		return VTabuleiro.XPosicaoInicialAzul;
+	}
+	public static double[] getCoordenadasYazul() {
+		
+		return VTabuleiro.YPosicaoInicialAzul;
+	}
+	
+
+	
 	public void setVcasas(Object[] vc) {
 		this.vcasas=vc;
 	}

@@ -77,7 +77,7 @@ public class FrameView extends JFrame implements Observado,Observador2{ // Canva
 		JLayeredPane layers = new JLayeredPane();
 //		layers.setSize(new Dimension(1200,700));
 		layers.setBounds(0, 0, 1200, 700);	
-		jp1.setImagemFundo("./Images/teste2.png",470,660);
+		jp1.setImagemFundo("./Images/fundo1.png",470,660);
 //		jp2.setImagemFundo("./Images/teste2.png",470,660); // imagem fundo
 //		jp3.setImagemFundo("./Images/teste2.png",470,660); // imagem fundo
 		
@@ -88,7 +88,7 @@ public class FrameView extends JFrame implements Observado,Observador2{ // Canva
 	
 		
 		
-		menuCimaMaster.setBounds(18,15,430,150);
+		//menuCimaMaster.setBounds(18,15,430,150);
 		menuCimaMaster.setBackground(menuCimaMaster.getColor());
 		
 	
@@ -300,6 +300,8 @@ public class FrameView extends JFrame implements Observado,Observador2{ // Canva
 			bpeao.addActionListener(bpeao);
 			bpeao.setVisible(false);
 			bpeao.addObserver2(this);
+			
+		
 			vbotoes.add(bpeao);		
 			
 		}
@@ -328,6 +330,7 @@ public class FrameView extends JFrame implements Observado,Observador2{ // Canva
 		//j.setOpaque(false);
 		//j.setContentAreaFilled(false);
 		j.setBorderPainted(false);
+		
 		
 		
 		
@@ -371,6 +374,8 @@ public class FrameView extends JFrame implements Observado,Observador2{ // Canva
 		// TODO Auto-generated method stub
 		this.IndiceBotaoPeao = i;
 		//System.out.println("FrameView - BotaoPeao clicado:"+this.IndiceBotaoPeao);	
+		
+		
 
 	}
 	
@@ -405,7 +410,14 @@ public class FrameView extends JFrame implements Observado,Observador2{ // Canva
 		this.rd=rd;
 	}
 	
+	public void setObserverRdJBotao(Rodada rd) {
+		
+		for (int i=0;i<16;i++) { // procurando em vpeoes		
 	
+			JBotao j = vbotoes.get(i);			
+			j.addObserver2(rd);	
+		}	
+	}
 	
 //	public void AtualizaPainelPlayerCor() {
 //		this.CorPlayer.proximaCorPlayer();
