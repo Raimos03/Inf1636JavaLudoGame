@@ -163,44 +163,23 @@ class Regra {
 	
 	
 
-//	public int RegraCA(Peao peao, int dado, Object[] peoes) {
-//	    int posicaoFinal = peao.getPosicao() + dado;
-//	   
-//	    
-//	    for (Object p :  peoes) {
-//	    	Peao np = (Peao) p;
-//	    	
-//	        if ((np.getCorId() != peao.getCorId()) && (np.getPosicao() == posicaoFinal)) {
-//	        	//if (peao.isNoTabuleiro() && peao.isAbrigo() && peao.isCasaSaida() && peao.isCasaInicial() && peao.isCasaFinal()){
-//	        	if (peao.isNoTabuleiro() && peao.isAbrigo() && peao.isCasaSaida() && peao.isCasaInicial() && peao.isCasaFinal()){
-//	                // movimenta o peão de volta para casa inicial
-//	                peao.setPosicao(0);
-//	                return 1; // retorna true para indicar que o peão foi movido de volta para casa inicial
-//	            
-//	        	} else {
-//	                return 0; // há um peão na frente, mas não é possível mover o peão de volta para casa inicial
-//	            }
-//	        }
-//	    }
-//	    return 0; // não há peões na frente
-//	}
-	
 	public int RegraCA(Peao peao, Object[] obj, int dado) {	
-		int x = dado + peao.getPosicao();
+		int posfinal = dado + peao.getPosicao();
 		
-		System.out.println(">>>>> Regra ca X: "+ x);
-		if(x>=52) {
-			x=x%52;
+		
+		System.out.println(">>>>> Regra ca X: "+ posfinal);
+		if(posfinal>=52) {
+			posfinal=posfinal%52;
 		}
 		
-		Casa casa = (Casa) obj[x];
+		Casa casafinal = (Casa) obj[posfinal]; // vetor de peoes
 		
-        if(casa.getTemPeao()) {
-            if(!casa.getCor1().equals(peao.getCor())) {
-               return x;
+        if(casafinal.getTemPeao()) {
+            if(!casafinal.getCor1().equals(peao.getCor())) {
+               return posfinal;
             }
         }      
-        return 0;
+        return -1;
     }
 	
 	

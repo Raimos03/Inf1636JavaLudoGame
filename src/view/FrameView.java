@@ -78,8 +78,8 @@ public class FrameView extends JFrame implements Observado,Observador2{ // Canva
 //		layers.setSize(new Dimension(1200,700));
 		layers.setBounds(0, 0, 1200, 700);	
 		jp1.setImagemFundo("./Images/fundo1.png",470,660);
-//		jp2.setImagemFundo("./Images/teste2.png",470,660); // imagem fundo
-//		jp3.setImagemFundo("./Images/teste2.png",470,660); // imagem fundo
+		jp2.setImagemFundo("./Images/fundo2.png",30,660); // imagem fundo
+		jp3.setImagemFundo("./Images/fundo3.png",850,700); // imagem fundo
 		
 		
 		Tb = new VTabuleiro();		
@@ -408,6 +408,9 @@ public class FrameView extends JFrame implements Observado,Observador2{ // Canva
 	}
 	public void setRodada(Rodada rd) {
 		this.rd=rd;
+	}
+	public void ExibePainelPlayer() {
+		CorPlayer.ExibePainel();
 	}
 	
 	public void setObserverRdJBotao(Rodada rd) {
