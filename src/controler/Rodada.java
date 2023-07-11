@@ -238,7 +238,8 @@ public class Rodada implements Observador, Observado, Observador2 {
 //	               vTb.repaint();
 //	               fv.Notify();
 	               VerificaStatusCasas();
-	             
+	             vTb.repaint();
+	             pplayer.setCor(facade.getIntPlayerDaVez());
 	            }
 	        });
 		 
@@ -286,20 +287,24 @@ public class Rodada implements Observador, Observado, Observador2 {
 		
 		this.facade=fc;
 		facade.IniciaJogo();
-		vCasas=facade.getVcasas();
-			
-		vPlayers= fc.getVplayers();
+		//facade.setRodada(this);
 		
+				
 		this.fv=fv;
-		
-		
+		vCasas=facade.getVCasas();
 		
 		vPeao =  fc.getVpeoes();
 		vTb = fv.getVTabuleiro();
 		vTb.setVpeoes(vPeao);
+		
+		
 		vTb.setVcasas(vCasas);
 		
 		
+		//vCasas=vTb.getVcasas();
+		
+		
+		vPlayers= fc.getVplayers();
 		
 		//this.dado=fc.getDadoObject();
 		
@@ -502,7 +507,7 @@ public class Rodada implements Observador, Observado, Observador2 {
 				
 			
 				
-				if (ci!=1&& ci!=3 && ci!=4){
+				if (ci!=1&& ci!=3 && ci!=4){ // move normalmente
 	
 					if (p.isAbrigo()||p.isCasaComum()|| p.isCasaSaida() && ci==2 ) {
 						
@@ -1047,28 +1052,6 @@ public class Rodada implements Observador, Observado, Observador2 {
 	
 
 	@Override
-	public void addObserver(Observador o) {
-		// TODO Auto-generated method stub
-		lobs.add(o);
-	}
-
-
-	@Override
-	public void removeObserver(Observador o) {
-		// TODO Auto-generated method stub
-		lobs.remove(o);
-	}
-
-	@Override
-	public void Notify() {
-		// TODO Auto-generated method stub
-		for( Observador obj : this.lobs) {
-			obj.update();
-		}
-	}
-
-
-	@Override
 	public Object getDados() {
 		// TODO Auto-generated method stub
 		return null;
@@ -1079,8 +1062,12 @@ public class Rodada implements Observador, Observado, Observador2 {
 		this.dadoRodada=i;
 	}
 
+	public Object[] getVCasas() {
+		
+		return vCasas;
+	}
 	
-	//////// FUNCOES DE TES
+	//////// FUNCOES DE TESTES
 	
 	public void TesteI1(){
 //		this.dadoRodada=5; //teste teste casa saida peao na casa inicial
@@ -1102,7 +1089,6 @@ public class Rodada implements Observador, Observado, Observador2 {
 		teste=0;
 	}
 
-
 	@Override
 	public void update2(int i) {
 		// TODO Auto-generated method stub
@@ -1112,15 +1098,15 @@ public class Rodada implements Observador, Observado, Observador2 {
 	}
 
 
-	// Metodos save e load
+	// ----- Metodos save e load
+	
 	public int auxcor(String cor) {
 	    if(cor=="vermelho") return 0;
 	    else if(cor=="verde") return 1;
 	    else if(cor=="amarelo") return 2;
 	    else if(cor=="azul") return 3;
 	    return -1;
-	}
-	
+	}	
 	public int booleanint(Boolean b) {
 	    if(b) return 1;
 	    return 0;
@@ -1130,20 +1116,28 @@ public class Rodada implements Observador, Observado, Observador2 {
 	    return false;
 	}
 
+	
+	//----- OBSERVER
+	
+
+	@Override
+	public void addObserver(Observador o) {
+		// TODO Auto-generated method stub
+		lobs.add(o);
+	}
+
+	@Override
+	public void removeObserver(Observador o) {
+		// TODO Auto-generated method stub
+		lobs.remove(o);
+	}
+
+	@Override
+	public void Notify() {
+		// TODO Auto-generated method stub
+		for( Observador obj : this.lobs) {
+			obj.update();
+		}
+	}
 }
 
-// codigo Rodada antiga
-
-//Basic objects
-//Testes iniciais
-
-//Round round = new Round();
-//Dado dice = new Dado();
-//Regra regra = new Regra();
-//
-////Players
-//Player player = new Player("vermelho");
-
-//Player 1 turn p = round.player_turn; dice.joga_dado();
-//System.out.println("Player " + "\n" + "Die Throw: " + dice.face +
-//"Regra de casa inicial" + regra.regraB1(player.getPeao1(),dice.face));

@@ -14,6 +14,7 @@ public class FcModel   { // Facade
 	private Tabuleiro mTb;
 	private Regra regras;
 
+
 	
 	public void  CriaDado() {		
 		this.dado = new Dado();
@@ -112,7 +113,9 @@ public class FcModel   { // Facade
 	}	
 	
 	
-
+	public Object[] getVCasas() {
+		return mTb.getVCasas();
+	}
 	
 	public int VerificaRegrasI1(Object p, int dado) {				
 		return regras.RegraI1((Peao) p, dado);
@@ -133,7 +136,8 @@ public class FcModel   { // Facade
 	 public boolean VerificaRegrasB2(Object p) {
 
 	        Peao P = (Peao) p;
-	        Casa[] c = (Casa[]) mTb.getVcasas();
+	        //#Casa[] c = (Casa[]) mTb.getVcasas();
+	        Casa[] c = (Casa[]) mTb.getVCasas();
 	        Casa C = c[P.getPosicao()];
 	        if (regras.RegraB2(P, C) == 1){
 	            return true;
@@ -167,7 +171,9 @@ public class FcModel   { // Facade
 		 
 	 }
 	 
-	 
+//	 public void setRodada(Rodada nrd) {
+//		 this.rodada=nrd;
+//	 }
 
 	 
 	 public void setPeaoDesativadoNoPlayer(Object p) {
@@ -299,15 +305,31 @@ public class FcModel   { // Facade
 		return this.dado;
 	}
 	public void ExibeVpeoes() {
-		
 		for(Object p: vPeoes) {			
 			Peao pe = (Peao) p;
 			pe.Exibe();
 		}
 	}
-	public Object[] getVcasas() {
-		return mTb.getVcasas();
-	}
+	
+//	public void setvCasaVitoriaVermelha(Coordenada[] vVitoriaVermelha) {	
+//		mTb.setvCasaVitoriaVermelha(vVitoriaVermelha);
+//	}
+//	
+//	public void setvCasaVitoriaVerde( Coordenada[] vVitoriaVermelha) {
+//		mTb.setvCasaVitoriaVerde(vVitoriaVermelha);	
+//	}
+//	public void setvCasaVitoriaAzul(Coordenada[] vVitoriaVermelha) {
+//		
+//		mTb.setvCasaVitoriaAzul(vVitoriaVermelha);	
+//	}
+//	public void setvCasaVitoriaAmarela(Coordenada[] vVitoriaVermelha) {
+//		mTb.setvCasaVitoriaAmarela(vVitoriaVermelha);	
+//		
+//	}
+//	
+//	public Object[] getVcasas() {
+//		return mTb.getVcasas();
+//	}
 	
 
 	public int getRound() {

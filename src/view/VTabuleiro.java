@@ -23,7 +23,7 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observador,
 	private static VCoordenada[] vCasaVitoriaVerde = new VCoordenada[6];  //OK
 	private static VCoordenada[] vCasaVitoriaAmarela = new VCoordenada[6];  //OK
 	private static VCoordenada[] vCasaVitoriaAzul = new VCoordenada[6];  //OK
-//	private static Casa[] vCasasModificadas = new Casa[52];
+	//private static ICasa[] vCasasModificadas = new ICasa[52];
 	
 	
 	public static double[] XPosicaoInicialVermelho= {75.5,154,75.5,154}; // matriz
@@ -61,6 +61,7 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observador,
 	private Object[] vpeoes = new Object[16];
 	private Object[] vcasas = new Object[52];
 	
+	//private Object[] vcasas;
 	IPeao peao;
 	ICoordenada icord;
 	ICasa casa;
@@ -166,7 +167,9 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observador,
 		return VTabuleiro.YPosicaoInicialAzul;
 	}
 	
-
+	public Object[] getVcasas() {
+		return vcasas;
+	}
 	
 	public void setVcasas(Object[] vc) {
 		this.vcasas=vc;
@@ -251,7 +254,7 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observador,
 		return VTabuleiro.vCasaVitoriaAzul;			
 	}
 	
-//	public static Casa[] getVCasasModificadas(){
+//	public static ICasa[] getVCasasModificadas(){
 //		
 //		return VTabuleiro.vCasasModificadas;			
 //	}
@@ -1501,17 +1504,6 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observador,
 		
 	}
 
-
 	
-
-
-
-
-	
-
-	
-
-
-
 
 }
