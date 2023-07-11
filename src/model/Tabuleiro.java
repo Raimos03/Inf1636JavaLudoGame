@@ -56,5 +56,16 @@ class Tabuleiro  {
 		return;
 	}
 	
+	public void ResetaCasaInfo() {
+		
+		//InicializaCasasInfo();
+		for(int i =0;i<16;i++) {
+			
+			Casa  c= (Casa) vcasas[i]; 
+			c.ReiniciaCasa();
+		}
+		
+	}
+	
 }
 	

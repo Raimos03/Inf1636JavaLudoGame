@@ -39,7 +39,6 @@ public class FrameView extends JFrame implements Observado,Observador2{ // Canva
 	private ArrayList<JBotao> vbotoes = new ArrayList<>(); //tam 16 , 0 a 15
 	
 	
-	
 	public VTabuleiro Tb;
 	private ArrayList<Observador> lobs = new ArrayList<>(); 
 	private int numerodado;
@@ -49,7 +48,6 @@ public class FrameView extends JFrame implements Observado,Observador2{ // Canva
 	private Object[] vBotoesMenu = new Object[3];
 	private JButton bjogadado;
 	private PainelPlayer CorPlayer;
-	
 	private Rodada rd;
 	
 	
@@ -409,8 +407,14 @@ public class FrameView extends JFrame implements Observado,Observador2{ // Canva
 	public void setRodada(Rodada rd) {
 		this.rd=rd;
 	}
+	public String getCorPainelPlayer() {
+		return CorPlayer.getSCorPlayerVez();
+	}
 	public void ExibePainelPlayer() {
 		CorPlayer.ExibePainel();
+	}
+	public void setCorPainelPlayer(int ncor) {
+		CorPlayer.setCor(ncor);;
 	}
 	
 	public void setObserverRdJBotao(Rodada rd) {

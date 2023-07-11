@@ -38,6 +38,8 @@ class Round {
     }
     public void setIntPlayerVez(int n) {
     	this.player_turn=n;
+    	this.turn=n;
+    	
     }
     
 }

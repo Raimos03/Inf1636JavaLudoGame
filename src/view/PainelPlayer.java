@@ -13,6 +13,7 @@ public class PainelPlayer extends JPanel {
 	
 	
 	Color vCores[] = {Color.red, Color.green, Color.yellow, Color.blue} ;
+	String vStringCores[]= {"vermelho","verde","amarelo","azul"};
 	int IndCor=0;
 	Color cor;
 
@@ -35,9 +36,13 @@ public class PainelPlayer extends JPanel {
 	public Color getColor() {
 		return this.cor;
 	}
+	public String getSCorPlayerVez() {
+		return this.vStringCores[IndCor];
+	}
 	
 	public void setCor(int i) {
 		this.cor=vCores[i];	
+		this.IndCor=i;
 		//this.setBackground(this.cor);
 		return;
 	}

@@ -331,7 +331,9 @@ public class FcModel   { // Facade
 //		return mTb.getVcasas();
 //	}
 	
-
+	public void resetaCasaInfo() {
+		mTb.ResetaCasaInfo();
+	}
 	public int getRound() {
 		return round.getIntPlayerVez();
 	}

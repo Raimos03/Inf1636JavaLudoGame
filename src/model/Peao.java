@@ -353,6 +353,9 @@ class Peao implements IPeao, ICoordenada {
 		return null;
 	}
 	
+//	public void setPosicaoPeaoInicio() {	
+//		this.Posicao=-1;
+//	}
 	
 
 	// ----- ICOORDENADA

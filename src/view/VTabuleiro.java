@@ -61,7 +61,7 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observador,
 	private Object[] vpeoes = new Object[16];
 	private Object[] vcasas = new Object[52];
 	
-	//private Object[] vcasas;
+	
 	IPeao peao;
 	ICoordenada icord;
 	ICasa casa;

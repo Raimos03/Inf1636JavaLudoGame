@@ -12,7 +12,7 @@ import java.awt.Color;
 	// Classe criada para gerenciar ocorrencias de cassas especiais como abrigo e barreira
 	 
 		
-	 public int[] vQtdPeoes = new int[52];
+	 public  int vQtdPeoes = 0;
 	 private int posicaoCasa;
 	 private boolean barreira=false;
 	 private boolean abrigo=false;
@@ -31,7 +31,7 @@ import java.awt.Color;
 		 
 		 int i=0;
 		 for(i=0;i<52;i++) {
-			 vQtdPeoes[i]=0;
+			 vQtdPeoes=0;
 		 }
 	 }
 	  
@@ -99,10 +99,10 @@ import java.awt.Color;
 	}
 	
 	public void ReiniciaCasa() {
-		
-		
+	
 		this.barreira=false;
 		this.temPeao=false;
+		
 		
 		vcorPeoes[0]=null;
 		vcorPeoes[1]=null;
@@ -111,14 +111,14 @@ import java.awt.Color;
 	}
 	public int getQtdPeao() {
 		int posicao = this.getPosicaoCasa();
-		int qtd =  vQtdPeoes[posicao];
+		int qtd =  vQtdPeoes;
 		return qtd;
 	}
 	public int IncrementaPeaoCasa() {
 		int posicao = this.getPosicaoCasa();
-		int qtd= vQtdPeoes[posicao];
+		int qtd= vQtdPeoes;
 		qtd++;
-		vQtdPeoes[posicao]=qtd;
+		vQtdPeoes=qtd;
 		
 		if(qtd==1) {
 			this.temPeao=true;
@@ -127,9 +127,9 @@ import java.awt.Color;
 	}
 	public int DecrementaPeaoCasa() {
 		int posicao = this.getPosicaoCasa();
-		int qtd= vQtdPeoes[posicao];
+		int qtd= vQtdPeoes;
 		qtd--;
-		vQtdPeoes[posicao]=qtd;
+		vQtdPeoes=qtd;
 		if(qtd==0) {
 			this.temPeao=false;
 		}
@@ -170,7 +170,7 @@ import java.awt.Color;
 		
 		String b="",a="",p="";
 		System.out.println("-----c ");
-		System.out.println("\t QTD VPEOES CASA: "+ this.vQtdPeoes[this.getPosicaoCasa()]);
+		System.out.println("\t QTD VPEOES CASA: "+ this.vQtdPeoes);
 		System.out.println("\t PosicaoCasa: "+this.getPosicaoCasa());
 		
 		
