@@ -87,15 +87,15 @@ class Regra {
         return 0;
     }
 
-	 public int RegraB2(Peao p, Casa c) { // verifica se o peao esta na casa de saida ou na inicial
-	        if(p.isCasaFinal() == true && c.getQtdPeao() > 1) {
-	            return 1;
-	        }
-
-	        else {
-	            return 0; //Retorna se tem menos de 2 peoes ou se a casa nao e final
-	        }
-	    }
+//	 public int RegraB2(Peao p, Casa c) { // verifica se o peao esta na casa de saida ou na inicial
+//	        if(p.isCasaFinal() == true && c.getQtdPeao() > 1) {
+//	            return 1;
+//	        }
+//
+//	        else {
+//	            return 0; //Retorna se tem menos de 2 peoes ou se a casa nao e final
+//	        }
+//	    }
 
 	 public int RegraB3(Casa c) { // Regra se o peao esta na barreira ou no abrigo
 		 
@@ -166,26 +166,30 @@ class Regra {
 	
 
 	public int RegraCA(Peao peao, Object[] obj, int dado) {	
-		int posfinal = dado + peao.getPosicao();
 		
 		
-		System.out.println(">>>>> Regra ca X: "+ posfinal);
-		if(posfinal>=52) {
-			posfinal=posfinal%52;
+		int posfinal =  peao.getPosicao();
+		if (posfinal==-1){
+			return 0;
 		}
 		
+		System.out.println(">>>>> Regra ca X: "+ posfinal);
+//		if(posfinal>=52) {
+//			posfinal=posfinal%52;
+//		}
+		
+		String corpeao=peao.getCor();
 		Casa casafinal = (Casa) obj[posfinal]; // vetor de peoes
 		
-        if(casafinal.getTemPeao()) {
-        	
-        	if (casafinal.getCor1()!=null){
-        		
-        	
-	            if(!casafinal.getCor1().equals(peao.getCor())) {
-	            System.out.println("--- >>>>> Regra captura ativa: "+ posfinal);
-	               return posfinal;
-	            }
+		//&&casafinal.getCor1()!=null &&casafinal.getCor2()!=null
+        if(casafinal.getQtdPeao()==2 ) {
+   		 	
+        	if(casafinal.getCor1().equals(corpeao)==false || casafinal.getCor2().equals(corpeao)==false) {
+	              System.out.println("--- >>>>> Regra captura ativa: c1 "+ posfinal);
+	              return 1;
+	            
         	}
+        	
         }      
         return -1;
     }

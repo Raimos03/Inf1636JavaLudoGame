@@ -36,7 +36,7 @@ public class Rodada implements Observador, Observado, Observador2 {
 	public JBotaoFill jbLoad;
 	public JBotaoFill jbNovoJogo;
 	public PainelPlayer pplayer;
-	int rRegra6_control;
+	public int rRegra6_control;
 	
 	//public Object dado;
 	public int teste=3;
@@ -456,18 +456,32 @@ public class Rodada implements Observador, Observado, Observador2 {
 				//////// Regra Captura
 							
 							
-				rRegraCA= facade.VerificaRegraCA(p, dadoRodada, vCasas); // 1  ou 0
+				
 				System.out.println(">>>>RegraCA: "+rRegraCA);
 				
 				
-				if(rRegraCA != -1) { // encontrou um peao com a mesma casa que ele vai e cor diferente					
-					System.out.println(">>A casa que o peao vai tem um peao da cor diferente RegraCA indice: "+rRegraCA);
-					ICasa c = (ICasa) vCasas[rRegraCA];
+				if(facade.VerificaRegraCA(p, dadoRodada, vCasas) ==1) { // encontrou um peao com a mesma casa que ele vai e cor diferente					
 					
-					if (!c.eCasaSaida() || !c.eAbrigo()) {
+					System.out.println(">>A casa que o peao vai tem um peao da cor diferente RegraCA indice: "+rRegraCA);
+					ICasa c = (ICasa) vCasas[p.getPosicao()];
+					
+					if (!(c.eCasaSaida() || c.eAbrigo())) {
 						System.out.println(">>Um peao vai para a casa inicial: "+rRegraCA);
 						//MovePeaoCasaInicialRegra(indicepeao,rRegraCA); //ERRO DO INDICE CLICADO > 16
-						//MovePeaoCasaInicial(indicepeao,rRegraCA);
+						
+						int indvoltapeao=0;
+						for(int i=0;i<16;i++) {
+							
+							IPeao np =(IPeao) vPeao[i];
+							
+							if((np.getPosicao()==p.getPosicao()) && np.getCor().equals(facade.getCorPlayerVez())==false) {
+								indvoltapeao=i;
+								break;
+							}
+						}
+						
+						MovePeaoCasaInicialIND(indvoltapeao);
+						AtualizaCasas();
 					}
 					
 					
@@ -484,7 +498,7 @@ public class Rodada implements Observador, Observado, Observador2 {
 			facade.ExibePeoesAtivosPlayer();
 	
 		
-			//------------ por ultimo vencedor
+			//------------ VENCEDOR -------------//
 			
 			if(pVencedor!=-1) {// houve um vencedor	ultimo
 				
@@ -523,6 +537,12 @@ public class Rodada implements Observador, Observado, Observador2 {
 
 	// ---------- Observadores 
 	
+	private void AtualizaCasas() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 	@Override 
 	public void update() { // -----------------------------------turno  ----------------
 		
@@ -605,7 +625,8 @@ public class Rodada implements Observador, Observado, Observador2 {
 		//AtualizaCasa();
 		VerificaStatusCasas();
 		
-		//ExibeStatusCasas();
+		ExibeStatusCasas();
+		ExibeStatusPeoes();
 
 		
 		fv.resetaIndiceBotaoClicado();	
@@ -647,10 +668,11 @@ public class Rodada implements Observador, Observado, Observador2 {
 		}
 		
 		
-		if (catual.eAbrigo()==false && catual.eCasaSaida()==false) {
+		if (catual.eAbrigo()==false && catual.eCasaSaida()==false && p.get_victory_road()==0) {
 			
 			p.setCasaComum(true);
 		}
+		
 		else {
 			p.setCasaComum(false);
 		}
@@ -775,44 +797,48 @@ public class Rodada implements Observador, Observado, Observador2 {
 			System.out.println(" --- Casa Antiga e inicial ---");
 			
 		}
-		
-		if(posTabuleiro!=-1) { // CASA ONDE O PEAO VAI
-		
-			ICasa ncasa = (ICasa) vCasas[posTabuleiro];
+		if (posTabuleiro!=60){ // casa vroad
+			if(posTabuleiro!=-1) { // CASA ONDE O PEAO VAI
 			
-			if (ncasa.getTemPeao()) { // tem peao na nova casa
-				ncasa.setCasaBarreira(true);
 				
-				if(ncasa.getCor1()==null) {
+				ICasa ncasa = (ICasa) vCasas[posTabuleiro];
+				
+				if (ncasa.getTemPeao()) { // tem peao na nova casa
+					ncasa.setCasaBarreira(true);
+					
+					if(ncasa.getCor1()==null) {
+						ncasa.setCorPeao(0, p.getCor());
+					}
+					else if (ncasa.getCor2()==null) {
+						ncasa.setCorPeao(1, p.getCor());
+					}
+					
+					
+				}
+				else { // nao tem peao na nova casa
+					ncasa.setTemPeao(true);
 					ncasa.setCorPeao(0, p.getCor());
 				}
-				else if (ncasa.getCor2()==null) {
-					ncasa.setCorPeao(1, p.getCor());
-				}
+				
+				
+				ncasa.IncrementaPeaoCasa();
+				
+				
+				System.out.println(" --- Casa Atual ---");
+				ncasa.ExibeStatus();
+				System.out.println(" --- Casa Atual fim ---");
+			}
+			
+			
+			else { //nova posicao é a posicao inicial no tabuleiro ( -1)
+					
+				System.out.println(" --- Indo para a posicao INICAL NO TABULEIRO ---");
 				
 				
 			}
-			else { // nao tem peao na nova casa
-				ncasa.setTemPeao(true);
-				ncasa.setCorPeao(0, p.getCor());
-			}
-			
-			
-			ncasa.IncrementaPeaoCasa();
-			
-			
-			System.out.println(" --- Casa Atual ---");
-			ncasa.ExibeStatus();
-			System.out.println(" --- Casa Atual fim ---");
 		}
 		
-		
-		else { //nova posicao é a posicao inicial no tabuleiro ( -1)
-				
-			System.out.println(" --- Indo para a posicao INICAL NO TABULEIRO ---");
-			
-			
-		}
+		return;
 		
 		
 	}
@@ -865,50 +891,186 @@ public class Rodada implements Observador, Observado, Observador2 {
 		return -1;
 	}
 	
-	public void MovePeao(int i,int dado){ // numero do peao no vetor de peoes e numero do dado
+	public void MovePeao(int i,int dado){ // numero do peao no vetor de peoes e numero do dado // PEDRO OK 
 		
 		// i indice do peao
+		int cPosSaidaVermelho = 42;
+		int cPosSaidaVerde = 3;
+		int cPosSaidaAmarelo = 16;
+		int cPosSaidaAzul = 29;
+		
+		int posSaidaPea=0;
+		
+		
+		ICoordenada[] victoryVermelho = vTb.getvCasaVitoriaVermelha();
+		ICoordenada[] victoryVerde = vTb.getvCasaVitoriaVerde();
+		ICoordenada[] victoryAmarelo = vTb.getvCasaVitoriaAmarela();
+		ICoordenada[] victoryAzul = vTb.getvCasaVitoriaAzul();
 		
 		
 		IPeao p =(IPeao) this.vPeao[i];
-			
+		String corpeao = p.getCor();
+		
 		int posAntiga =facade.getPosicaoPeao(p); // pega a posicao atual do peao
 		int posTabuleiro=posAntiga;	
 //		if(posTabuleiro==-1) {
 //			posTabuleiro=0;
 //			
 //		}			
-		double x;
-		double y;
+		double x=0; // inicializando teste apenas
+		double y=0;
 			
 		ICoordenada[] vcoord =vTb.getvCasaComum();
 		
 		posTabuleiro = encontraNovaCasaTabuleiro(posTabuleiro, dado);
 		
-		ICoordenada nc= vcoord[posTabuleiro];
-		x= nc.getX1()+5;
-		y= nc.getY1()+5;
+		int posSaidaPeao = EncontraPosicaoDaCasaSaidaCorPlayer(corpeao);
+		System.out.println("POS SAIDA PEAO"+posSaidaPeao);
+		System.out.println("POS NOVA PEAO"+posTabuleiro);
+		
+		
+		if(p.getPosicao()!=-1 && !p.isCasaSaida()) {//condicao de PASSAR A casa de saida depois de estar no tabuleiro
+			p.set_candidato_vitoria(1);			
+			
+		}
+		
+		else if (posTabuleiro>=posSaidaPeao &&p.get_candidato_vitoria()==1 ) {
+			p.IncrementaQtdPassouSaida();
+		}
+
+		
+		int e;
+		ICoordenada ic;
+		ICoordenada[] vroadPeao;
+			
+		
+		//ic=(ICoordenada) victoryVerde[e];
+		if ( p.getQtdPassouSaida()==2 && p.get_candidato_vitoria()==1 ) { // entra vroad
+				
+			e = (posTabuleiro - posSaidaPeao)%6;
+			System.out.println("///-------------- Vou passar da casa de saida para a VROAD --------///");
+			//pego x e y da vroad
+			// seto para vroad 
+			
+			if (posSaidaPeao==3) { // verde
+				ic = victoryVerde[0];				
+			}
+			else if (posSaidaPeao==16) { // amarelo
+				ic = victoryAmarelo[0];				
+			}
+			else if (posSaidaPeao==29) { // azul
+				ic = victoryAzul[0];				
+			}
+			else if (posSaidaPeao==42) { // vermelho
+				ic = victoryVermelho[0];				
+			}
+			else {
+				ic =victoryVermelho[0];			
+			}
+			
+			
+			ic.ExibeCoordenadas();
+			
+			x=ic.getX1()+5;
+			y=ic.getY1()+5;
+			
+			p.set_victory_road(1);
+			p.setPosicao(60);
+			
+			
+		}
+		
+		//p.getQtdPassouSaida()==2 &&
+		else if ( p.get_victory_road()==1 && p.getQtdPassouSaida()==2) {
+			System.out.println("///-------------- Movo VROAD --------///");
+			e=1;
+			if (dado==6){
+				e=dado;
+			}
+	
+			if (posSaidaPeao==3) { // verde
+				vroadPeao = victoryVerde;				
+			}
+			else if (posSaidaPeao==16) { // amarelo
+				vroadPeao = victoryAmarelo;				
+			}
+			else if (posSaidaPeao==29) { // azul
+				vroadPeao = victoryAzul;				
+			}
+			else if (posSaidaPeao==42) { // vermelho
+				vroadPeao = victoryVermelho;				
+			}
+			else {
+				vroadPeao =victoryVermelho;			
+			}
+			
+			ic = vroadPeao[5];
+	
+			if(e==6) {
+				JOptionPane.showMessageDialog(fv,"Peao de id:"+p.getId()+"chegou no final");
+				p.setCasaFinal(true);
+				x=ic.getX1()+5;
+				y=ic.getY1()+5;
+			}
+			p.setPosicao(60);
+			p.setCasaSaida(false);
+			p.setCasaComum(false);
+			
+
+		}
+		else {
+			
+			System.out.println("///-------------- Movo normalmente --------///");
+			ICoordenada nc= vcoord[posTabuleiro];
+			
+			x= nc.getX1()+5;
+			y= nc.getY1()+5;
+			
+			facade.MovePeao(vPeao[i],x,y,posTabuleiro);
+			AtualizaCasa(posAntiga,posTabuleiro,p);
+			
+			System.out.println("\t>>> Status Peao antes de mover <<<<");
+			AtualizaStatusPeao(p,dado);
+			System.out.println("\t-------->>> Status Peao depois do movimento <<<<");
+			//p.Exibe();//debug
+			fv.setPosicaoBotoesPeoes(i,(int)x,(int) y);
+			
+	
+
+			return;
+
+		}
+		
+		
 		
 		System.out.println("\t>>> Status Peao antes de mover <<<<");
 		//p.Exibe();// 
 		
+		
 		facade.MovePeao(vPeao[i],x,y,posTabuleiro);
 		AtualizaStatusPeao(p,dado);
 		
-		System.out.println("\t>>> Status Peao depois do movimento <<<<");
+		System.out.println("\t-------->>> Status Peao depois do movimento <<<<");
 		//p.Exibe();//debug
 						
 		// atualiza casa
 		
 		
-		AtualizaCasa(posAntiga,posTabuleiro,p);
+		
 		//facade.setPeaoAtivoNoPlayer((Object )p);
-					
+		
+		
+	
+		AtualizaCasa(posAntiga,posTabuleiro,p);
 		fv.setPosicaoBotoesPeoes(i,(int)x,(int) y);	// move botoes dos peoes	
 		//Notify();
 		
-	}
+		
+		
+	} // PEDRO OK 
 
+	
+	
 	
 	public void MovePeaoCasaSaida(int i) {
 		
@@ -956,9 +1118,11 @@ public class Rodada implements Observador, Observado, Observador2 {
 
 		
 		facade.setPeaoAtivoNoPlayer((Object )p);
+		//p.IncrementaQtdPassouSaida(); // VROAD
+		
 		
 		AtualizaCasa(-1,posTabuleiro,p);
-		//p.Exibe();
+		p.Exibe();
 	
 		fv.setPosicaoBotoesPeoes(i,(int)nx,(int) ny);
 		//Notify();
@@ -1175,6 +1339,17 @@ public class Rodada implements Observador, Observado, Observador2 {
 					qtdamarelo++;
 				else
 					qtdazul++;
+				
+				if(p.getPosicao()!=3 || p.getPosicao()!=16 || p.getPosicao()!=29 || p.getPosicao()!= 42) {
+			
+					p.set_candidato_vitoria(1);
+					p.setQtdPassouSaida(1);
+				}
+//				if (p.getPosicao()==60) {
+//					
+//					p.setQtdPassouSaida(2);
+//					p.set_victory_road(1);
+//				}
 			}
 		}
 		
@@ -1224,6 +1399,13 @@ public class Rodada implements Observador, Observado, Observador2 {
 		}
 	}
 
+	public void VerificaCandidatoVitoria(int intpeao, int dado) { // victory road patrick
+		
+		
+		
+		return ;
+	}
+	
 	@Override
 	public Object getDados() {
 		// TODO Auto-generated method stub
@@ -1239,57 +1421,7 @@ public class Rodada implements Observador, Observado, Observador2 {
 		
 		return vCasas;
 	}
-	
-	//////// FUNCOES DE TESTES
-	
-	public void TesteI1(){
-//		this.dadoRodada=5; //teste teste casa saida peao na casa inicial
-		MovePeaoCasaSaida(2);	// teste casa saida peao na casa inicial
-		MovePeaoCasaSaida(7);	// teste casa saida peao na casa inicial
-		MovePeaoCasaSaida(14);
-		MovePeaoCasaSaida(11);
-		
-		
-		MovePeao(11,2);
-		MovePeao(7,9);
-		MovePeao(2,3);
-		
-			
-//		fv.AtualizaPainelPlayer();
-		
-//		MovePeaoCasaSaida(8);	// teste casa saida peao na casa inicial
-//		MovePeaoCasaSaida(12);// teste casa saida peao na casa inicial
-		teste=0;
-	}
 
-	public void TesteI3(){
-//		this.dadoRodada=5; //teste teste casa saida peao na casa inicial
-		MovePeaoCasaSaida(2);	// teste casa saida peao na casa inicial
-		MovePeaoCasaSaida(7);	// teste casa saida peao na casa inicial
-		MovePeaoCasaSaida(14);
-		MovePeaoCasaSaida(11);
-		MovePeaoCasaSaida(15);
-		MovePeaoCasaSaida(6);
-		
-		
-		MovePeao(11,2);
-		MovePeao(7,9);
-		MovePeao(2,3);
-		
-		MovePeao(6,2);
-		MovePeao(15,4);
-		MovePeao(2,3);
-		
-//		System.out.println(">>> TESTE PEAO CASA INICIAL <<<");
-		JOptionPane.showMessageDialog(fv,"TESTE PEAO CASA INICIAL");
-//		for(int i=0;i<16;i++) {	
-//			MovePeaoCasaInicial(i);
-//		}
-		
-		
-		
-		teste=0;
-	}
 	
 	
 	@Override

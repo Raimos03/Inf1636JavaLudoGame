@@ -5,7 +5,14 @@ public interface IPeao {
 	public int getId();
 
 	public int getIntCor();
+	public void set_victory_road(int i);
 	
+	public int get_victory_road();
+	
+	public void set_candidato_vitoria(int i);
+
+    public int get_candidato_vitoria();
+	 
 	public String getCorIntS(int id);
 
 	public String getCor();
@@ -78,5 +85,11 @@ public interface IPeao {
 	public double getY1();
 
 	public void setX1(double x);
-	public void setY1(double y);}	
+	public void setY1(double y);
+	
+	public int getQtdPassouSaida() ;
+	public void setQtdPassouSaida(int qtdPassouSaida);
+	public void IncrementaQtdPassouSaida();
+	public void DecrementaQtdPassouSaida();
+	}	
 

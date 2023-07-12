@@ -4,17 +4,29 @@ import java.util.Arrays;
 
 import controler.*;
 
-public class FcModel   { // Facade
+public class FcModel   { // Facade // Implementa um Singleton
 
 	private Dado dado;
 //	private players; ( colocar um vetor de players);
+	
 	private Round round;
 	private Object[] vPlayers = new Object[4];
 	private Object[] vPeoes = new Object[16];
 	private Tabuleiro mTb;
 	private Regra regras;
+	private static FcModel facade=null;
 
-
+	private FcModel(){
+		
+	}
+	
+	public static FcModel getInstance() {
+		
+		if(facade==null) {
+			facade = new FcModel();
+		}
+		return facade;
+	}
 	
 	public void  CriaDado() {		
 		this.dado = new Dado();
@@ -133,20 +145,20 @@ public class FcModel   { // Facade
         return 0;
     }
 	
-	 public boolean VerificaRegrasB2(Object p) {
-
-	        Peao P = (Peao) p;
-	        //#Casa[] c = (Casa[]) mTb.getVcasas();
-	        Casa[] c = (Casa[]) mTb.getVCasas();
-	        Casa C = c[P.getPosicao()];
-	        if (regras.RegraB2(P, C) == 1){
-	            return true;
-	        }
-
-	        int x = P.getPosicao();
-	        P.setPosicao(x - 1);
-	        return false;
-	    }
+//	 public boolean VerificaRegrasB2(Object p) {
+//
+//	        Peao P = (Peao) p;
+//	        //#Casa[] c = (Casa[]) mTb.getVcasas();
+//	        Casa[] c = (Casa[]) mTb.getVCasas();
+//	        Casa C = c[P.getPosicao()];
+//	        if (regras.RegraB2(P, C) == 1){
+//	            return true;
+//	        }
+//
+//	        int x = P.getPosicao();
+//	        P.setPosicao(x - 1);
+//	        return false;
+//	    }
 	 
 	 public boolean VerificaRegrasB3(Object p, Object[] vcasa) {
 	        Peao P = (Peao) p;

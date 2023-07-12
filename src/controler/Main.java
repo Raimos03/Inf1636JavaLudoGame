@@ -13,7 +13,7 @@ public class Main {
 		frame.setLayout(null);
 		frame.setVisible(true);
 		
-		FcModel fachada= new FcModel();
+		FcModel fachada= FcModel.getInstance();
 		
 		
 		Rodada rd = new Rodada(frame, fachada);

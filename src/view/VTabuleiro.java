@@ -1511,6 +1511,62 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observador,
 		
 	}
 
+
+	@Override
+	public void set_victory_road(int i) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public int get_victory_road() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public void set_candidato_vitoria(int i) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public int get_candidato_vitoria() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public int getQtdPassouSaida() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public void setQtdPassouSaida(int qtdPassouSaida) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void IncrementaQtdPassouSaida() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void DecrementaQtdPassouSaida() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 
 }

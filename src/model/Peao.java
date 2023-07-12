@@ -35,6 +35,9 @@ class Peao implements IPeao, ICoordenada {
 	private boolean Abrigo=false;  //esta no abrigo
 	private boolean CasaFinal=false; // victory road
 	private boolean CasaComum=false;
+	private int victory_road = 0; // 1 se esta na victory
+    private int candidato_vitoria = 0; // quando sai da casa de saida pela 1 vez
+    private int qtdPassouSaida=0;
 	
 	
 	public Peao (String scor, Player pai) {
@@ -165,7 +168,21 @@ class Peao implements IPeao, ICoordenada {
 		PosicaoCasaSaidaAzul = posicaoCasaSaidaAzul;
 	}
 	
+	public void set_victory_road(int i){
+        this.victory_road = i;
+    }
 
+    public int get_victory_road() {
+        return this.victory_road;
+    }
+
+    public void set_candidato_vitoria(int i){
+        this.candidato_vitoria = i;
+    }
+
+    public int get_candidato_vitoria() {
+        return this.candidato_vitoria;
+    }
 	
 	////// ------ Metodos especificos --------
 	
@@ -225,6 +242,9 @@ class Peao implements IPeao, ICoordenada {
 		System.out.println("\t\t Y:"+ this.getXY().getY1()+ " -- Casa Saida:"+ this.CasaSaida + " -- Casa Barreira:"+ this.Barreira);		
 		System.out.println("\t\t\t -- Casa Abrigo:"+ this.Abrigo);
 		System.out.println("\t\t\t -- Casa Comum:"+ this.CasaComum);
+		System.out.println("\t\t\t -- Candidato vitoria:"+ this.candidato_vitoria);
+		System.out.println("\t\t\t -- Na  victory road:"+ this.victory_road);
+		System.out.println("\t\t\t -- QTD  Passou na SAIDA:"+ this.qtdPassouSaida);
 		//System.out.println("------");
 	}
 //	
@@ -366,6 +386,20 @@ class Peao implements IPeao, ICoordenada {
 	public boolean isCasaComum() {
 		
 		return this.CasaComum;
+	}
+
+	public int getQtdPassouSaida() {
+		return qtdPassouSaida;
+	}
+
+	public void setQtdPassouSaida(int qtdPassouSaida) {
+		this.qtdPassouSaida = qtdPassouSaida;
+	}
+	public void IncrementaQtdPassouSaida() {
+		this.qtdPassouSaida++;
+	}
+	public void DecrementaQtdPassouSaida() {
+		this.qtdPassouSaida--;
 	}
 
 	
