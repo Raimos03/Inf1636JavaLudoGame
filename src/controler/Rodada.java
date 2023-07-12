@@ -20,7 +20,7 @@ public class Rodada implements Observador, Observado, Observador2 {
 	//Controler
 	
 	
-	public int control_cor=0; //**
+	//public int control_cor=0; //**
 	
 	public static int nRodada =0;
 	public int dadoRodada; // ver se realmente preciso
@@ -121,7 +121,7 @@ public class Rodada implements Observador, Observado, Observador2 {
             	
             	String scor = fc.getCorPlayerVez();
             	
-            	System.out.println( scor);	
+            	System.out.println(scor);	
             	System.out.println(fv.getCorPainelPlayer());	
            
             	
@@ -130,6 +130,8 @@ public class Rodada implements Observador, Observado, Observador2 {
             		System.out.println(fv.getCorPainelPlayer());
             	}
             	fv.resetaIndiceBotaoClicado();
+            	
+            	contaPeoesAtivosPlayer();
             	
             }
 
@@ -228,6 +230,8 @@ public class Rodada implements Observador, Observado, Observador2 {
 	public int GerenciaRodada() {
 		
 		//fv.desabilitaBJogaDado();			
+		System.out.println("-------> Cor player vez: <-------"+ facade.getCorPlayerVez());
+		
 		int indicepeao = fv.getIndiceBotaoPeao();
 		
 		if (indicepeao ==-1) {
@@ -236,7 +240,7 @@ public class Rodada implements Observador, Observado, Observador2 {
 		
 		
 		Object op =  vPeao[indicepeao];	
-		Object[] Vencedor = new Object[4];
+		Object[] Vencedor = new Object[4]; // vetor de vencedores
 		
 		int pVencedor = -1; //player dif de -1 , -1 nao tem vencedor
 		int respContinueUsr=1;  // 1 continuar o jogo , 0 sair
@@ -253,11 +257,11 @@ public class Rodada implements Observador, Observado, Observador2 {
 		int ci=0;
 		
 		System.out.println("Selecione o peao que deseja mover");	
-		System.out.println("Indice Botao Peao antes de validar--> "+indicepeao);
+		System.out.println(">>Indice Botao Peao antes de validar--> "+indicepeao);
 		
 		indicepeao=ValidaSelecaoPeaoCor(indicepeao, facade.getCorPlayerVez());
 		
-		System.out.println("Indice Botao Peao depois  de validar--> "+indicepeao);
+		System.out.println(">>Indice Botao Peao depois  de validar--> "+indicepeao);
 		
 		//indicepeao=-1; teste jogada nao valida
 		if (indicepeao==-1){ // se a selecao nao condiz com a cor do player	
@@ -271,25 +275,15 @@ public class Rodada implements Observador, Observado, Observador2 {
 				rRegraI1=facade.VerificaRegrasI1(op, this.dadoRodada);		
 				
 				if(rRegraI1==1){ // ok		// se  tem peao na casa de saida e tirou  5
-					ci=4;
+					
 					System.out.println("Passou I1");	
 					System.out.println("Peao na casa de saida");
 					
 					ci=1;
 					String scorplayer = facade.getCorPlayerVez();
-					int pinicialTab;					
-					if (scorplayer.equals("vermelho")) {
-						pinicialTab=42;
-					}
-					else if (scorplayer.equals("verde")) {
-						pinicialTab=3;
-					}
-					else if (scorplayer.equals("amarelo")) {
-						pinicialTab=16;
-					}
-					else { // azul
-						pinicialTab=29;
-					}					
+					
+					int pinicialTab = EncontraPosicaoDaCasaSaidaCorPlayer(scorplayer);					
+					
 					//encontro indice do peao com a coordenada
 					
 					int indicePeaoCasaSaida= encontraIPeaoCasaSaida(pinicialTab); // peao de mesma cor							
@@ -301,19 +295,19 @@ public class Rodada implements Observador, Observado, Observador2 {
 				}
 				else { // n tirou 5 ou casa de saida livre
 					
-					System.out.println("Regra I1 nao passou>> return "+rRegraI1);
+					System.out.println(" L294 Regra I1 nao passou>> return "+rRegraI1);
 				
 					
 					if (rRegraI1==2) { // sem peao na casa de saida			
 						ci=3;
 						
-						System.out.println("sem Peao na casa de saida"); // ok
-						System.out.println("\t >>> Dado e info :" + dadoRodada);
+						System.out.println(" l300 - sem Peao na casa de saida"); // ok
+						System.out.println("\t -->>> Dado DA RODADA :" + dadoRodada);
 						
 						
 						//encontra novo peao casa inicial e sai
 						
-						System.out.println("RI1 r2 Cor player vez:"+ facade.getCorPlayerVez());
+						
 						
 						indicepeao =  ValidaSelecaoPeaoCor(indicepeao,facade.getCorPlayerVez());
 						IPeao p1 = (IPeao) vPeao[indicepeao];
@@ -363,8 +357,19 @@ public class Rodada implements Observador, Observado, Observador2 {
 								
 							}
 														
+							
 							System.out.println("RI1 r2 Novo indice a mover:"+ nind);
-							MovePeaoCasaSaida(nind);
+							System.out.println("\\ --->Pees ativos player resultado Regras --> "+facade.VerificaTodosPeoesAtivos(p));
+							
+							if(facade.VerificaTodosPeoesAtivos(p)==1) { // se nao tiver algum peao para sair, sai casa de saida
+								System.out.println("--->>> RI1 r2--3 TODOS OS PLAYER FORA:"+ nind);
+								MovePeao(nind,dadoRodada);
+							}
+							else {
+								MovePeaoCasaSaida(nind);	
+								}
+								
+								
 						}
 						
 						else {
@@ -373,12 +378,29 @@ public class Rodada implements Observador, Observado, Observador2 {
 						}
 
 					}
-					else if (rRegraI1==3) { // todos os os peoes fora						
+					else if (rRegraI1==3) { // todos os os peoes fora		// dado foi 5				
+						ci=4;
+						System.out.println("-->>RI1 Selecione um novo peao para mover com o valor do dado");
+						JOptionPane.showMessageDialog(fv,">> Selecione um peao "+facade.getCorPlayerVez() + " para mexer");
 						
-						System.out.println("RI1 Selecione um novo peao para mover com o valor do dado");
-						JOptionPane.showMessageDialog(fv,"Selecione um peao "+facade.getCorPlayerVez() + " para mexer");
-						MovePeao(indicepeao,dadoRodada);
+						//MovePeao(indicepeao,dadoRodada);
+						
+						String scorplayer = facade.getCorPlayerVez();						
+						int pinicialTab = EncontraPosicaoDaCasaSaidaCorPlayer(scorplayer);					
+						
+						//encontro indice do peao com a coordenada					
+						int indicePeaoCasaSaida= encontraIPeaoCasaSaida(pinicialTab); // peao de mesma cor							
+						rRegraI1=facade.VerificaRegrasI1(op, this.dadoRodada);
+						
+						//(rRegraI1==2 || rRegraI1==3)
+						if (indicePeaoCasaSaida!=-1  && facade.VerificaTodosPeoesAtivos(p)==1){
+							
+							MovePeao(indicepeao,dadoRodada);	// tiro peao casa saida
+							}
+						else {
+							MovePeao(indicePeaoCasaSaida,dadoRodada);	
 						}
+					}
 					
 					else { // dado nao e 5 rReraI1 =0; 
 						System.out.println("RI1 O dado tirado nao foi 5");
@@ -403,10 +425,10 @@ public class Rodada implements Observador, Observado, Observador2 {
 				
 			
 				
-				if (ci!=1&& ci!=3 && ci!=4){ // move normalmente
+				if (ci!=1 && ci!=3 && ci!=4){ // move normalmente
 	
 					if (p.isAbrigo()||p.isCasaComum()|| p.isCasaSaida() && ci==2 ) {
-						
+						System.out.println(">>>>Moveu normalmente l409: ");
 						MovePeao(indicepeao,dadoRodada);
 					}
 	
@@ -422,11 +444,12 @@ public class Rodada implements Observador, Observado, Observador2 {
 				
 				
 				if(rRegraCA != -1) { // encontrou um peao com a mesma casa que ele vai e cor diferente					
-					System.out.println(">>RegraCA indice: "+rRegraCA);
+					System.out.println(">>A casa que o peao vai tem um peao da cor diferente RegraCA indice: "+rRegraCA);
 					ICasa c = (ICasa) vCasas[rRegraCA];
 					
 					if (!c.eCasaSaida() || !c.eAbrigo()) {
-						//MovePeaoCasaInicial(indicepeao,rRegraCA); //ERRO DO INDICE CLICADO > 16
+						System.out.println(">>Um peao vai para a casa inicial: "+rRegraCA);
+						//MovePeaoCasaInicialRegra(indicepeao,rRegraCA); //ERRO DO INDICE CLICADO > 16
 						//MovePeaoCasaInicial(indicepeao,rRegraCA);
 					}
 					
@@ -441,10 +464,10 @@ public class Rodada implements Observador, Observado, Observador2 {
 			
 			
 			//rRegraB1=facade.VerificaRegrasB1();
-			
+			facade.ExibePeoesAtivosPlayer();
 	
 		
-			//---- por ultimo vencedor
+			//------------ por ultimo vencedor
 			
 			if(pVencedor!=-1) {// houve um vencedor	ultimo
 				
@@ -546,6 +569,7 @@ public class Rodada implements Observador, Observado, Observador2 {
 
 			fv.resetaIndiceBotaoClicado();	
 			fv.AtualizaPainelPlayer(); // atualizo o painel cor
+
 			
 //			if (control_cor==-1) {
 //				
@@ -553,11 +577,6 @@ public class Rodada implements Observador, Observado, Observador2 {
 //				fv.setCorPainelPlayer(v-1);
 //				control_cor=0;
 //			}
-//			
-		
-			
-			
-//		
 //			if(control_cor == 1) {
 //                fv.setCorPainelPlayer(Integer.valueOf(1));
 //                fv.ExibePainelPlayer();
@@ -582,17 +601,13 @@ public class Rodada implements Observador, Observado, Observador2 {
 		
 		//VERIFICA E ATUALIZA CASAS
 		
+		//AtualizaCasa();
 		VerificaStatusCasas();
 		
-		//ExibeStatusCasas();
-//		System.out.println(">>> ------Todas os peoes ----->>>\n");	
-//		for(int i=0;i<16;i++){
-//			
-//			IPeao p= (IPeao) vPeao[i];
-//			p.Exibe();
-//		}
+		ExibeStatusCasas();
+
 		
-			
+		fv.resetaIndiceBotaoClicado();	
 		JOptionPane.showMessageDialog(fv,"Proximo Player dado");
 		fv.habilitaBJogaDado();
 		Notify();
@@ -609,7 +624,7 @@ public class Rodada implements Observador, Observado, Observador2 {
 		// seto casa atual
 		
 		if(p.getPosicao()!=-1) {
-			
+			//facade.setPeaoAtivoNoPlayer(p);
 			p.setCasaInicial(false);
 			
 		}
@@ -639,7 +654,6 @@ public class Rodada implements Observador, Observado, Observador2 {
 			p.setCasaComum(false);
 		}
 		
-
 		
 		int posantiga = p.getPosicao()-dado;
 		System.out.println(">>pos peao antiga:"+ posantiga );
@@ -648,20 +662,73 @@ public class Rodada implements Observador, Observado, Observador2 {
 		if (posantiga<0) {	// posicao circular	
 			posantiga=  posantiga%52;
 		
-		}		
-			
+		}					
 		return;
 		
 	}
+	
+	public int EncontraPosicaoDaCasaSaidaCorPlayer(String scorplayer) {
+		
+		int pinicialTab=0;
+		
+		if (scorplayer.equals("vermelho")) {
+			pinicialTab=42; // posicao no tabuleiro para saida 
+		}
+		else if (scorplayer.equals("verde")) {
+			pinicialTab=3;
+		}
+		else if (scorplayer.equals("amarelo")) {
+			pinicialTab=16;
+		}
+		else { // azul
+			pinicialTab=29;
+		}		
+		
+		return pinicialTab;
+	}
+	
+	
 	public void VerificaStatusCasas() {
 		int i=0;
+		ICasa c;
+		
 		for(i=0;i<52;i++) {
 			
-			ICasa c = (ICasa) vCasas[i];
+			c = (ICasa) vCasas[i];
 			
 			if (c.getQtdPeao()==0) {
+				
 				c.ReiniciaCasa();
 			}
+			else if (c.getQtdPeao()==1) {
+				c.setCasaBarreira(false);
+				
+			}
+		}
+		
+		for (int k=0;k<16;k++) {
+			
+			IPeao ip = (IPeao) vPeao[k];
+			int casapeao= ip.getPosicao();
+			
+			if (casapeao!=-1) {
+				
+				c=(ICasa) vCasas[casapeao];
+				
+				if(c.getTemPeao() && c.getQtdPeao()==1 && c.getCor1()==null && c.getCor2()==null) {
+					
+					if(c.getCor1()==null) {
+						
+						c.setCorPeao(0,ip.getCor());
+					}
+					else if(c.getCor2()==null){
+						
+						c.setCorPeao(1,ip.getCor());
+					}
+					
+				}
+			}
+			
 		}
 	}
 	
@@ -678,14 +745,28 @@ public class Rodada implements Observador, Observado, Observador2 {
 			if (antcasa.getQtdPeao()==0) {
 				antcasa.ReiniciaCasa();
 			}
+			else {
 			
-			antcasa.setCasaBarreira(false);
-			antcasa.setTemPeao(true);
-			
-			
-			System.out.println(" --- Casa Antiga ---");
-			//antcasa.ExibeStatus();
-			System.out.println(" --- Casa Antiga ---");
+				antcasa.setCasaBarreira(false);
+				antcasa.setTemPeao(true);
+				
+				int peaosaiu=-1;		
+				if(p.getCor().equals(antcasa.getCor1())) {
+					//zera casa 0
+					peaosaiu=0;
+					
+				}else {
+					//zera a casa 1
+					peaosaiu=1;
+				}
+				
+				antcasa.setCorPeao(peaosaiu, null);
+				
+				
+				System.out.println(" --- Casa Antiga ---");
+				antcasa.ExibeStatus();
+				System.out.println(" --- Casa Antiga ---");
+				}
 		}
 		
 		else { // casa inicial 
@@ -700,7 +781,14 @@ public class Rodada implements Observador, Observado, Observador2 {
 			
 			if (ncasa.getTemPeao()) { // tem peao na nova casa
 				ncasa.setCasaBarreira(true);
-				ncasa.setCorPeao(1, p.getCor());
+				
+				if(ncasa.getCor1()==null) {
+					ncasa.setCorPeao(0, p.getCor());
+				}
+				else if (ncasa.getCor2()==null) {
+					ncasa.setCorPeao(1, p.getCor());
+				}
+				
 				
 			}
 			else { // nao tem peao na nova casa
@@ -713,7 +801,7 @@ public class Rodada implements Observador, Observado, Observador2 {
 			
 			
 			System.out.println(" --- Casa Atual ---");
-			//ncasa.ExibeStatus();
+			ncasa.ExibeStatus();
 			System.out.println(" --- Casa Atual fim ---");
 		}
 		
@@ -813,7 +901,7 @@ public class Rodada implements Observador, Observado, Observador2 {
 		
 		
 		AtualizaCasa(posAntiga,posTabuleiro,p);
-		facade.setPeaoAtivoNoPlayer((Object )p);
+		//facade.setPeaoAtivoNoPlayer((Object )p);
 					
 		fv.setPosicaoBotoesPeoes(i,(int)x,(int) y);	// move botoes dos peoes	
 		//Notify();
@@ -1066,6 +1154,36 @@ public class Rodada implements Observador, Observado, Observador2 {
 		this.dadoRodada=n;
 	}
 	
+	public void contaPeoesAtivosPlayer() {
+		
+		int qtdvermelho=0;
+		int qtdverde=0;
+		int qtdamarelo=0;
+		int qtdazul=0;
+		IPeao p;
+		
+		for (int i=0;i<16;i++) {
+			
+			p = (IPeao) vPeao[i];
+			if (p.getPosicao()!=-1){
+				if (i<4)	
+					qtdvermelho++;
+				else if (i<8)
+					qtdverde++;
+				else if (i<12)
+					qtdamarelo++;
+				else
+					qtdazul++;
+			}
+		}
+		
+		facade.SetQtdPeoesAtivosnoPlayer(vPeao[0], qtdvermelho);
+		facade.SetQtdPeoesAtivosnoPlayer(vPeao[4], qtdverde);
+		facade.SetQtdPeoesAtivosnoPlayer(vPeao[8], qtdamarelo);
+		facade.SetQtdPeoesAtivosnoPlayer(vPeao[12], qtdazul);
+		
+	}
+	
 	public void ReiniciaJogada() {
         for(int i = 0; i < 16; i++) {
             this.MovePeaoCasaInicialIND(i);
@@ -1082,11 +1200,11 @@ public class Rodada implements Observador, Observado, Observador2 {
     		System.out.println(fv.getCorPainelPlayer());
     	}
         
-        //fv.ExibePainelPlayer();
+        fv.ExibePainelPlayer();
 
-//        control_cor += 1;
+        //control_cor += 1;
         
-        fv.resetaIndiceBotaoClicado();
+        //fv.resetaIndiceBotaoClicado();
     }
 	
 	public void ExibeStatusCasas() {
@@ -1094,6 +1212,14 @@ public class Rodada implements Observador, Observado, Observador2 {
 		for(int i=0;i<52;i++){	
 			ICasa c= (ICasa) vCasas[i];
 			c.ExibeStatus();
+		}
+	}
+	
+	public void ExibeStatusPeoes() {
+		System.out.println(">>> ------Todas os peoes ----->>>\n");	
+		for(int i=0;i<16;i++){			
+			IPeao p= (IPeao) vPeao[i];
+			p.Exibe();
 		}
 	}
 

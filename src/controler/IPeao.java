@@ -48,7 +48,7 @@ public interface IPeao {
 
 	public void setCasaFinal(boolean casaFinal);
 
-	//public IPlayer getPlayerPai(); //**
+	//public Object getPlayerPai(); //**
 	
 	public ICoordenada getPosicaoCasaSaidaVermelho();
 

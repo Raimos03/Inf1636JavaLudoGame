@@ -104,14 +104,21 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observador,
 					
 					casa=(ICasa) vcasas[peao.getPosicao()];
 					
-					if(casa.eBarreira()){// for barreira ou outra configuracao{
-					
-						if(casa.QualTipoBarreira()==1) {	// mesma cor									
-							dBarreiraMesmaCor(g2d, (int)icord.getX1()-2, (int)icord.getY1()-2,casa.getCor1());
+					// adiciounei agoraa casa.getQtdPeao()==2
+					if(casa.eBarreira() && casa.getQtdPeao()>=2){// for barreira ou outra configuracao{
+						
+						System.out.println("Antes do Erro --> pos casa "+peao.getPosicao());
+						
+						if(casa.getCor1()!=null && casa.getCor2()!=null) {
+							
+							if(casa.QualTipoBarreira()==1) {	// mesma cor									
+								dBarreiraMesmaCor(g2d, (int)icord.getX1()-2, (int)icord.getY1()-2,casa.getCor1());
+							}
+							else { // cor diferente	
+								
+								dBarreiraCorDiferente(g2d, (int)icord.getX1()-2, (int)icord.getY1()-2,casa.getCor1(),casa.getCor2());
+							}					
 						}
-						else { // cor diferente				
-							dBarreiraCorDiferente(g2d, (int)icord.getX1()-2, (int)icord.getY1()-2,casa.getCor1(),casa.getCor2());
-						}					
 					}
 					else { // se nao
 						DCriaPeao(g2d,(int)icord.getX1(),(int)icord.getY1(),vCoresPeao[peao.getIntCor()]);

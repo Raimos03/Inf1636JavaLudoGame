@@ -12,14 +12,14 @@ import java.awt.Color;
 	// Classe criada para gerenciar ocorrencias de cassas especiais como abrigo e barreira
 	 
 		
-	 public  int vQtdPeoes = 0;
+	 public  int vQtdPeoes = 0; //**
 	 private int posicaoCasa;
-	 private boolean barreira=false;
+	 private boolean barreira=false; //**
 	 private boolean abrigo=false;
-	 private boolean temPeao=false;
+	 private boolean temPeao=false; //**
 	 private boolean casaSaida=false;
 	 private String corCasadeSaida=null;
-	 private String[] vcorPeoes = new String[2];
+	 private String[] vcorPeoes = new String[2]; //**
 	 
 	 // ver se guardo peoes aqui dentro ou nao
 	 
@@ -102,7 +102,7 @@ import java.awt.Color;
 	
 		this.barreira=false;
 		this.temPeao=false;
-		
+		this.vQtdPeoes=0;
 		
 		vcorPeoes[0]=null;
 		vcorPeoes[1]=null;
@@ -136,12 +136,22 @@ import java.awt.Color;
 		
 		return qtd;
 	}
-	public int QualTipoBarreira() {			
-			String c1= vcorPeoes[0];			
-			if(c1.equals(vcorPeoes[1])) { // mesma cor
-				return 1;
-			}	
-			return 2; // diferentes
+	public int QualTipoBarreira() {		
+			if (this.getQtdPeao()!=2){
+				this.barreira=false;
+				return 0;
+			}
+			
+			//if(vcorPeoes[0]!=null &&vcorPeoes[1]!=null ) {
+				
+				String c1= vcorPeoes[0];			
+				if(c1.equals(vcorPeoes[1])) { //barreir mesma cor
+					return 1;
+				}	
+				
+			//}			
+			
+			return 2; // barreira diferentes
 		}
 	public String getCor1() {
 			
@@ -168,7 +178,7 @@ import java.awt.Color;
 	
 	public void ExibeStatus() {
 		
-		String b="",a="",p="";
+		String b="",a="",p="",q="";
 		System.out.println("-----c ");
 		System.out.println("\t QTD VPEOES CASA: "+ this.vQtdPeoes);
 		System.out.println("\t PosicaoCasa: "+this.getPosicaoCasa());
@@ -184,18 +194,25 @@ import java.awt.Color;
 			p= " Casa saida";
 		}
 		else if (this.temPeao==true) {
-			p= " Tem peao";
+			q= " Tem peao";
 		}
 		
 	
-		System.out.println("\t\t"+ b + a + p);
+		System.out.println("\t\t"+ b + a + p+q);
 		
 		if(this.vcorPeoes[0]!=null) {
 			System.out.println("\t\t Cor0: "+this.getCor1());
 		}
+		else {
+			System.out.println("\t\t Cor0: NULL ");
+		}
 		if(this.vcorPeoes[1]!=null) {
 			System.out.println("\t\t Cor1: "+this.getCor2());
 		}
+		else {
+			System.out.println("\t\t Cor1: NULL ");
+		}
+		
 		
 		//System.out.println(" ----c ");
 		return ;	

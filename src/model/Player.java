@@ -32,6 +32,10 @@ class Player {
 		qtd_ativo -= 1;
 	}
 	
+	public void setQtdPeoesAtivos(int n) {
+		this.qtd_ativo=n;
+	}
+	
 	public int get_qtd_ativo() {
 		return qtd_ativo;
 	}

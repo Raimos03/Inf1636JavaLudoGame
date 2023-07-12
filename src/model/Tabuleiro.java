@@ -6,7 +6,7 @@ class Tabuleiro  {
 		
 	//Object[] vPeao = new Object[16];
 	
-	private Object[] vcasas = new Object[52]; // vetor com info de cada casa
+	private Object[] vcasas = new Object[52]; // vetor com info de cada casa 0 a 51
 	//private double[] Area = new double[2];
 
 	

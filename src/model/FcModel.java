@@ -174,20 +174,41 @@ public class FcModel   { // Facade
 //	 public void setRodada(Rodada nrd) {
 //		 this.rodada=nrd;
 //	 }
-
+	 
+	 
+	 public void ExibePeoesAtivosPlayer() {
+		 Player player= (Player)vPlayers[round.getIntPlayerVez()];
+		 System.out.println("---->PEOES ATIVOS PLAYER: " + player.get_qtd_ativo());
+	 }
+	 
+	 public void SetQtdPeoesAtivosnoPlayer(Object p,int n) {
+		 Peao np = (Peao) p;
+		 Player pl = np.getPlayerPai();
+		 
+		 pl.setQtdPeoesAtivos(n);
+	 }
 	 
 	 public void setPeaoDesativadoNoPlayer(Object p) {
+		 
+		 
 			Peao np = (Peao) p;
-			Player pl = np.getPlayerPai();
-					
-			pl.decrementaPeaoAtivo();
+			
+			if(np.getPosicao()==-1) {
+				Player pl = np.getPlayerPai();
+						
+				pl.decrementaPeaoAtivo();
+			}
 		}
 	
 	public void setPeaoAtivoNoPlayer(Object p) {
 		Peao np = (Peao) p;
-		Player pl = np.getPlayerPai();
-				
-		pl.incrementaPeaoAtivo();
+		
+		if( np.getPosicao()!=-1) {
+			Player pl = np.getPlayerPai();				
+			pl.incrementaPeaoAtivo();
+		}
+		
+		
 	}
 	
 	public int getQtdPeoesAtivos(Object p ) {
@@ -226,6 +247,16 @@ public class FcModel   { // Facade
 		Peao np = (Peao) p;
 		np.setCasaInicial(b);
 		
+	}
+	public int VerificaTodosPeoesAtivos(IPeao p) {
+		
+		Peao np = (Peao) p;
+		Player npai = (Player) np.getPlayerPai();
+		if( regras.VerificaPeoesAtivos(npai)==0) {
+			return 1; // caso ainda tenha peao para sair 
+		}
+		
+		return 0;
 	}
 	
 	public void setCasaInicial(double[] posinvermelhox,double[] posinvermelhoy,double[] posinverdex,double[] posinverdey,double[] posinamarelx,double[] posinamarely,double[] posinazulx,double[] posinazuly) {

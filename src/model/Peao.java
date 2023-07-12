@@ -65,7 +65,7 @@ class Peao implements IPeao, ICoordenada {
 	}
 
 	public boolean isNoTabuleiro() {
-		if (this.CasaInicial==true) {
+		if (this.CasaInicial==false) {
 			return true;
 		}
 		return false;
@@ -223,10 +223,6 @@ class Peao implements IPeao, ICoordenada {
 		System.out.println("\t\tId:"+this.getId()+"\n\t\t"+"Posicao tb:"+this.getPosicao());
 		System.out.println("\t\t X:"+ this.getXY().getX1() + " --  Casa Inicial:"+ this.CasaInicial + " -- Casa Final:"+ this.CasaFinal);
 		System.out.println("\t\t Y:"+ this.getXY().getY1()+ " -- Casa Saida:"+ this.CasaSaida + " -- Casa Barreira:"+ this.Barreira);		
-		//System.out.println("\t\t--  Casa Inicial:"+ this.CasaInicial);
-		//System.out.println("\t\t-- Casa Saida:"+ this.CasaSaida );
-		//System.out.println("\t\t-- Casa Final:"+ this.CasaFinal);
-		//System.out.println("\t\t-- Casa Barreira:"+ this.Barreira);
 		System.out.println("\t\t\t -- Casa Abrigo:"+ this.Abrigo);
 		System.out.println("\t\t\t -- Casa Comum:"+ this.CasaComum);
 		//System.out.println("------");

@@ -29,7 +29,7 @@ class Regra {
 			// escolho outro peao para mover	
 			else { // peao ativa < 4 ou casa de saida livre
 				
-				System.out.println("Regra - Escolha outro peao que deseja mover:");				
+				System.out.println(">> RegraI1 << - Escolha outro peao que deseja mover:");				
 
 				if(rPeoesSaida==0) { // sem peao na casa de saida
 					return 2;
@@ -44,8 +44,8 @@ class Regra {
 	
 	public int VerificaPeoesSaida(Player pai) {
 		
-		// 0 para falhas , 1 para sucesso		
-		 // verifica pelo pai do peao
+		// 0 para falhas , 1 para sucesso de ter alguem na casa de saida		
+		 // verifica pelo pai do peao ,
 		
 		if (pai.getPeao1().isCasaSaida()==true) {			
 			return 1;
@@ -68,7 +68,7 @@ class Regra {
 	
 	public int VerificaPeoesAtivos(Player pai) {
 			
-		if (pai.get_qtd_ativo()<4) {		
+		if (pai.get_qtd_ativo()<4) {		//retorna 0 se todos estao fora
 			return 1;
 		}	
 		return 0;	
@@ -175,9 +175,15 @@ class Regra {
 		Casa casafinal = (Casa) obj[posfinal]; // vetor de peoes
 		
         if(casafinal.getTemPeao()) {
-            if(!casafinal.getCor1().equals(peao.getCor())) {
-               return posfinal;
-            }
+        	
+        	if (casafinal.getCor1()!=null){
+        		
+        	
+	            if(!casafinal.getCor1().equals(peao.getCor())) {
+	            System.out.println("--- >>>>> Regra captura ativa: "+ posfinal);
+	               return posfinal;
+	            }
+        	}
         }      
         return -1;
     }
