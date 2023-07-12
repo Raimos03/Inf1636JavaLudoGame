@@ -171,6 +171,10 @@ public class FcModel   { // Facade
 		 
 	 }
 	 
+	 public int VerificaRegra6(int d, int i) {
+         return regras.Regra6(d, i);
+     }
+	 
 //	 public void setRodada(Rodada nrd) {
 //		 this.rodada=nrd;
 //	 }

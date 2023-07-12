@@ -125,30 +125,32 @@ class Regra {
 
 // ----- Demais Regras 
 
-   public int Regra6(Peao peao, Dado dado){ // regra de tirar 6 no dado
-	
-	int contador=1;
-	
-    for(int i = 0; i<3; i++){
-    	// verifica se o número sorteado no dado é 6
-    	if (dado.get_face() == 6){
-    		dado.joga_dado(); // move o peão
-    		// incrementa o contador de seis
-    		
-    		// verifica se o jogador obteve um 6 pela terceira vez consecutiva
-    		if (contador == 3) {
-    			peao.setPosicao(0); // retorna o peão para a casa inicial
-    			contador = 0; // zera o contador de seis
-    			return 1;
-    		}
-    	} else {
-    		contador = 0;
-    	}
-    	
-    }
-    
-    return 0;
-}
+	 public int r6_counter = 0;
+     public int index = -1;
+     public int Regra6(int d, int i) {
+         if(d == 6 && r6_counter != 3 && index == -1) {
+             this.r6_counter += 1;
+             index = i;
+             return 1;
+         }
+
+         else if (d == 6 && r6_counter != 3 && index == i) {
+             this.r6_counter += 2;
+             return 1;
+         }
+
+         else if(d == 6 && r6_counter == 3) {
+             this.r6_counter = 0;
+             index = -1;
+             return 2;
+         }
+
+         else {
+             this.r6_counter = 0;
+             index = -1;
+             return 3;
+         }
+     }
 
 	public int RegraBR(Peao peao, Dado dado, List<Peao> peoes) {
 	    int posicaoFinal = peao.getPosicao() + dado.get_face();

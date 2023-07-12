@@ -36,7 +36,7 @@ public class Rodada implements Observador, Observado, Observador2 {
 	public JBotaoFill jbLoad;
 	public JBotaoFill jbNovoJogo;
 	public PainelPlayer pplayer;
-
+	int rRegra6_control;
 	
 	//public Object dado;
 	public int teste=3;
@@ -254,6 +254,7 @@ public class Rodada implements Observador, Observado, Observador2 {
 		int rRegraBR=0;
 		int rRegraCA=0;
 		
+		
 		int ci=0;
 		
 		System.out.println("Selecione o peao que deseja mover");	
@@ -415,7 +416,23 @@ public class Rodada implements Observador, Observado, Observador2 {
 				
 				//if // Regra 6
 				
-				
+				rRegra6 = facade.VerificaRegra6(this.dadoRodada, facade.getIntPlayerDaVez());
+                System.out.println(">>Regra6: "+rRegra6);
+                rRegra6_control = 0;
+
+                if (rRegra6 == 1) {
+                    System.out.println(">>Regra6 - 1");
+                    rRegra6_control = 1;
+                }
+
+                else if(rRegra6 == 2) {
+                    rRegra6_control = 0;
+                    this.MovePeaoCasaInicialIND(indicepeao);
+                }
+
+                else {
+                    rRegra6_control = 0;
+                }
 				
 				//if // Regra Barreira
 				
@@ -560,37 +577,21 @@ public class Rodada implements Observador, Observado, Observador2 {
 		//System.out.println("controle gerencia ->"+controle);
 		//if(controle==1)
 		
-		if(GerenciaRodada()==1) { // jogada valida, proximo player		
-					
-			JOptionPane.showMessageDialog(fv,"Fim do turno "+facade.getCorPlayerVez());
-			facade.ProximoJogador();				
-			facade.NovoRound();
-		
+		if(GerenciaRodada()==1) { // jogada valida, proximo player
 
-			fv.resetaIndiceBotaoClicado();	
-			fv.AtualizaPainelPlayer(); // atualizo o painel cor
+            if(rRegra6_control != 1) {
 
-			
-//			if (control_cor==-1) {
-//				
-//				int v=facade.getIntPlayerDaVez();
-//				fv.setCorPainelPlayer(v-1);
-//				control_cor=0;
-//			}
-//			if(control_cor == 1) {
-//                fv.setCorPainelPlayer(Integer.valueOf(1));
-//                fv.ExibePainelPlayer();
-//                control_cor += 1;
-//            }
-//
-//            else if(control_cor==2) {
-//                
-//                fv.setCorPainelPlayer(2);
-//                fv.ExibePainelPlayer();
-//                control_cor = 0;
-//            }
+                JOptionPane.showMessageDialog(fv,"Fim do turno "+facade.getCorPlayerVez());
+                facade.ProximoJogador();
+                facade.NovoRound();
 
-			
+
+                fv.resetaIndiceBotaoClicado();
+                fv.AtualizaPainelPlayer(); // atualizo o painel cor
+
+                
+
+            }
 		}
 		
 		else {
@@ -604,7 +605,7 @@ public class Rodada implements Observador, Observado, Observador2 {
 		//AtualizaCasa();
 		VerificaStatusCasas();
 		
-		ExibeStatusCasas();
+		//ExibeStatusCasas();
 
 		
 		fv.resetaIndiceBotaoClicado();	
@@ -688,7 +689,7 @@ public class Rodada implements Observador, Observado, Observador2 {
 	}
 	
 	
-	public void VerificaStatusCasas() {
+	public void VerificaStatusCasas() { 
 		int i=0;
 		ICasa c;
 		

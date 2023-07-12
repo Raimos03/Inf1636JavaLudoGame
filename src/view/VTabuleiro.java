@@ -107,7 +107,7 @@ public class VTabuleiro extends JPanel implements IPeao,ICoordenada, Observador,
 					// adiciounei agoraa casa.getQtdPeao()==2
 					if(casa.eBarreira() && casa.getQtdPeao()>=2){// for barreira ou outra configuracao{
 						
-						System.out.println("Antes do Erro --> pos casa "+peao.getPosicao());
+						//System.out.println("Antes do Erro --> pos casa "+peao.getPosicao());
 						
 						if(casa.getCor1()!=null && casa.getCor2()!=null) {
 							
